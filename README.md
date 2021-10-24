@@ -2,7 +2,7 @@
 
 Former Professional Engineer with a big heart shared by both Digital Systems and Telecommunications Systems. 
 
-Embedded SWE with 2 year experience in C/C++ applications for Bare-metal and RTOS based Embedded Systems for the Internet of Things. Deep knowledge in Hardware Communication Protocols (such as SPI, I2C, UART etc.). Audio Processing Applications and Battery Management Systems for ARM embedded devices. 
+Embedded SWE with 2 year experience in C/C++ applications for Bare-metal and RTOS based Embedded Systems for the Internet of Things. Deep knowledge in Hardware Communication Protocols (such as SPI, I2C, UART etc.), Audio Processing Applications and Battery Management Systems for ARM embedded devices. 
 
 Telecommunications Technician with 4 year experience in Wireless Network Systems. From Installation, Operation, Field-Test and Management of Mobile Systems to the development of System-level Wireless Networks Simulation Tools.  Knowledge on the Telecommunication and Wireless Networks Communication Protocol Stacks. 
 
