@@ -80,13 +80,13 @@ Partnerships: UFAM & Samsung - IoT & Wireless Communications Team.
 
 ### Electrical Engineer - Telecommunications
 
-* [Federal University of Amazonas](https://www.ufam.edu.br/), Manaus.
+* [Federal University of Amazonas](https://www.ufam.edu.br/), Manaus, AM - Brazil.
 
 * Since February 2019.
 
 ### Telecommunications Technician
 
-* [Nokia Foundation](https://www.fundacaomatiasmachline.org.br/nossa-historia/), Manaus. 
+* [Nokia Foundation](https://www.fundacaomatiasmachline.org.br/nossa-historia/), Manaus, AM - Brazil. 
 * February 2009 – November 2011.
 
 ## PRESENTATIONS
