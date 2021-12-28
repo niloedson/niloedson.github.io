@@ -15,7 +15,7 @@ Contact me at [LinkedIn](https://www.linkedin.com/in/nedson/).
 * Development of hardware/firmware solutions using embedded STM32 devices.
 * Implementation of hardware communication protocols (eg. SPI, I2C, UART...).
 * Creation of C/C++ libraries for ST MCUs compatibility.
-* Use of AT commands parsing algorithms to generate Wireless Communication capabilities.
+* Use of ESP-AT commands solution to integrate connectivity into customers’ products.
 
 ### **Researcher**
 
