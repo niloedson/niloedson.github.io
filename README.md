@@ -4,7 +4,9 @@ Embedded SWE with 2-year experience developing applications for Bare-metal and R
 
 Telecommunications Technician with 4-year experience in Wireless Network Systems. From Installation, Operation, Field-Test and Management of Mobile Systems to the development of System-level Wireless Networks Simulation Tools.  Knowledge on the Telecommunication and Wireless Networks Communication Protocol Stacks.
 
-Contact me at [LinkedIn](https://www.linkedin.com/in/nedson/). 
+Contact me at [LinkedIn](https://www.linkedin.com/in/nedson/).
+
+Follow me on [GitHub](https://github.com/niloedson) and [IG](https://www.instagram.com/nedson.br/).
 
 ## EXPERIENCE
 
@@ -12,10 +14,12 @@ Contact me at [LinkedIn](https://www.linkedin.com/in/nedson/).
 
 [Grupo ICTS](http://grupoicts.com.br/) - since October 2021 
 
-* Development of hardware/firmware solutions using embedded STM32 devices.
-* Implementation of hardware communication protocols (eg. SPI, I2C, UART...).
-* Creation of C/C++ libraries for ST MCUs compatibility.
-* Use of ESP-AT commands solution to integrate connectivity into customers’ products.
+* Implementation of embedded Android AIDL/HIDL interfaces.
+* Toradex TorizonCore embedded Linux device tree customization.
+* C/C++ library for Espressif’s Wireless Network Interface Controller (WNIC).
+* Creation of multiple peripherals C/C++ libraries for STM32 compatibility.
+* Implementation of hardware communication protocols
+* Bare metal firmware development for embedded STM32 devices.
 
 ### **Researcher**
 
@@ -26,6 +30,7 @@ Partnerships: CETELI/UFAM, Grupo ICTS & TPV.
 * Development of ARM embedded IoT hardware/firmware platforms.
 * RTOS for high-level ARM functions implementation.
 * Audio processing on ARM embedded applications.
+* Development of battery management systems for ARM embedded devices.
 
 ### **Scholarship Holder**
 
@@ -34,14 +39,14 @@ Partnerships: CETELI/UFAM, Grupo ICTS & TPV.
 Partnerships: UFAM & Samsung - IoT & Wireless Communications Team.
 
 * Development of IoT architectures.
-* Trainings: Entrepreneurship, Technical English, Wireless Communications,Mobile/Cellular Networks, IoT & Wireless Networks, Android Programming for Sensors & Cloud Communications.
+* Bare metal firmware development for IoT devices.
 
 ### **Software Developer**
 
 [INDT](https://www.indt.org.br/) - April 2012 to May 2015
 
 * Development of system-level simulation tools.
-* Programming languages speed analysis.
+* Speed analysis of programming languages.
 * Performance analysis of communications protocols.
 * Field test and link budget analysis for network systems.
 * Benchmark and performance analysis of devices in many case scenarios.
@@ -63,18 +68,56 @@ Partnerships: UFAM & Samsung - IoT & Wireless Communications Team.
 * Hardware/Firmware.
 * IoT Systems.
 * 2G, 3G, 4G & 5G Networks.
+* Communication Protocols.
 * RF Engineering.
 * Digital TV.
-* Communication Protocols.
 
 ### Programming
 
 * C/C++.
-* Verilog/VHDL.
+* Assembly.
 * Matlab.
-* Lua. 
+* Lua.
+* Verilog/VHDL.
 * Python.
 * Java.
+
+## PROJECTS INVOLVED
+
+### Smart factory IoT system for Industry 4.0
+
+FEBRUARY 2021 – DECEMBER 2021 – CETELI/UFAM – ICTS Group
+
+* Sensoring system development to monitor factory dependencies according to specified environmental criteria.
+* Use of the MQTT protocol to communicate with a whole IoT Platform to handle the measurements at data analytics procedures.
+
+### Project SUPER – Internet of Things
+
+MAY 2020 – MARCH 2021 – UFAM/Samsung
+
+* System dedicated to send sensor readings, notification statuses and receive activations commands using the MQTT protocol.
+* Both web and mobile applications were developed to show gathered data and actuate over the IoT nodes.
+
+### Device Connectivity in Ultra Dense Networks
+
+SEPTEMBER 2014 – MAY 2015 – INDT/Nokia
+
+* Conception and evaluation of novel solutions for enabling 5G technology dense deployment scenarios.
+* Conception of novel multi-RAT system-level LTE and 5G simulator.
+
+### WiFi SDR
+
+JANUARY 2014 – JULY 2014 – INDT/Nokia
+
+* Standardization of WiFi under the IEEE and the demonstrations and proofs of concept in SDR technologies.
+
+* Design of new protocols to increase the performance of wireless networks.
+
+### VoIP System for Brazilian Digital TV
+
+FEBRUARY 2011 – FEBRUARY 2012 – Nokia Foundation
+
+* VoIP application that implemented digital telephony protocols over the Middleware Ginga using both the NCL declarative environment and the Lua scripting properties for the Brazilian System of Digital Television.
 
 ## EDUCATION
 
