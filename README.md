@@ -1,8 +1,10 @@
 ## ABOUT ME
 
-Embedded SWE with 2-year experience developing applications for Bare-metal and RTOS based Embedded Systems for Internet of Things architectures. Deep knowledge in Hardware Communication Protocols (such as SPI, I2C, UART etc.), Audio Processing Applications and Battery Management Systems for ARM embedded devices. 
+Senior Telecommunications Technician proficient in Embedded Systems development. I'm currently responsible for modem vendor software upgrades and operator requirements implementation for embedded Android and Baseband processor of mobile devices.
 
-Telecommunications Technician with 4-year experience in Wireless Network Systems. From Installation, Operation, Field-Test and Management of Mobile Systems to the development of System-level Wireless Networks Simulation Tools.  Knowledge on the Telecommunication and Wireless Networks Communication Protocol Stacks.
+Telecommunications Technician with 5-year experience in Wireless Network Systems. From Installation, Operation, Field-Test and Management of Mobile Systems to the development of System-level Wireless Networks Simulation Tools.  Knowledge on the Telecommunication and Wireless Networks Communication Protocol Stacks.
+
+Embedded SWE with 2-year experience developing applications for Bare-metal and RTOS based Embedded Systems for Internet of Things architectures. Deep knowledge in Hardware Communication Protocols (such as SPI, I2C, UART etc.), Audio Processing Applications and Battery Management Systems for ARM embedded devices.
 
 Contact me at [LinkedIn](https://www.linkedin.com/in/nedson/).
 
@@ -10,15 +12,24 @@ Follow me on [GitHub](https://github.com/niloedson) and [IG](https://www.instagr
 
 ## EXPERIENCE
 
+### Senior Telecommunications Technician
+
+[Instituto Eldorado](https://www.eldorado.org.br/) - Since June 2022
+
+* Modem vendor software upgrades (Qualcomm & Mediatek chipsets);
+* Baseband processor of mobile devices;
+* Implementation of operator network requirements for Embedded Android devices;
+* Development of emulation tools.
+
 ### **Embedded Software Engineer**
 
-[Grupo ICTS](http://grupoicts.com.br/) - since October 2021 
+[Grupo ICTS](http://grupoicts.com.br/) - October 2021 to May 2022 
 
-* Implementation of embedded Android AIDL/HIDL interfaces.
-* Toradex TorizonCore embedded Linux device tree customization.
-* C/C++ library for Espressif’s Wireless Network Interface Controller (WNIC).
-* Creation of multiple peripherals C/C++ libraries for STM32 compatibility.
-* Implementation of hardware communication protocols
+* Implementation of embedded Android AIDL/HIDL interfaces;
+* Toradex TorizonCore embedded Linux device tree customization;
+* Development of C/C++ libraries for Espressif’s Wireless Network Interface Controller (WNIC);
+* Creation of multiple peripherals C/C++ libraries for STM32 compatibility;
+* Implementation of hardware communication protocols (UART, I2C, SPI, etc...);
 * Bare metal firmware development for embedded STM32 devices.
 
 ### **Researcher**
@@ -75,12 +86,11 @@ Partnerships: UFAM & Samsung - IoT & Wireless Communications Team.
 ### Programming
 
 * C/C++.
-* Assembly.
-* Matlab.
-* Lua.
-* Verilog/VHDL.
 * Python.
 * Java.
+* Lua.
+* Assembly.
+* Verilog/VHDL.
 
 ## PROJECTS INVOLVED
 
