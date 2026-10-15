@@ -1,160 +1,89 @@
-## ABOUT ME
+# Nilo Edson Menezes da Silva
 
-Senior Telecommunications Technician proficient in Embedded Systems development. I'm currently responsible for modem vendor software upgrades and operator requirements implementation for embedded Android and Baseband processor of mobile devices.
+**Telecom Systems Engineer & Independent R&D Lead**  
+Senior Technical Assistant at [Instituto de Pesquisas Eldorado](https://www.eldorado.org.br/) &middot; Founder at **Haunted Labs**  
+Manaus, AM, Brazil &middot; [LinkedIn](https://www.linkedin.com/in/nedson/) &middot; [GitHub](https://github.com/niloedson) &middot; [Live Portfolio](https://niloedson.github.io/) &middot; [niloedson.ms@gmail.com](mailto:niloedson.ms@gmail.com)
 
-Telecommunications Technician with 5-year experience in Wireless Network Systems. From Installation, Operation, Field-Test and Management of Mobile Systems to the development of System-level Wireless Networks Simulation Tools.  Knowledge on the Telecommunication and Wireless Networks Communication Protocol Stacks.
+---
 
-Embedded SWE with 2-year experience developing applications for Bare-metal and RTOS based Embedded Systems for Internet of Things architectures. Deep knowledge in Hardware Communication Protocols (such as SPI, I2C, UART etc.), Audio Processing Applications and Battery Management Systems for ARM embedded devices.
+## ⚡ About Me
 
-Contact me at [LinkedIn](https://www.linkedin.com/in/nedson/).
+Telecom Systems Engineer specializing in **Baseband processor stack integration (Qualcomm & MediaTek)**, **Android Core OS upgrades**, **RIL/IMS low-level debugging**, and **3GPP compliance (5G NR / 4G LTE)**. Extensive background in bare-metal and RTOS firmware engineering for ARM Cortex-M microcontrollers, hardware abstraction layers, and discrete-event protocol simulation.
 
-Follow me on [GitHub](https://github.com/niloedson) and [IG](https://www.instagram.com/nedson.br/).
+Founder and Principal Architect at **Haunted Labs**, an independent software laboratory engineering formal algebraic game grammars, high-performance deterministic simulation engines, and Model Context Protocol (MCP) agent tooling.
 
-## EXPERIENCE
+---
 
-### Senior Telecommunications Technician
+## 🏛️ Haunted Labs Initiatives
 
-[Instituto Eldorado](https://www.eldorado.org.br/) - Since June 2022
+**Haunted Labs** is an independent engineering laboratory focused on formal language design, deterministic combinatorial simulation, and agentic AI tooling.
 
-* Modem vendor software upgrades (Qualcomm & Mediatek chipsets);
-* Baseband processor of mobile devices;
-* Implementation of operator network requirements for Embedded Android devices;
-* Development of emulation tools.
+### 1. [YGN Standard (Yu-Gi-Oh! Game Notation)](https://github.com/niloedson/ygn-standard) &middot; `RFC 0001`
+* **What it is:** The open, human-readable, deterministic algebraic standard for competitive match logs, game state snapshots (YBN), and AI arbitration—modeled after **Chess PGN and FEN**.
+* **Key Innovation:** Replaces 25 years of bloated browser DOM clickstreams (91% UI noise) with compact algebraic syntax and `#1..#40` alias registries, delivering an **88% to 94% compression ratio**.
+* **Tooling:** Reference TypeScript parser (npm), Python bindings, and Lua emitter for game engines.
+* **Deep Dive:** [Read the full specification](https://niloedson.github.io/projects/ygn-standard.html)
 
-### **Embedded Software Engineer**
+### 2. [ygo-sim-core](https://github.com/niloedson/ygo-sim-core) &middot; `SPEC-SIM-2026-001`
+* **What it is:** Autonomous, high-performance deterministic simulation engine (**"Stockfish for Yu-Gi-Oh!"**).
+* **Key Innovation:** 14-zone immutable memory model, Konami Fast Effect Timing state machine (Boxes A–E), SEGOC 4-tier chain blocking, xxHash64 zero-collision transposition table, and multi-layer $V(\text{YBN})$ board valuation.
+* **Agentic AI Surface:** Native stdio **Model Context Protocol (MCP)** server providing `simulate_test_hands`, `explore_combo_tree`, `evaluate_handtrap_resilience`, and `score_ybn_state` to LLM agents.
+* **Deep Dive:** [Read the architectural blueprint](https://niloedson.github.io/projects/ygo-sim-core.html)
 
-[Grupo ICTS](http://grupoicts.com.br/) - October 2021 to May 2022 
+---
 
-* Implementation of embedded Android AIDL/HIDL interfaces;
-* Toradex TorizonCore embedded Linux device tree customization;
-* Development of C/C++ libraries for Espressif’s Wireless Network Interface Controller (WNIC);
-* Creation of multiple peripherals C/C++ libraries for STM32 compatibility;
-* Implementation of hardware communication protocols (UART, I2C, SPI, etc...);
-* Bare metal firmware development for embedded STM32 devices.
+## 💼 Experience
 
-### **Researcher**
+### Senior Technical Assistant &middot; [Instituto de Pesquisas Eldorado](https://www.eldorado.org.br/)
+*June 2022 – Present | Manaus, AM*
+* **Baseband Stack Integration:** Integrated proprietary chipsets and modem firmware (Qualcomm/MediaTek) during Android Core OS upgrades, bridging vendor codebases with Motorola’s custom system architecture.
+* **Low-Level Protocol Debugging:** Investigated and resolved timing and synchronization anomalies between application and baseband processors (RIL, IMS, 5G/4G) utilizing C and Java.
+* **GCF/PTCRB Certification:** Led modem software compliance and verification, securing strict 3GPP Specification alignment for global products launch programs.
+* **Modem Stability & Ramdump Analysis:** Investigated modem silent panics by analyzing post-mortem ramdumps, differentiating consumer and developer crash signatures to isolate, root-cause, and implement critical stability fixes.
 
-[CETELI/UFAM](https://www.ceteli.ufam.edu.br/) - February 2021 to September 2021
+### Embedded Software Developer (Bare-Metal and Systems) &middot; [Grupo ICTS](http://grupoicts.com.br/)
+*Oct. 2021 – May 2022 | Manaus, AM*
+* **Bare-Metal ARM Firmware:** Developed high-efficiency bare-metal firmware for STM32 (ARM Cortex-M) microcontrollers, utilizing CMSIS tools and low-level drivers to optimize memory and execution overhead.
+* **Register-Level Integration:** Programmed physical communication protocols (I²C, UART, SPI) via direct peripheral manipulation, implementing low-level hardware state machines.
+* **Hardware Abstraction:** Authored modular custom C libraries, providing clean, portable HAL components for STM32 targets.
+* **Connectivity Drivers:** Built LoRaWAN communication interfaces for ESP32 systems utilizing PlatformIO and AT-command parsing for low-power wireless telemetry.
 
-Partnerships: CETELI/UFAM, Grupo ICTS & TPV.
+### Research Fellow (Embedded Systems) &middot; [Federal University of Amazonas (UFAM)](https://www.ufam.edu.br/)
+*May 2020 – Sep. 2021 | Manaus, AM*
+* **ARM R&D Collaboration:** Co-developed high-performance ARM-based IoT systems in a joint R&D partnership between CETELI/UFAM, Grupo ICTS, and TPV, bridging hardware prototyping with custom low-level firmware.
+* **RTOS Firmware Engineering:** Engineered real-time, multi-threaded firmware using FreeRTOS on ARM microcontrollers, managing concurrent safety-critical tasks including battery management systems (BMS) and low-latency audio processing.
 
-* Development of ARM embedded IoT hardware/firmware platforms.
-* RTOS for high-level ARM functions implementation.
-* Audio processing on ARM embedded applications.
-* Development of battery management systems for ARM embedded devices.
+### Software Developer &middot; [INDT (formerly Nokia Institute of Technology)](https://www.indt.org.br/)
+*Apr. 2012 – May 2015 | Manaus, AM*
+* **Performance Optimization:** Profiled code execution limits to optimize telecommunication simulation tool execution.
+* **Protocol Stack Modeling:** Engineered discrete-event software simulators modeling protocol stack messaging.
+* **Virtual Prototyping:** Simulated custom protocols, validating latency and throughput prior to 5G standardization.
+* **Power Modeling:** Benchmarked mobile hardware dynamics to engineer software models for battery drain profiles.
 
-### **Scholarship Holder**
+---
 
-[Project SUPER](https://super.ufam.edu.br/) - SAMSUNG/UFAM - May 2020 to March 2021 
+## 🛠️ Technical Skills
 
-Partnerships: UFAM & Samsung - IoT & Wireless Communications Team.
+* **Languages:** ANSI C/C++, Python, Java, C#, Assembly (ARM), Lua, TypeScript / Node.js
+* **Embedded & Systems:** ARM Cortex-M, CMSIS, FreeRTOS, Bare-Metal, Device Trees, Android RIL/IMS, Ramdump Analysis
+* **Developer Tools & Agentic AI:** Git, GCC, PlatformIO, STM32CubeIDE, Gemini CLI (AI Diagnostics), Model Context Protocol (MCP), LLM Tooling & Agents
+* **Protocols & Interfaces:** 3GPP (5G NR / 4G LTE), I²C, UART, SPI, LoRaWAN, HIDL/AIDL, MQTT
 
-* Development of IoT architectures.
-* Bare metal firmware development for IoT devices.
+---
 
-### **Software Developer**
+## 🎓 Education
 
-[INDT](https://www.indt.org.br/) - April 2012 to May 2015
+* **Faculdade Martha Falcão - Wyden:** B.S. in Electrical Engineering (*Expected 2027*)
+* **Federal University of Amazonas (UFAM):** B.S. in Electrical Engineering (*Coursework Transferred, 2018–2022*)
+* **Fundação Nokia de Ensino:** Technical Degree in Telecommunications (*2009–2011*)
 
-* Development of system-level simulation tools.
-* Speed analysis of programming languages.
-* Performance analysis of communications protocols.
-* Field test and link budget analysis for network systems.
-* Benchmark and performance analysis of devices in many case scenarios.
-* Installation, operation and management of telecommunications systems
+---
 
-### Instructor
+## 📄 Publications & Presentations
 
-[Nokia Foundation](https://www.fundacaomatiasmachline.org.br/nossa-historia/) - September 2014
+* **IEEE 2021 ICCE-TW:** *Smart Garden Monitoring and Irrigation System in Multiplatform Application Using IoT* (Sep 2021 &middot; UFAM / Samsung)
+* **FEBRACE 10 & VI FECITEC:** *VoIP System for Digital TV using Ginga-NCLua* (2012 &middot; Fundação Nokia)
 
-* Management of Distributed Networks.
-* Expositive classes and educational experiments on a specialized laboratory.
-* Microsoft Windows Server, Canonical Ubuntu Server, System Center, Landscape, Firewall Policies, Redundancy, Security, Recovery, MPLS networks, Wireshark, Management and control processes,
-  Network performance analysis tools.
+---
 
-## SKILLS
-
-### Knowledge
-
-* Hardware/Firmware.
-* IoT Systems.
-* 2G, 3G, 4G & 5G Networks.
-* Communication Protocols.
-* RF Engineering.
-* Digital TV.
-
-### Programming
-
-* C/C++.
-* Python.
-* Java.
-* Lua.
-* Assembly.
-* Verilog/VHDL.
-
-## PROJECTS INVOLVED
-
-### Smart factory IoT system for Industry 4.0
-
-FEBRUARY 2021 – DECEMBER 2021 – CETELI/UFAM – ICTS Group
-
-* Sensoring system development to monitor factory dependencies according to specified environmental criteria.
-* Use of the MQTT protocol to communicate with a whole IoT Platform to handle the measurements at data analytics procedures.
-
-### Project SUPER – Internet of Things
-
-MAY 2020 – MARCH 2021 – UFAM/Samsung
-
-* System dedicated to send sensor readings, notification statuses and receive activations commands using the MQTT protocol.
-* Both web and mobile applications were developed to show gathered data and actuate over the IoT nodes.
-
-### Device Connectivity in Ultra Dense Networks
-
-SEPTEMBER 2014 – MAY 2015 – INDT/Nokia
-
-* Conception and evaluation of novel solutions for enabling 5G technology dense deployment scenarios.
-* Conception of novel multi-RAT system-level LTE and 5G simulator.
-
-### WiFi SDR
-
-JANUARY 2014 – JULY 2014 – INDT/Nokia
-
-* Standardization of WiFi under the IEEE and the demonstrations and proofs of concept in SDR technologies.
-
-* Design of new protocols to increase the performance of wireless networks.
-
-### VoIP System for Brazilian Digital TV
-
-FEBRUARY 2011 – FEBRUARY 2012 – Nokia Foundation
-
-* VoIP application that implemented digital telephony protocols over the Middleware Ginga using both the NCL declarative environment and the Lua scripting properties for the Brazilian System of Digital Television.
-
-## EDUCATION
-
-### Electrical Engineer - Telecommunications
-
-* [Federal University of Amazonas](https://www.ufam.edu.br/), Manaus, AM - Brazil.
-
-* Since February 2019.
-
-### Telecommunications Technician
-
-* [Nokia Foundation](https://www.fundacaomatiasmachline.org.br/nossa-historia/), Manaus, AM - Brazil. 
-* February 2009 – November 2011.
-
-## PRESENTATIONS
-
-### [IEEE 2021 ICCE-TW](http://www.icce-tw.org/)
-
-* **Smart Garden Monitoring and Irrigation System in Multiplatform Application Using IoT.**
-* September 2021 - UFAM/Samsung.
-
-### [VI FECITEC & III MOCINN](http://www.fecitec.com.br/)
-
-* **VoIP System for Digital TV using Ginga-NCLua.**
-* September 2012 - Nokia Foundation.
-
-### [FEBRACE 10](https://febrace.org.br/)
-
-* **VoIP System for Digital TV using Ginga-NCLua.**
-* March 2012 - Nokia Foundation.
+&copy; 2026 Nilo Edson Menezes da Silva &middot; Haunted Labs.
