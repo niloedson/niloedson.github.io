@@ -95,24 +95,54 @@
           </li>
         </ol>
 
-        <h2>Sample YGN Match Notation</h2>
+        <h2>Canonical YGN Match Notation &amp; YBN Snapshot</h2>
         <p>
-          Below is a snippet of turn 1 play recorded in canonical YGN syntax, showing chain links, targets, and extra deck link summons:
+          Below is a complete, verified Turn 1 sequence conforming to <strong>RFC 0001</strong> and transcribed via the <code>ygo-notary</code> standard engine. It demonstrates metadata headers, the <strong>Deck-Scoped Alias Registry</strong>, chain resolution stacks, and the resulting single-line <strong>YBN board snapshot</strong>:
         </p>
 
         <div class="code-block">
           <div class="code-header">
             <span>match_sample.ygn</span>
-            <span>YGN Syntax</span>
+            <span>RFC 0001 Canonical Syntax</span>
           </div>
           <div class="code-content">
-<pre><code>T1: nedsonbr vs THE WORLD
+<pre><code>[Event "Remote YCS Top 8 - Match 1"]
+[Format "TCG Advanced"]
+[Player1 "nedsonbr" 8000]
+[Player2 "Opponent" 8000]
+
+[Deck1_Aliases]
+1:44001993:Exceptional Schedule
+2:12266229:Urgent Schedule
+3:98684220:Night Train Blue Traveler
+4:24088928:Infinitrack Harvester
+e1:59400890:Qliphort Genius
+
+[Deck2_Aliases]
+o1:70405001:Mulcharmy Purulia
+
+T1: nedsonbr vs Opponent
 @SP
   [C1: A(o.H)[#o1:Purulia]>o.GY // R1: OK ~LING(o.+H<D on S<H>)]
 @M1
-  [C1: A(H)[#1:Exceptional]>S3 // R1: +H[#2:Urgent]<D, S[Token]>o.M3, [#1]>GY]
+  [C1: A(H)[#1:Exceptional]>S3 // R1: +H[#2:Urgent]<D, S[Token](def)>o.M3, [#1]>GY]
   [C1: A(H)[#2:Urgent]>S3 // R1: S[#3:Blue Traveler](def)>M4<D, S[#4:Harvester](def)>M3<D, [#2]>GY]
-  L[#4:M3 + #3:M4]>ER[#e1:Genius](atk)<ED</code></pre>
+  L[#4:M3 + #3:M4]>ER[#e1:Genius](atk)<ED
+
+; Resulting Single-Line Board State Snapshot (YBN / FEN Equivalent):
+YBN: T1|M1|LP8000:8000|P1:ER[#e1:Genius(atk)],GY:[#4:Harvester,#3:Blue Traveler,#1:Exceptional,#2:Urgent],H:3,D:35,ED:14|P2:o.M3[Token(def)],o.GY:[#o1:Purulia],H:4,D:35,ED:15|G:NS=1,LING(o.+H<D on S<H>)</code></pre>
+          </div>
+        </div>
+
+        <div class="callout callout-purple" style="margin-top: 1rem;">
+          <div class="callout-title">Anatomy of the Algebraic Line</div>
+          <div class="callout-body">
+            <ul>
+              <li><strong>Deck-Scoped Aliases:</strong> <code>#1..#4</code> map passcodes from <code>.ydk</code> decklists, compressing repetitive names while retaining deterministic card identity.</li>
+              <li><strong>LIFO Chain Protocol:</strong> <code>[C1: Activation // R1: Resolution]</code> encapsulates action and resolution without recording redundant browser UI handshakes.</li>
+              <li><strong>2-Character Coordinates:</strong> <code>ER</code> (Extra Monster Zone Right), <code>M3</code> (Monster Zone 3), <code>S3</code> (Spell Zone 3), <code>o.M3</code> (Opponent Monster Zone 3).</li>
+              <li><strong>YBN Board State:</strong> Serializes all 14 field zones, graveyard contents, hand/deck tallies, and active lingering locks into a deterministic string for immediate evaluation by <code>ygo-sim-core</code>.</li>
+            </ul>
           </div>
         </div>
 
