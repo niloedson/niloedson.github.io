@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YGN Standard (RFC 0001) — Haunted Labs</title>
+  <meta name="description" content="Yu-Gi-Oh! Game Notation (YGN) & Board Notation (YBN) - The open algebraic standard for competitive TCG match logs and AI arbitration.">
+  <meta name="author" content="Nilo Edson Menezes da Silva (Haunted Labs)">
+
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/project.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-brand">
+        Nilo Edson
+        <span class="brand-badge">Haunted Labs</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#haunted-labs">Haunted Labs</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../assets/docs/Nilo_Edson_CV.pdf" class="btn-cv" target="_blank" rel="noopener noreferrer">Download CV</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <a href="../index.html#projects" class="project-nav-back">
+      &larr; Back to Portfolio
+    </a>
+
+    <!-- Project Hero -->
+    <header class="project-hero">
+      <div class="project-hero-badge">Haunted Labs Initiative &middot; RFC 0001</div>
+      <h1 class="project-hero-title">YGN Standard (Yu-Gi-Oh! Game Notation)</h1>
+      <p class="project-hero-lead">
+        The open, human-readable, deterministic algebraic standard for competitive Yu-Gi-Oh! match logs, game state snapshots (YBN), and AI arbitration—modeled after <strong>Chess PGN and FEN</strong>.
+      </p>
+
+      <div class="project-hero-actions">
+        <a href="https://github.com/niloedson/ygn-standard" target="_blank" rel="noopener noreferrer" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+          View on GitHub
+        </a>
+        <a href="https://github.com/niloedson/ygn-standard/blob/main/ygn-standard/rfcs/0001-ygn-specification.md" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+          Read RFC 0001 Specification &rarr;
+        </a>
+      </div>
+    </header>
+
+    <div class="project-layout">
+
+      <!-- Main Article -->
+      <article class="project-main">
+
+        <h2>The Problem: 25 Years of Format Fragmentation</h2>
+        <p>
+          Digital Yu-Gi-Oh! match history has historically suffered from extreme tooling fragmentation:
+        </p>
+        <ul>
+          <li>
+            <strong>Manual Simulators (Dueling Book):</strong> Export raw browser DOM clickstreams (<code>duel_log.txt</code>), where over <strong>91% of lines are pure UI noise</strong> (such as <em>"Player viewed deck"</em>, <em>"Player signaled OK"</em>). A simple 3-turn duel produces <strong>734 lines and 32KB of redundant text</strong>, making automated indexing, tactical analytics, and LLM reasoning impractical.
+          </li>
+          <li>
+            <strong>Automated Simulators (YGO Omega, EDOPro):</strong> Record matches in closed, binary replay formats (<code>.yrp</code>). These files desynchronize and break whenever card databases update, cannot be diffed in Git, and cannot be consumed by search engines or AI agents.
+          </li>
+        </ul>
+
+        <div class="callout callout-purple">
+          <div class="callout-title">The Haunted Labs Mission</div>
+          <div class="callout-body">
+            Just as chess revolutionized game theory and computing by standardizing on <strong>PGN (Portable Game Notation)</strong> and <strong>FEN (Forsyth-Edwards Notation)</strong>, modern competitive trading card games require an open, formal, algebraic standard.
+          </div>
+        </div>
+
+        <h2>The Solution: YGN &amp; YBN</h2>
+        <p>
+          Engineered under Haunted Labs, the specification establishes two complementary standards governed by <strong>RFC 0001</strong>:
+        </p>
+        <ol>
+          <li>
+            <strong>YGN (Yu-Gi-Oh! Game Notation):</strong> An action-based algebraic grammar capturing normal and special summons, effect activations, target declarations, battle steps, and LIFO chain resolution stacks.
+          </li>
+          <li>
+            <strong>YBN (Yu-Gi-Oh! Board Notation):</strong> A snapshot descriptor encoding card identities and zone positions across all 14 field zones, graveyard, banished piles, and hands in a single line.
+          </li>
+          <li>
+            <strong>Deck-Scoped Alias Registry:</strong> Maps 8-digit Konami passcodes from standard <code>.ydk</code> files into compact <code>#1..#40</code> tokens, achieving an <strong>88% to 94% compression ratio</strong> over raw simulator logs.
+          </li>
+        </ol>
+
+        <h2>Sample YGN Match Notation</h2>
+        <p>
+          Below is a snippet of turn 1 play recorded in canonical YGN syntax, showing chain links, targets, and extra deck link summons:
+        </p>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span>match_sample.ygn</span>
+            <span>YGN Syntax</span>
+          </div>
+          <div class="code-content">
+<pre><code>T1: nedsonbr vs THE WORLD
+@SP
+  [C1: A(o.H)[#o1:Purulia]>o.GY // R1: OK ~LING(o.+H<D on S<H>)]
+@M1
+  [C1: A(H)[#1:Exceptional]>S3 // R1: +H[#2:Urgent]<D, S[Token]>o.M3, [#1]>GY]
+  [C1: A(H)[#2:Urgent]>S3 // R1: S[#3:Blue Traveler](def)>M4<D, S[#4:Harvester](def)>M3<D, [#2]>GY]
+  L[#4:M3 + #3:M4]>ER[#e1:Genius](atk)<ED</code></pre>
+          </div>
+        </div>
+
+        <h2>Comparative Benchmark</h2>
+        <div class="spec-table-wrapper">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Format</th>
+                <th>Avg. File Size (3 Turns)</th>
+                <th>Signal-to-Noise</th>
+                <th>LLM / Search Readable</th>
+                <th>Database Desync Immune</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Raw DOM Log</strong></td>
+                <td>~32 KB (734 lines)</td>
+                <td>&lt; 9%</td>
+                <td>No (Context Bloat)</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td><strong>Binary .yrp</strong></td>
+                <td>~4 KB (Binary)</td>
+                <td>High (Engine-only)</td>
+                <td>No</td>
+                <td>No (Breaks on patch)</td>
+              </tr>
+              <tr>
+                <td><strong>YGN Standard</strong></td>
+                <td><strong>~1.8 KB (35 lines)</strong></td>
+                <td><strong>100%</strong></td>
+                <td><strong>Yes (Algebraic)</strong></td>
+                <td><strong>Yes</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Multi-Language Ecosystem &amp; Governance</h2>
+        <p>
+          YGN is maintained as an open community RFC specification with cross-platform reference tooling:
+        </p>
+        <ul>
+          <li><strong>TypeScript / JavaScript:</strong> Reference parser, Lexer, and Dueling Book converter published on npm.</li>
+          <li><strong>Python 3:</strong> High-performance bindings for data science, replay analysis, and machine learning pipelines.</li>
+          <li><strong>Lua Emitter:</strong> Direct integration layer for game simulator engines (EDOPro, Omega core).</li>
+        </ul>
+
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="project-sidebar">
+        <div>
+          <div class="sidebar-section-title">Project Metadata</div>
+          <ul class="sidebar-info-list">
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Organization</span>
+              <span class="sidebar-info-val">Haunted Labs</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Lead Architect</span>
+              <span class="sidebar-info-val">Nilo Edson</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Status</span>
+              <span class="sidebar-info-val" style="color: var(--accent-green);">RFC 0001 (Draft)</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">License</span>
+              <span class="sidebar-info-val">MIT</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Targets</span>
+              <span class="sidebar-info-val">TS &middot; Py &middot; Lua</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Documentation &amp; Links</div>
+          <ul class="sidebar-info-list">
+            <li class="sidebar-info-item">
+              <a href="https://github.com/niloedson/ygn-standard" target="_blank" rel="noopener noreferrer">GitHub Repository &rarr;</a>
+            </li>
+            <li class="sidebar-info-item">
+              <a href="https://github.com/niloedson/ygn-standard/blob/main/ygn-standard/OPEN_LETTER.md" target="_blank" rel="noopener noreferrer">Open Letter to Community &rarr;</a>
+            </li>
+            <li class="sidebar-info-item">
+              <a href="https://github.com/niloedson/ygn-standard/blob/main/ygn-standard/docs/RFC_GOVERNANCE.md" target="_blank" rel="noopener noreferrer">RFC Governance &rarr;</a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2026 Haunted Labs &middot; Nilo Edson Menezes da Silva. An open-source research initiative.</p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

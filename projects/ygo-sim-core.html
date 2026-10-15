@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ygo-sim-core: High-Performance Engine — Haunted Labs</title>
+  <meta name="description" content="Autonomous deterministic Yu-Gi-Oh! combo simulator, YBN valuation engine, and stdio MCP server engineered by Haunted Labs.">
+  <meta name="author" content="Nilo Edson Menezes da Silva (Haunted Labs)">
+
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/project.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-brand">
+        Nilo Edson
+        <span class="brand-badge">Haunted Labs</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#haunted-labs">Haunted Labs</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../assets/docs/Nilo_Edson_CV.pdf" class="btn-cv" target="_blank" rel="noopener noreferrer">Download CV</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <a href="../index.html#projects" class="project-nav-back">
+      &larr; Back to Portfolio
+    </a>
+
+    <!-- Project Hero -->
+    <header class="project-hero">
+      <div class="project-hero-badge">Haunted Labs Compute Engine &middot; SPEC-SIM-2026-001</div>
+      <h1 class="project-hero-title">ygo-sim-core</h1>
+      <p class="project-hero-lead">
+        Autonomous, high-performance deterministic simulation and state-space valuation engine (<strong>"Stockfish for Yu-Gi-Oh!"</strong>), exposing Model Context Protocol (MCP) tooling to LLM reasoning agents.
+      </p>
+
+      <div class="project-hero-actions">
+        <a href="https://github.com/niloedson/ygo-sim-core" target="_blank" rel="noopener noreferrer" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+          View on GitHub
+        </a>
+        <a href="https://github.com/niloedson/ygo-sim-core/blob/main/BLUEPRINT.md" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+          Architectural Blueprint &rarr;
+        </a>
+      </div>
+    </header>
+
+    <div class="project-layout">
+
+      <!-- Main Article -->
+      <article class="project-main">
+
+        <h2>The Stockfish Paradigm for Trading Card Games</h2>
+        <p>
+          Competitive TCG play involves combinatorially explosive decision trees, complex timing structures, and multi-tier chain interactions. Traditional heuristics and static deck builders cannot simulate the consequences of opponent interruptions or calculate the optimal branch out of hundreds of legal moves.
+        </p>
+        <p>
+          <strong>ygo-sim-core</strong> decouples heavy mathematical simulation from natural language AI reasoning. Acting as a dedicated compute engine (analogous to <em>Stockfish</em> in chess), it exposes strict JSON-RPC tools via the <strong>Model Context Protocol (MCP)</strong> to autonomous LLM agents (such as <code>obsidian-ygo-suite</code>).
+        </p>
+
+        <div class="callout callout-purple">
+          <div class="callout-title">Architectural Boundary</div>
+          <div class="callout-body">
+            <strong>ygo-sim-core (Pure Compute):</strong> 14-zone state memory, Fast Effect state machine, combinatorial graph search, xxHash64 transposition tables, and Monte Carlo tests.<br>
+            <strong>Agent Reasoning Layer:</strong> Tactical coaching, deckbuilding advice, rule dispute adjudication, and natural language explanations.
+          </div>
+        </div>
+
+        <h2>Key Systems Engineering Innovations</h2>
+        
+        <h3>1. 14-Zone Full Memory State Model</h3>
+        <p>
+          Models all physical zones with strict structural immutability: Main Monster Zones (<code>M1..M5</code>), Spell &amp; Trap Zones (<code>S1..S5</code>), Extra Monster Zones (<code>EL</code>, <code>ER</code>), Field Zone, Graveyard, Banished, Hand, Main Deck, and Extra Deck.
+        </p>
+
+        <h3>2. Official Fast Effect Timing State Machine</h3>
+        <p>
+          Faithfully codifies the Konami priority flowchart across <strong>Boxes A, B, C, D, and E</strong>. Handles turn player priority passes, open game state transitions, and Spell Speed 1, 2, and 3 reaction timings.
+        </p>
+
+        <h3>3. SEGOC &amp; Chain Blocking Engine</h3>
+        <p>
+          Implements Simultaneous Effects Going On Chain across all 4 official tiers (Turn Player Mandatory &rarr; Opponent Mandatory &rarr; Turn Player Optional &rarr; Opponent Optional). Detects optimal chain order to block opponents from responding to high-value effects with direct negations.
+        </p>
+
+        <h3>4. Zero-Collision 64-bit State Hasher</h3>
+        <p>
+          Integrates <strong>xxHash64</strong> with canonical permutation sorting of unordered zones (e.g., Hand, GY). Eliminates cyclic loop traversal during DFS search and enables instantaneous transposition table lookups.
+        </p>
+
+        <h3>5. Multi-Layer Board Valuation Engine &mdash; V(YBN)</h3>
+        <p>
+          Mathematical valuation of end-boards scoring:
+        </p>
+        <ul>
+          <li><strong>Spatial Diversification:</strong> Interaction distribution across monster, backrow, and graveyard zones.</li>
+          <li><strong>Board Breaker Resilience:</strong> Defense against board sweeps like <em>Dark Ruler No More</em>, <em>Evenly Matched</em>, and <em>Super Polymerization</em>.</li>
+          <li><strong>Turn 3 Follow-up Recursion:</strong> Guaranteed card advantage generated during recovery turns.</li>
+        </ul>
+
+        <h2>Model Context Protocol (MCP) Tool Contract</h2>
+        <p>
+          When started as a stdio server, <code>ygo-sim-core</code> registers four production tools directly with AI agents:
+        </p>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span>MCP Stdio Tools</span>
+            <span>JSON-RPC / Zod Schemas</span>
+          </div>
+          <div class="code-content">
+<pre><code>1. simulate_test_hands
+   Inputs: deck_path (.ydk), iterations (default: 1,000), target_combos
+   Outputs: Full consistency metrics, brick percentages, starter distributions
+
+2. explore_combo_tree
+   Inputs: starting_hand, max_depth, branch_limit
+   Outputs: Combinatorial tree of legal playlines, ranked by V(YBN) end-board score
+
+3. evaluate_handtrap_resilience
+   Inputs: combo_line, interruptions: ["Ash Blossom", "Nibiru", "Impermanence"]
+   Outputs: Choke-point sensitivity report, recovery paths, degraded end-boards
+
+4. score_ybn_state
+   Inputs: ybn_string (snapshot descriptor)
+   Outputs: Multi-layer V(YBN) score vector across omni-negates, removal, and follow-up</code></pre>
+          </div>
+        </div>
+
+        <h2>CLI &amp; Engine Verification</h2>
+        <div class="code-block">
+          <div class="code-header">
+            <span>Terminal</span>
+            <span>Bash</span>
+          </div>
+          <div class="code-content">
+<pre><code># Install dependencies and build
+npm install
+npm run build
+
+# Run unit and stress tests
+npm test
+
+# Launch the stdio Model Context Protocol (MCP) server
+npm start</code></pre>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="project-sidebar">
+        <div>
+          <div class="sidebar-section-title">Engine Specifications</div>
+          <ul class="sidebar-info-list">
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Studio</span>
+              <span class="sidebar-info-val">Haunted Labs</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Architect</span>
+              <span class="sidebar-info-val">Nilo Edson</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Blueprint</span>
+              <span class="sidebar-info-val">SPEC-SIM-2026-001</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Runtime</span>
+              <span class="sidebar-info-val">Node 22 LTS / TS</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Interface</span>
+              <span class="sidebar-info-val" style="color: var(--accent-cyan);">Stdio MCP / CLI</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">License</span>
+              <span class="sidebar-info-val">MIT</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Resources &amp; Repositories</div>
+          <ul class="sidebar-info-list">
+            <li class="sidebar-info-item">
+              <a href="https://github.com/niloedson/ygo-sim-core" target="_blank" rel="noopener noreferrer">GitHub Repository &rarr;</a>
+            </li>
+            <li class="sidebar-info-item">
+              <a href="https://github.com/niloedson/ygo-sim-core/blob/main/BLUEPRINT.md" target="_blank" rel="noopener noreferrer">Full Blueprint (BLUEPRINT.md) &rarr;</a>
+            </li>
+            <li class="sidebar-info-item">
+              <a href="ygn-standard.html">YGN Standard Specification &rarr;</a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2026 Haunted Labs &middot; Nilo Edson Menezes da Silva. An open-source research initiative.</p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
