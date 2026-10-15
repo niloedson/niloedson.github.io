@@ -1,4 +1,4 @@
-# Nilo Edson Menezes da Silva
+# Nilo Edson
 
 **Telecom Systems Engineer & Independent R&D Lead**  
 Senior Technical Assistant at [Instituto de Pesquisas Eldorado](https://www.eldorado.org.br/) &middot; Founder at **Haunted Labs**  
@@ -86,4 +86,4 @@ Founder and Principal Architect at **Haunted Labs**, an independent software lab
 
 ---
 
-&copy; 2026 Nilo Edson Menezes da Silva &middot; Haunted Labs.
+&copy; 2026 Nilo Edson &middot; Haunted Labs.
