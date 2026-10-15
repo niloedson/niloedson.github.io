@@ -14,7 +14,7 @@
   --accent-blue: #58a6ff;
   --accent-purple: #bc8cff;
   --accent-cyan: #39c5bb;
-  --accent-green: #3fb950;
+  --accent-orange: #ff7043;
   --accent-amber: #d29922;
 
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, Helvetica, Arial, sans-serif;
@@ -213,15 +213,15 @@ section {
   gap: 0.5rem;
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  color: var(--accent-green);
+  color: var(--accent-orange);
 }
 
 .status-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--accent-green);
-  box-shadow: 0 0 8px var(--accent-green);
+  background: var(--accent-orange);
+  box-shadow: 0 0 8px var(--accent-orange);
   display: inline-block;
 }
 
@@ -416,9 +416,9 @@ section {
 .project-status-pill {
   font-size: 0.72rem;
   font-family: var(--font-mono);
-  background: rgba(63, 185, 80, 0.15);
-  border: 1px solid rgba(63, 185, 80, 0.4);
-  color: var(--accent-green);
+  background: rgba(255, 112, 67, 0.15);
+  border: 1px solid rgba(255, 112, 67, 0.4);
+  color: var(--accent-orange);
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
   font-weight: 600;

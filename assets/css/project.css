@@ -192,9 +192,9 @@
   border-left-color: var(--accent-purple);
 }
 
-.callout-green {
-  background: rgba(63, 185, 80, 0.08);
-  border-left-color: var(--accent-green);
+.callout-orange {
+  background: rgba(255, 112, 67, 0.08);
+  border-left-color: var(--accent-orange);
 }
 
 .callout-title {

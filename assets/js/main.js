@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (code) {
         navigator.clipboard.writeText(code).then(() => {
           copyBtn.innerText = "Copied!";
-          copyBtn.style.borderColor = "#3fb950";
-          copyBtn.style.color = "#3fb950";
+          copyBtn.style.borderColor = "#ff7043";
+          copyBtn.style.color = "#ff7043";
           setTimeout(() => {
             copyBtn.innerText = "Copy";
             copyBtn.style.borderColor = "rgba(255, 255, 255, 0.15)";
