@@ -30,6 +30,12 @@ Founder and Principal Architect at **Haunted Labs**, an independent software lab
 * **Agentic AI Surface:** Native stdio **Model Context Protocol (MCP)** server providing `simulate_test_hands`, `explore_combo_tree`, `evaluate_handtrap_resilience`, and `score_ybn_state` to LLM agents.
 * **Deep Dive:** [Read the architectural blueprint](https://niloedson.github.io/projects/ygo-sim-core.html)
 
+### 3. [ygoprodeck-mcp](https://www.npmjs.com/package/ygoprodeck-mcp) &middot; `v2.0.0`
+* **What it is:** Hardened, air-gapped Model Context Protocol (MCP) server delivering zero-hallucination Problem-Solving Card Text (PSCT), 13,000+ card statistics, format banlists, and Genesys point valuations with sub-2ms local execution.
+* **Key Innovation:** Zero outbound HTTP requests at runtime via embedded SQLite WAL database; conditional ETag bulk sync; integrated FTS5 full-text search across all card texts. Decoupled from volatile tournament scraping for 99.99% uptime.
+* **Agentic AI Surface:** Published on npm (`npx -y ygoprodeck-mcp`), exposing 5 production tools (`search_cards`, `get_card_details`, `check_banlist`, `get_genesys_points`, `get_database_info`) to Cursor, Claude Code, and autonomous LLM agents.
+* **Deep Dive:** [Read the full documentation](https://niloedson.github.io/projects/ygoprodeck-mcp.html)
+
 ---
 
 ## 💼 Experience
