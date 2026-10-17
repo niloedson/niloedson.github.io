@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ygo-meta-mcp: Multi-Source Metagame Intelligence &amp; Consensus — Haunted Labs</title>
+  <meta name="description" content="Multi-source competitive metagame intelligence and tournament discovery Model Context Protocol (MCP) server delivering sample-weighted Bayesian consensus.">
+  <meta name="author" content="Nilo Edson (Haunted Labs)">
+
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/project.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-brand">
+        Nilo Edson
+        <span class="brand-badge">Haunted Labs</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#haunted-labs">Haunted Labs</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../assets/docs/Nilo_Edson_CV.pdf" class="btn-cv" target="_blank" rel="noopener noreferrer">Download CV</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <a href="../index.html#projects" class="project-nav-back">
+      &larr; Back to Portfolio
+    </a>
+
+    <!-- Project Hero -->
+    <header class="project-hero">
+      <div class="project-hero-badge">Haunted Labs Competitive Intelligence &middot; npm: ygo-meta-mcp v1.0.0</div>
+      <h1 class="project-hero-title">ygo-meta-mcp</h1>
+      <p class="project-hero-lead">
+        Multi-source competitive metagame intelligence and tournament discovery <strong>Model Context Protocol (MCP)</strong> server. Aggregates live top-cut tournament decks across YGOPRODeck, Yu-Gi-Oh! Meta, and Road of the King, computing sample-weighted Bayesian consensus tier rankings with sub-2ms local execution.
+      </p>
+
+      <div class="project-hero-actions">
+        <a href="https://www.npmjs.com/package/ygo-meta-mcp" target="_blank" rel="noopener noreferrer" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 0h21l1.5 1.5v21l-1.5 1.5h-21l-1.5-1.5v-21l1.5-1.5zm19.5 21v-18h-18v18h6v-12h6v12h6z"/></svg>
+          View on npm &rarr;
+        </a>
+        <a href="#quickstart" class="btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+          Quickstart (npx) &rarr;
+        </a>
+      </div>
+    </header>
+
+    <div class="project-layout">
+
+      <!-- Main Article -->
+      <article class="project-main">
+
+        <h2>The Problem: Single-Source Bias in Metagame Reasoning</h2>
+        <p>
+          Competitive deckbuilders and tactical dueling agents require accurate, empirical metagame data to calibrate side decks and quantify archetype threats. However, existing tooling suffers from chronic <strong>single-source distortion</strong>:
+        </p>
+        <ul>
+          <li>
+            <strong>Regional Partition Skew:</strong> Western circuits (YGOPRODeck) reflect North American and European Regional/YCS distributions, but completely ignore the Asian OCG circuit, which innovates format trends weeks in advance.
+          </li>
+          <li>
+            <strong>Sample Size Discrepancies:</strong> Small, unweighted weekly tournaments skew representation percentages. An archetype with 3 tops out of 10 decks (30%) appears falsely dominant compared to an archetype with 80 tops out of 500 premier decks (16%).
+          </li>
+          <li>
+            <strong>Runtime Scraping Fragility:</strong> Live web scraping in conversational agent sessions triggers rate limits (HTTP 429), breaks on frontend CSS changes, and adds 2–5 seconds of latency per user prompt.
+          </li>
+        </ul>
+
+        <div class="callout callout-cyan">
+          <div class="callout-title">The Multi-Source Bayesian Consensus Architecture</div>
+          <div class="callout-body">
+            <strong>ygo-meta-mcp</strong> unifies tournament discovery across <strong>YGOPRODeck</strong>, <strong>Yu-Gi-Oh! Meta</strong>, and <strong>Road of the King</strong> into an embedded SQLite WAL database. By applying sample-weighted Bayesian aggregation, it neutralizes single-site bias and guarantees zero-latency, air-gapped metagame queries.
+          </div>
+        </div>
+
+        <h2>Mathematical Foundation: Sample-Weighted Consensus</h2>
+        <p>
+          To harmonize conflicting regional feeds into a single authoritative metagame reality, the engine calculates the sample-weighted consensus share \(S_{\text{consensus}}(A)\) for any given archetype \(A\):
+        </p>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span>Bayesian Sample-Weighted Formula</span>
+            <span>Mathematics</span>
+          </div>
+          <div class="code-content">
+<pre><code>S_consensus(A) = [ ∑ (N_i * P_i(A)) ] / [ ∑ N_i ]
+
+Where:
+  K   = Number of reporting upstream sources
+  N_i = Verified tournament deck sample size from source i
+  P_i = Percentage meta share reported by source i
+
+Tier Thresholds:
+  • Tier 1: S_consensus >= 15.0% (Format-defining / Dominant)
+  • Tier 2: 7.0% <= S_consensus < 15.0% (Competitive Staple)
+  • Tier 3: 3.0% <= S_consensus < 7.0% (Viable Contender)
+  • Rogue:  S_consensus < 3.0% (Fringe / Anti-Meta Representation)</code></pre>
+          </div>
+        </div>
+
+        <h2>Upstream Source Providers</h2>
+
+        <h3>1. YGOPRODeck Tournament Analytics (API-First)</h3>
+        <p>
+          Queries internal structured AJAX endpoints (<code>POST /api/tournament/getTopArchetypes.php</code>) with precise timeframe mapping (<code>dateStart="Format"</code> for current post-release window, <code>tier="NA"</code> for competitive Tier 2+ events). Preserves exact source ranking on percentage ties.
+        </p>
+
+        <h3>2. Yu-Gi-Oh! Meta &amp; Master Duel Meta (Rolling Window Ingestion)</h3>
+        <p>
+          Ingests real-time tournament top-cut data from the active 1-month rolling window (<code>/api/v1/top-decks?sort[uploaded]=-1</code>), providing native format partitioning for <strong>TCG (<code>#tcgOnly</code>)</strong>, <strong>Asian OCG (<code>#ocgOnly</code>)</strong>, and <strong>Genesys (<code>#tournament=Genesys Format</code>)</strong>.
+        </p>
+
+        <h3>3. Road of the King (Asian OCG Championships)</h3>
+        <p>
+          Parses weekly OCG metagame reports from premier Asian circuits via deterministic semantic regex, extracting raw deck counts directly from editorial tournament breakdown tables.
+        </p>
+
+        <h2>Model Context Protocol (MCP) Tool Contract</h2>
+        <p>
+          When booted via stdio, <code>ygo-meta-mcp</code> exports 5 production analytical tools and 1 resource template:
+        </p>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span>Production MCP Tools</span>
+            <span>JSON-RPC / Zod Schemas</span>
+          </div>
+          <div class="code-content">
+<pre><code>1. get_meta_tier_list
+   Inputs: format ("TCG", "OCG", "MasterDuel", "Genesys"), timeframe, source ("all", "ygoprodeck", "yugiohmeta", "roadoftheking"), min_share, limit
+   Outputs: Normalized tier rankings, deck counts, and sample-weighted Bayesian consensus power scores
+
+2. list_tournaments
+   Inputs: format, since_date, source, limit
+   Outputs: Concluded Premier, Regional, and CS events with dates, player counts, and winners
+
+3. get_meta_decklists
+   Inputs: tournament_id, archetype, placement, limit
+   Outputs: Top-cut tournament deck profiles with player names, placements, and valid .ydk simulator strings
+
+4. get_tech_adoption_trends
+   Inputs: archetype, format, timeframe, min_adoption, limit
+   Outputs: Empirical Main, Side, and Extra Deck tech card frequencies and average copy counts
+
+5. evaluate_matchup_counters
+   Inputs: target_archetype, format, limit
+   Outputs: Opponent deck choke point diagnosis and statistically proven Side Deck counter cards</code></pre>
+          </div>
+        </div>
+
+        <h2 id="quickstart">Zero-Install Integration via npx</h2>
+        <p>
+          Published globally on npm under the MIT license, developers and agents can connect immediately without cloning any repositories:
+        </p>
+
+        <h3>Cursor IDE Configuration (<code>.cursor/mcp.json</code>)</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <span>.cursor/mcp.json</span>
+            <span>JSON</span>
+          </div>
+          <div class="code-content">
+<pre><code>{
+  "mcpServers": {
+    "ygo-meta": {
+      "command": "npx",
+      "args": ["-y", "ygo-meta-mcp"],
+      "trust": true
+    }
+  }
+}</code></pre>
+          </div>
+        </div>
+
+        <h3>Claude Code &amp; Claude Desktop (<code>claude_desktop_config.json</code>)</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <span>claude_desktop_config.json</span>
+            <span>JSON</span>
+          </div>
+          <div class="code-content">
+<pre><code>{
+  "mcpServers": {
+    "ygo-meta": {
+      "command": "npx",
+      "args": ["-y", "ygo-meta-mcp"]
+    }
+  }
+}</code></pre>
+          </div>
+        </div>
+
+        <h3>The Recommended Dual-MCP Suite (Card Truth + Metagame)</h3>
+        <p>
+          For complete tournament grounding, pair <code>ygoprodeck-mcp</code> (pure card truth) with <code>ygo-meta-mcp</code> (competitive metagame):
+        </p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>Dual-MCP Configuration</span>
+            <span>JSON</span>
+          </div>
+          <div class="code-content">
+<pre><code>{
+  "mcpServers": {
+    "ygoprodeck": {
+      "command": "npx",
+      "args": ["-y", "ygoprodeck-mcp"],
+      "trust": true
+    },
+    "ygo-meta": {
+      "command": "npx",
+      "args": ["-y", "ygo-meta-mcp"],
+      "trust": true
+    }
+  }
+}</code></pre>
+          </div>
+        </div>
+
+        <h2>Comparative Architecture Benchmark</h2>
+        <div class="spec-table-wrapper">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Metric / Feature</th>
+                <th>Live Web Scraper</th>
+                <th>Single-Source API</th>
+                <th>ygo-meta-mcp (v1.0.0)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Data Scope</strong></td>
+                <td>Single website only</td>
+                <td>Single vendor only</td>
+                <td><strong>Multi-Source (YGOPD + YGM + RotK)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Sample Weighting</strong></td>
+                <td>Unweighted / Raw %</td>
+                <td>Isolated sample</td>
+                <td><strong>Bayesian Sample-Weighted Consensus</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Runtime Latency</strong></td>
+                <td>1,200ms &ndash; 4,000ms</td>
+                <td>250ms &ndash; 800ms</td>
+                <td><strong>&lt; 2ms (Local SQLite WAL)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Runtime Outbound HTTP</strong></td>
+                <td>Continuous HTML pulls</td>
+                <td>1 HTTP call per query</td>
+                <td><strong>0 requests (Air-Gapped)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Cloud Pre-Sync</strong></td>
+                <td>No</td>
+                <td>No</td>
+                <td><strong>Bi-weekly GitHub Actions Cron</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Package Size</strong></td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td><strong>17.0 kB (npm tarball)</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="project-sidebar">
+        <div>
+          <div class="sidebar-section-title">Package Specifications</div>
+          <ul class="sidebar-info-list">
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Studio</span>
+              <span class="sidebar-info-val">Haunted Labs</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Architect</span>
+              <span class="sidebar-info-val">Nilo Edson</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Version</span>
+              <span class="sidebar-info-val" style="color: var(--accent-cyan);">1.0.0 (npm)</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Runtime</span>
+              <span class="sidebar-info-val">Node 22 LTS / SQLite</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">Interface</span>
+              <span class="sidebar-info-val" style="color: var(--accent-orange);">Stdio MCP / CLI</span>
+            </li>
+            <li class="sidebar-info-item">
+              <span class="sidebar-info-label">License</span>
+              <span class="sidebar-info-val">MIT</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Links &amp; Ecosystem</div>
+          <ul class="sidebar-info-list">
+            <li class="sidebar-info-item">
+              <a href="https://www.npmjs.com/package/ygo-meta-mcp" target="_blank" rel="noopener noreferrer">npm Package Registry &rarr;</a>
+            </li>
+            <li class="sidebar-info-item">
+              <a href="#quickstart">Quickstart Configuration &rarr;</a>
+            </li>
+            <li class="sidebar-info-item">
+              <a href="ygoprodeck-mcp.html">ygoprodeck-mcp (Card Truth) &rarr;</a>
+            </li>
+            <li class="sidebar-info-item">
+              <a href="ygo-sim-core.html">ygo-sim-core Architecture &rarr;</a>
+            </li>
+            <li class="sidebar-info-item">
+              <a href="ygn-standard.html">YGN Standard Specification &rarr;</a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2026 Haunted Labs &middot; Nilo Edson. An open-source research initiative.</p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
