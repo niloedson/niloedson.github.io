@@ -36,9 +36,9 @@ Founder and Principal Architect at **Haunted Labs**, an independent software lab
 * **Agentic AI Surface:** Published on npm (`npx -y ygoprodeck-mcp`), exposing 5 production tools (`search_cards`, `get_card_details`, `check_banlist`, `get_genesys_points`, `get_database_info`) to Cursor, Claude Code, and autonomous LLM agents.
 * **Deep Dive:** [Read the full documentation](https://niloedson.github.io/projects/ygoprodeck-mcp.html)
 
-### 4. [ygo-meta-mcp](https://www.npmjs.com/package/ygo-meta-mcp) &middot; `v1.0.0`
+### 4. [ygo-meta-mcp](https://www.npmjs.com/package/ygo-meta-mcp) &middot; `v1.1.0`
 * **What it is:** Multi-source competitive metagame intelligence and tournament discovery Model Context Protocol (MCP) server.
-* **Key Innovation:** Aggregates live top-cut tournament decks across YGOPRODeck, Yu-Gi-Oh! Meta, and Road of the King into an embedded SQLite WAL database. Computes sample-weighted Bayesian consensus tier rankings, neutralizing single-source regional bias with sub-2ms local analytical execution.
+* **Key Innovation:** Aggregates live top-cut tournament decks across YGOPRODeck, Yu-Gi-Oh! Meta, and Road of the King into an embedded SQLite WAL database. Computes sample-weighted Bayesian consensus tier rankings, empirical tech adoption (Main & Side), and immutable tournament decklists with sub-2ms local analytical execution.
 * **Agentic AI Surface:** Published on npm (`npx -y ygo-meta-mcp`), exposing 5 analytical tools (`get_meta_tier_list`, `list_tournaments`, `get_meta_decklists`, `get_tech_adoption_trends`, `evaluate_matchup_counters`) to Cursor, Claude Code, and autonomous LLM agents.
 * **Deep Dive:** [Read the full documentation](https://niloedson.github.io/projects/ygo-meta-mcp.html)
 
