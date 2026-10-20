@@ -105,6 +105,48 @@ a:hover {
   letter-spacing: 0.05em;
 }
 
+/* Language Switcher Toggle */
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(18, 24, 36, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 0.15rem 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+  gap: 0.25rem;
+  cursor: pointer;
+}
+
+.lang-toggle:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(22, 30, 46, 1);
+  text-decoration: none !important;
+}
+
+.lang-opt {
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.lang-opt.active {
+  background: linear-gradient(135deg, rgba(88, 166, 255, 0.25), rgba(57, 197, 187, 0.25));
+  color: var(--accent-cyan);
+  font-weight: 800;
+}
+
+.lang-divider {
+  color: rgba(255, 255, 255, 0.2);
+  font-weight: 400;
+  font-size: 0.7rem;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
