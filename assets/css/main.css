@@ -114,37 +114,36 @@ a:hover {
   border-radius: 999px;
   padding: 0.15rem 0.35rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  text-decoration: none !important;
-  transition: all 0.2s ease;
-  gap: 0.25rem;
-  cursor: pointer;
-}
-
-.lang-toggle:hover {
-  border-color: var(--accent-cyan);
-  background: rgba(22, 30, 46, 1);
-  text-decoration: none !important;
+  gap: 0.15rem;
 }
 
 .lang-opt {
-  padding: 0.1rem 0.4rem;
+  padding: 0.1rem 0.35rem;
   border-radius: 999px;
-  color: var(--text-muted);
+  color: var(--text-muted) !important;
+  text-decoration: none !important;
   transition: all 0.2s ease;
+}
+
+.lang-opt:hover {
+  color: #fff !important;
+  text-decoration: none !important;
 }
 
 .lang-opt.active {
   background: linear-gradient(135deg, rgba(88, 166, 255, 0.25), rgba(57, 197, 187, 0.25));
-  color: var(--accent-cyan);
+  color: var(--accent-cyan) !important;
   font-weight: 800;
+  cursor: default;
 }
 
 .lang-divider {
   color: rgba(255, 255, 255, 0.2);
   font-weight: 400;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
+  user-select: none;
 }
 
 .nav-links {
