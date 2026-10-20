@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Community Archetype Dispatch — Haunted Labs</title>
+  <title>Submit Archetype Theory &amp; Combos — Haunted Labs</title>
   <meta name="description" content="Submit Yu-Gi-Oh! archetype combo lines, YBN milestones, ruling interactions, and engine synergies directly to Haunted Labs for verification and indexing.">
   <meta name="author" content="Nilo Edson (Haunted Labs)">
 
-  <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="stylesheet" href="assets/css/project.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/project.css">
 
   <style>
     .dispatch-grid {
@@ -74,7 +74,7 @@
       font-size: 0.82rem;
       line-height: 1.5;
       resize: vertical;
-      height: 240px;
+      height: 250px;
     }
 
     .form-input:focus, .form-select:focus, .form-textarea:focus {
@@ -147,6 +147,19 @@
       font-weight: 600;
       margin-left: 0.75rem;
     }
+
+    .handoff-banner {
+      display: none;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-bottom: 1.25rem;
+      align-items: center;
+      justify-content: space-between;
+    }
   </style>
 </head>
 <body>
@@ -154,35 +167,41 @@
   <!-- Navigation Bar -->
   <nav class="navbar">
     <div class="nav-container">
-      <a href="index.html" class="nav-brand">
+      <a href="../index.html" class="nav-brand">
         Nilo Edson
         <span class="brand-badge">Haunted Labs</span>
       </a>
       <ul class="nav-links">
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="haunted-labs.html" style="color: var(--accent-purple); font-weight: 600;">Haunted Labs Studio</a></li>
-        <li><a href="index.html#projects">Projects</a></li>
-        <li><a href="tools/notary.html">Match Notary</a></li>
-        <li><a href="community.html" style="color: var(--accent-cyan); font-weight: 600;">Theory Dispatch</a></li>
-        <li><a href="assets/docs/Nilo_Edson_CV.pdf" class="btn-cv" target="_blank" rel="noopener noreferrer">Download CV</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../haunted-labs.html" style="color: var(--accent-purple); font-weight: 600;">Haunted Labs Studio</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="notary.html">Match Notary</a></li>
+        <li><a href="submit-archetype-theory.html" style="color: var(--accent-cyan); font-weight: 600;">Submit Theory</a></li>
+        <li><a href="../assets/docs/Nilo_Edson_CV.pdf" class="btn-cv" target="_blank" rel="noopener noreferrer">Download CV</a></li>
       </ul>
     </div>
   </nav>
 
   <main class="container">
 
-    <a href="haunted-labs.html" class="project-nav-back">
+    <a href="../haunted-labs.html" class="project-nav-back">
       &larr; Back to Haunted Labs Studio
     </a>
 
     <!-- Hero Header -->
     <header class="project-hero" style="padding-bottom: 1.5rem;">
       <div class="project-hero-badge">Haunted Labs &middot; Open Knowledge Commons</div>
-      <h1 class="project-hero-title">Community Archetype Theory Dispatch</h1>
+      <h1 class="project-hero-title">Submit Archetype Theory &amp; Combos</h1>
       <p class="project-hero-lead">
         Have a groundbreaking combo line, an overlooked chokepoint insulation, an optimal secondary engine pairing, or a complex PSCT ruling interaction? Submit your theoretical updates directly to <strong>Haunted Labs</strong>. Submissions are reviewed, stress-tested in <code>ygo-sim-core</code>, and published to the open <strong>ygo-archetypes</strong> repository with full contributor attribution.
       </p>
     </header>
+
+    <!-- Handoff Banner (Triggered when arriving from Match Notary) -->
+    <div id="handoffBanner" class="handoff-banner">
+      <span>✓ <strong>Auto-Imported from Match Notary:</strong> Your standardized RFC 0001 YGN playline and YBN snapshot have been loaded into the form below.</span>
+      <button type="button" onclick="document.getElementById('handoffBanner').style.display='none'" style="background:none; border:none; color:#6ee7b7; cursor:pointer; font-weight:bold;">&times;</button>
+    </div>
 
     <!-- Main Workspace Grid -->
     <div class="dispatch-grid">
@@ -190,7 +209,7 @@
       <!-- Form Column -->
       <div class="dispatch-card">
         <h3 style="color: #fff; font-size: 1.15rem; margin-top: 0; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
-          <span style="color: var(--accent-purple);">✦</span> Theory Dispatch Form
+          <span style="color: var(--accent-purple);">✦</span> Theory Submission Form
         </h3>
 
         <form id="dispatchForm">
@@ -305,7 +324,7 @@
             How Your Theory is Processed
           </h4>
           <p style="color: var(--text-muted); font-size: 0.82rem; line-height: 1.6; margin: 0;">
-            All dispatches are sent directly to Nilo Edson (<a href="mailto:niloedson.ms@gmail.com" style="color: var(--accent-cyan);">niloedson.ms@gmail.com</a>) with structured classification metadata:
+            All submissions are sent directly to Nilo Edson (<a href="mailto:niloedson.ms@gmail.com" style="color: var(--accent-cyan);">niloedson.ms@gmail.com</a>) with structured classification metadata:
           </p>
 
           <ul class="step-list">
@@ -343,7 +362,7 @@
         <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
           Use our free client-side Match Notary to convert messy clickstreams into clean, algebraic RFC 0001 YGN notation in under 5 milliseconds before submitting.
         </p>
-        <a href="tools/notary.html" class="btn-secondary" style="font-size: 0.85rem;">
+        <a href="notary.html" class="btn-secondary" style="font-size: 0.85rem;">
           Open Match Notary Transcriber &rarr;
         </a>
       </div>
@@ -413,7 +432,7 @@
 ${body}
 
 ---
-*Generated via Haunted Labs Community Dispatch (https://niloedson.github.io/community.html)*`;
+*Generated via Haunted Labs Community Dispatch (https://niloedson.github.io/tools/submit-archetype-theory.html)*`;
     }
 
     function updatePreview() {
@@ -446,8 +465,26 @@ ${body}
       }, 2500);
     });
 
-    // Initial preview setup
-    updatePreview();
+    // Check for sessionStorage handoff from Match Notary
+    window.addEventListener("DOMContentLoaded", () => {
+      const handoffData = sessionStorage.getItem("notary_handoff");
+      if (handoffData) {
+        try {
+          const parsed = JSON.parse(handoffData);
+          if (parsed.ygn) {
+            theoryBody.value = `### Canonical Playline (RFC 0001 YGN)\n\n\`\`\`ygn\n${parsed.ygn}\n\`\`\`\n\n### Terminal Board Snapshot (YBN)\n\`\`\`ybn\n${parsed.ybn || ''}\n\`\`\``;
+            categorySelect.value = "Canonical Combo Line (YGN / Move Sequence)";
+            submissionTitle.value = `Canonical Playline (${parsed.archetype || 'New Strategy'})`;
+            const banner = document.getElementById("handoffBanner");
+            if (banner) banner.style.display = "flex";
+            sessionStorage.removeItem("notary_handoff");
+          }
+        } catch (e) {
+          console.warn("Failed to parse notary handoff data:", e);
+        }
+      }
+      updatePreview();
+    });
   </script>
 </body>
 </html>

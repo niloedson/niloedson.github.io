@@ -172,8 +172,8 @@
         <li><a href="../index.html#about">About</a></li>
         <li><a href="../haunted-labs.html" style="color: var(--accent-purple); font-weight: 600;">Haunted Labs Studio</a></li>
         <li><a href="../index.html#projects">Projects</a></li>
-        <li><a href="notary.html">Match Notary</a></li>
-        <li><a href="../community.html" style="color: var(--accent-cyan); font-weight: 600;">Theory Dispatch</a></li>
+        <li><a href="notary.html" style="color: var(--accent-cyan); font-weight: 600;">Match Notary</a></li>
+        <li><a href="submit-archetype-theory.html">Submit Theory</a></li>
         <li><a href="../assets/docs/Nilo_Edson_CV.pdf" class="btn-cv" target="_blank" rel="noopener noreferrer">Download CV</a></li>
       </ul>
     </div>
@@ -237,6 +237,9 @@
           </div>
           <textarea id="ygnOutput" class="notary-textarea" readonly placeholder="Standardized RFC 0001 YGN algebraic move sequence will appear here..."></textarea>
           <div class="notary-controls">
+            <button id="btnSendToTheory" class="btn-notary-action" style="background: linear-gradient(135deg, #7c3aed, #4f46e5);">
+              <span>🚀</span> Send to Archetype Theory Form &rarr;
+            </button>
             <button id="btnCopyPr" class="btn-notary-action" style="background: linear-gradient(135deg, #059669, #10b981);">
               <span>📄</span> Copy Markdown for ygo-archetypes PR
             </button>
@@ -817,6 +820,46 @@
         showToast("✓ Copied YBN!");
       } else {
         showToast("No YBN found");
+      }
+    });
+
+    const btnSendToTheory = document.getElementById("btnSendToTheory");
+
+    btnSendToTheory.addEventListener("click", () => {
+      if (!ygnOutput.value) {
+        showToast("Please transcribe a match log first!");
+        return;
+      }
+      const match = ygnOutput.value.match(/YBN:\s+(T\d+\|.+)$/m);
+      const handoff = {
+        ygn: ygnOutput.value,
+        ybn: match ? match[1] : "",
+        archetype: "Community Match"
+      };
+      sessionStorage.setItem("notary_handoff", JSON.stringify(handoff));
+      window.location.href = "submit-archetype-theory.html";
+    });
+
+    // Drag-and-drop duel_log.txt file loader
+    rawInput.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      rawInput.style.borderColor = "var(--accent-purple)";
+    });
+    rawInput.addEventListener("dragleave", (e) => {
+      e.preventDefault();
+      rawInput.style.borderColor = "";
+    });
+    rawInput.addEventListener("drop", (e) => {
+      e.preventDefault();
+      rawInput.style.borderColor = "";
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        const file = e.dataTransfer.files[0];
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          rawInput.value = event.target.result;
+          runTranscribe();
+        };
+        reader.readAsText(file);
       }
     });
 
