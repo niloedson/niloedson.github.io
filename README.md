@@ -93,7 +93,9 @@ Founder and Principal Architect at **Haunted Labs**, an independent software lab
 
 ## 📄 Publications & Presentations
 
-* **IEEE 2021 ICCE-TW:** *Smart Garden Monitoring and Irrigation System in Multiplatform Application Using IoT* (Sep 2021 &middot; UFAM / Samsung)
+* **IEEE 2022 ICCE-TW:** *Sound Pressure Level Measurement System in an Industrial Production Line using STM32 Platform* (First Author &middot; Jul 2022 &middot; UFAM / TPV / ICTS &middot; [IEEE Xplore 9869269](https://ieeexplore.ieee.org/document/9869269))
+* **IEEE 2022 ICCE-TW:** *Design and Implementation of a Software Library for Industrial IoT Sensor/Actuator Nodes* (Co-Author & Core Developer &middot; Jul 2022 &middot; UFAM / TPV / ICTS &middot; [IEEE Xplore 9869233](https://ieeexplore.ieee.org/document/9869233))
+* **IEEE 2021 ICCE-TW:** *Smart Garden Monitoring and Irrigation System in Multiplatform Application Using IoT* (Co-Author &middot; Sep 2021 &middot; UFAM / Samsung &middot; [IEEE Xplore 9603081](https://ieeexplore.ieee.org/document/9603081))
 * **FEBRACE 10 & VI FECITEC:** *VoIP System for Digital TV using Ginga-NCLua* (2012 &middot; Fundação Nokia)
 
 ---
