@@ -189,7 +189,7 @@
       <div class="project-hero-badge">Haunted Labs Research Utility &middot; RFC 0001 (YGN / YBN)</div>
       <h1 class="project-hero-title">Universal Match Notary &amp; Algebraic Transcriber</h1>
       <p class="project-hero-lead">
-        A 100% client-side, zero-latency algebraic transcriber converting noisy browser DOM clickstreams (Dueling Book &amp; Omega) into standardized <strong>RFC 0001 YGN match records</strong> and <strong>YBN board state snapshots</strong>. Strips 90%+ clickstream noise directly in your browser.
+        A 100% client-side, zero-latency algebraic transcriber converting noisy browser DOM clickstreams from <strong>Dueling Book</strong> into standardized <strong>RFC 0001 YGN match records</strong> and <strong>YBN board state snapshots</strong>. Strips 90%+ clickstream noise directly in your browser.
       </p>
     </header>
 
@@ -201,13 +201,13 @@
         <div class="notary-pane">
           <div class="notary-pane-header">
             <span class="notary-pane-title">
-              <span style="color: var(--accent-orange);">●</span> Raw Dueling Book / Omega Log
+              <span style="color: var(--accent-orange);">●</span> Raw Dueling Book Log (duel_log.txt)
             </span>
             <button id="btnSample" class="btn-notary-secondary" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;">
               Load RFC 0001 Sample Match
             </button>
           </div>
-          <textarea id="rawInput" class="notary-textarea" placeholder="Paste your raw Dueling Book duel_log.txt or match log here..."></textarea>
+          <textarea id="rawInput" class="notary-textarea" placeholder="Paste your raw Dueling Book duel_log.txt or match log here... (Note: Binary .yrp replays are not supported)"></textarea>
           <div class="notary-controls">
             <button id="btnTranscribe" class="btn-notary-action">
               <span>⚡</span> Transcribe to RFC 0001 YGN
