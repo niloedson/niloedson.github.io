@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Archetype Dispatch — Haunted Labs</title>
+  <meta name="description" content="Submit Yu-Gi-Oh! archetype combo lines, YBN milestones, ruling interactions, and engine synergies directly to Haunted Labs for verification and indexing.">
+  <meta name="author" content="Nilo Edson (Haunted Labs)">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/project.css">
+
+  <style>
+    .dispatch-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2rem;
+      margin-top: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 960px) {
+      .dispatch-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dispatch-card {
+      background: rgba(18, 24, 36, 0.95);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .form-label span.req {
+      color: var(--accent-orange);
+    }
+
+    .form-label span.opt {
+      color: var(--text-muted);
+      font-weight: 400;
+      text-transform: none;
+      font-size: 0.75rem;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: #0b0f19;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 6px;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .form-textarea {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.5;
+      resize: vertical;
+      height: 240px;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 0 2px rgba(188, 140, 255, 0.2);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .preview-box {
+      background: #0b0f19;
+      color: #94a3b8;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.55;
+      max-height: 480px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.25rem 0 0 0;
+    }
+
+    .step-list li {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    .step-num {
+      width: 24px;
+      height: 24px;
+      background: rgba(188, 140, 255, 0.15);
+      color: var(--accent-purple);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .toast-msg {
+      display: none;
+      color: #10b981;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-left: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        Nilo Edson
+        <span class="brand-badge">Haunted Labs</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="haunted-labs.html" style="color: var(--accent-purple); font-weight: 600;">Haunted Labs Studio</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="tools/notary.html">Match Notary</a></li>
+        <li><a href="community.html" style="color: var(--accent-cyan); font-weight: 600;">Theory Dispatch</a></li>
+        <li><a href="assets/docs/Nilo_Edson_CV.pdf" class="btn-cv" target="_blank" rel="noopener noreferrer">Download CV</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <a href="haunted-labs.html" class="project-nav-back">
+      &larr; Back to Haunted Labs Studio
+    </a>
+
+    <!-- Hero Header -->
+    <header class="project-hero" style="padding-bottom: 1.5rem;">
+      <div class="project-hero-badge">Haunted Labs &middot; Open Knowledge Commons</div>
+      <h1 class="project-hero-title">Community Archetype Theory Dispatch</h1>
+      <p class="project-hero-lead">
+        Have a groundbreaking combo line, an overlooked chokepoint insulation, an optimal secondary engine pairing, or a complex PSCT ruling interaction? Submit your theoretical updates directly to <strong>Haunted Labs</strong>. Submissions are reviewed, stress-tested in <code>ygo-sim-core</code>, and published to the open <strong>ygo-archetypes</strong> repository with full contributor attribution.
+      </p>
+    </header>
+
+    <!-- Main Workspace Grid -->
+    <div class="dispatch-grid">
+
+      <!-- Form Column -->
+      <div class="dispatch-card">
+        <h3 style="color: #fff; font-size: 1.15rem; margin-top: 0; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span style="color: var(--accent-purple);">✦</span> Theory Dispatch Form
+        </h3>
+
+        <form id="dispatchForm">
+
+          <!-- Archetype Selection -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="archetypeSelect">Archetype <span class="req">*</span></label>
+              <select id="archetypeSelect" class="form-select" required>
+                <option value="R.B. (Revol-Bots)">R.B. (Revol-Bots)</option>
+                <option value="Earth Machine / Trains">Earth Machine / Trains</option>
+                <option value="Sky Striker">Sky Striker</option>
+                <option value="Snake-Eye / Fire King">Snake-Eye / Fire King</option>
+                <option value="Voiceless Voice">Voiceless Voice</option>
+                <option value="Tenpai Dragon">Tenpai Dragon</option>
+                <option value="Branded / Despia">Branded / Despia</option>
+                <option value="Tearlaments">Tearlaments</option>
+                <option value="Kashtira">Kashtira</option>
+                <option value="Labrynth">Labrynth</option>
+                <option value="D/D/D">D/D/D</option>
+                <option value="Speedroid">Speedroid</option>
+                <option value="Mecha Phantom Beast">Mecha Phantom Beast</option>
+                <option value="OTHER">Other / New Archetype...</option>
+              </select>
+            </div>
+
+            <!-- Custom Archetype (Hidden by default) -->
+            <div class="form-group" id="customArchetypeGroup" style="display: none;">
+              <label class="form-label" for="customArchetype">Archetype Name <span class="req">*</span></label>
+              <input type="text" id="customArchetype" class="form-input" placeholder="e.g. Infernoble Knight, Marincess">
+            </div>
+
+            <!-- Classification Category -->
+            <div class="form-group">
+              <label class="form-label" for="categorySelect">Category <span class="req">*</span></label>
+              <select id="categorySelect" class="form-select" required>
+                <option value="Canonical Combo Line (YGN / Move Sequence)">Canonical Combo Line (YGN Sequence)</option>
+                <option value="End-Board Milestone Checkpoint (YBN)">End-Board Milestone Checkpoint (YBN)</option>
+                <option value="Chokepoint & Hand Trap Mitigation">Chokepoint & Hand Trap Mitigation</option>
+                <option value="PSCT Ruling / Interaction Analysis">PSCT Ruling / Interaction Analysis</option>
+                <option value="Secondary Engine Synergy / Tech Choice">Secondary Engine Synergy / Tech Choice</option>
+                <option value="Hypergeometric Consistency & Card Ratios">Hypergeometric Consistency & Ratios</option>
+                <option value="Going-Second Board Breaker Strategy">Going-Second Board Breaker Strategy</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Submission Title -->
+          <div class="form-group">
+            <label class="form-label" for="submissionTitle">Subject / Summary Title <span class="req">*</span></label>
+            <input type="text" id="submissionTitle" class="form-input" placeholder="e.g. Turn 1 Nibiru-Safe Line via Lambda Cannon on Summon #2" required>
+          </div>
+
+          <!-- Contributor Information (Optional) -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="authorName">Your Name / Handle <span class="opt">(Optional, for credit)</span></label>
+              <input type="text" id="authorName" class="form-input" placeholder="e.g. Blake / @duelist_x on Discord">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="authorContact">Contact / Email <span class="opt">(Optional, for follow-up)</span></label>
+              <input type="text" id="authorContact" class="form-input" placeholder="e.g. yourname@example.com">
+            </div>
+          </div>
+
+          <!-- Decklist / Replay Link -->
+          <div class="form-group">
+            <label class="form-label" for="deckLink">Decklist or Replay Link <span class="opt">(Optional)</span></label>
+            <input type="url" id="deckLink" class="form-input" placeholder="https://ygoprodeck.com/... or Dueling Book replay URL">
+          </div>
+
+          <!-- Theory & Combo Content -->
+          <div class="form-group">
+            <label class="form-label" for="theoryBody">
+              Theory, Playline Sequence or PSCT Explanation <span class="req">*</span>
+            </label>
+            <textarea id="theoryBody" class="form-textarea" placeholder="Paste your step-by-step combo sequence, RFC 0001 YGN notation, card interaction breakdown, or Dueling Book transcript here..." required></textarea>
+          </div>
+
+          <!-- Action Buttons -->
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 1.5rem;">
+            <button type="button" id="btnSendEmail" class="btn-primary" style="background: linear-gradient(135deg, #7c3aed, #4f46e5); border: none;">
+              <span>✉️</span> Send Theory via Email Client
+            </button>
+            <button type="button" id="btnCopyMarkdown" class="btn-secondary">
+              <span>📋</span> Copy as Formatted Markdown
+            </button>
+            <span id="dispatchToast" class="toast-msg">✓ Copied to clipboard!</span>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Live Preview & Pipeline Column -->
+      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+        <!-- Live Generated Preview -->
+        <div class="dispatch-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <h4 style="color: #fff; font-size: 0.95rem; margin: 0;">
+              <span style="color: var(--accent-cyan);">●</span> Live Markdown Preview
+            </h4>
+            <span style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">GitHub-Ready</span>
+          </div>
+          <div id="livePreview" class="preview-box">Fill in the dispatch form to generate the structured submission markdown...</div>
+        </div>
+
+        <!-- How It Works Card -->
+        <div class="dispatch-card">
+          <h4 style="color: #fff; font-size: 0.95rem; margin-top: 0; margin-bottom: 0.5rem;">
+            How Your Theory is Processed
+          </h4>
+          <p style="color: var(--text-muted); font-size: 0.82rem; line-height: 1.6; margin: 0;">
+            All dispatches are sent directly to Nilo Edson (<a href="mailto:niloedson.ms@gmail.com" style="color: var(--accent-cyan);">niloedson.ms@gmail.com</a>) with structured classification metadata:
+          </p>
+
+          <ul class="step-list">
+            <li>
+              <div class="step-num">1</div>
+              <div>
+                <strong style="color: #fff;">Inbox Classification:</strong> Filtered and organized automatically by archetype and category in our research inbox.
+              </div>
+            </li>
+            <li>
+              <div class="step-num">2</div>
+              <div>
+                <strong style="color: #fff;">Deterministic Verification:</strong> Tested against <code>ygo-sim-core</code> to verify Fast Effect Timing legality and calculate terminal $V(\text{YBN})$ board valuation.
+              </div>
+            </li>
+            <li>
+              <div class="step-num">3</div>
+              <div>
+                <strong style="color: #fff;">Public Commons Integration:</strong> Integrated into <a href="https://github.com/niloedson/ygo-archetypes" target="_blank" rel="noopener noreferrer" style="color: var(--accent-purple);">ygo-archetypes</a> with full attribution in the release changelog.
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Related Tools Footer Callout -->
+    <section style="margin-bottom: 4rem;">
+      <div class="haunted-labs-card" style="background: rgba(18, 24, 36, 0.95); border-color: rgba(188, 140, 255, 0.25);">
+        <h4 style="color: #fff; font-size: 1.1rem; margin-top: 0; margin-bottom: 0.5rem;">
+          Need to transcribe a raw Dueling Book duel log first?
+        </h4>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
+          Use our free client-side Match Notary to convert messy clickstreams into clean, algebraic RFC 0001 YGN notation in under 5 milliseconds before submitting.
+        </p>
+        <a href="tools/notary.html" class="btn-secondary" style="font-size: 0.85rem;">
+          Open Match Notary Transcriber &rarr;
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="border-top: 1px solid var(--border-color); padding: 2.5rem 0; text-align: center; color: var(--text-muted); font-size: 0.85rem;">
+    <p>&copy; 2026 Haunted Labs &middot; Nilo Edson. An independent open-source research initiative.</p>
+  </footer>
+
+  <script>
+    const archetypeSelect = document.getElementById("archetypeSelect");
+    const customArchetypeGroup = document.getElementById("customArchetypeGroup");
+    const customArchetype = document.getElementById("customArchetype");
+    const categorySelect = document.getElementById("categorySelect");
+    const submissionTitle = document.getElementById("submissionTitle");
+    const authorName = document.getElementById("authorName");
+    const authorContact = document.getElementById("authorContact");
+    const deckLink = document.getElementById("deckLink");
+    const theoryBody = document.getElementById("theoryBody");
+    const livePreview = document.getElementById("livePreview");
+    const btnSendEmail = document.getElementById("btnSendEmail");
+    const btnCopyMarkdown = document.getElementById("btnCopyMarkdown");
+    const dispatchToast = document.getElementById("dispatchToast");
+
+    // Toggle custom archetype input
+    archetypeSelect.addEventListener("change", () => {
+      if (archetypeSelect.value === "OTHER") {
+        customArchetypeGroup.style.display = "block";
+        customArchetype.required = true;
+      } else {
+        customArchetypeGroup.style.display = "none";
+        customArchetype.required = false;
+      }
+      updatePreview();
+    });
+
+    function getSelectedArchetype() {
+      if (archetypeSelect.value === "OTHER") {
+        return customArchetype.value.trim() || "Unspecified Archetype";
+      }
+      return archetypeSelect.value;
+    }
+
+    function buildStructuredMarkdown() {
+      const arch = getSelectedArchetype();
+      const cat = categorySelect.value;
+      const title = submissionTitle.value.trim() || "[Untitled Submission]";
+      const author = authorName.value.trim() || "Anonymous Contributor";
+      const contact = authorContact.value.trim() || "Not provided";
+      const deck = deckLink.value.trim() || "None";
+      const body = theoryBody.value.trim() || "(No content provided)";
+
+      return `# Archetype Theory Dispatch: ${arch}
+
+**Category:** ${cat}  
+**Subject:** ${title}  
+**Contributor:** ${author} (${contact})  
+**Decklist / Replay Reference:** ${deck}  
+**Submission Date:** ${new Date().toISOString().split('T')[0]}  
+
+---
+
+### Technical Theory / Playline Details
+
+${body}
+
+---
+*Generated via Haunted Labs Community Dispatch (https://niloedson.github.io/community.html)*`;
+    }
+
+    function updatePreview() {
+      livePreview.textContent = buildStructuredMarkdown();
+    }
+
+    [submissionTitle, authorName, authorContact, deckLink, theoryBody, categorySelect, customArchetype].forEach(el => {
+      el.addEventListener("input", updatePreview);
+    });
+
+    // Send via Email Client
+    btnSendEmail.addEventListener("click", () => {
+      const arch = getSelectedArchetype();
+      const cat = categorySelect.value;
+      const title = submissionTitle.value.trim() || "Community Archetype Theory";
+      const subject = `[Archetype Theory: ${arch}] [${cat}] ${title}`;
+      const body = buildStructuredMarkdown();
+
+      const mailtoUrl = `mailto:niloedson.ms@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoUrl;
+    });
+
+    // Copy as Formatted Markdown
+    btnCopyMarkdown.addEventListener("click", () => {
+      const md = buildStructuredMarkdown();
+      navigator.clipboard.writeText(md);
+      dispatchToast.style.display = "inline";
+      setTimeout(() => {
+        dispatchToast.style.display = "none";
+      }, 2500);
+    });
+
+    // Initial preview setup
+    updatePreview();
+  </script>
+</body>
+</html>
