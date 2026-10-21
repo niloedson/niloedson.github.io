@@ -508,6 +508,91 @@
       return games.length > 0 ? games : [rawLines];
     }
 
+    function attributeChainResolutions(chainLinks, rawResolutions) {
+      const n = chainLinks.length;
+      const linkResolutions = Array.from({ length: n }, () => []);
+      const negatedLinks = new Set();
+      const workingResolutions = [...rawResolutions];
+
+      for (let j = n - 1; j >= 0; j--) {
+        const act = chainLinks[j];
+        const name = act.card ? act.card.toLowerCase() : '';
+
+        // Crossout Designator
+        if (name.includes('crossout')) {
+          for (let rIdx = 0; rIdx < workingResolutions.length; rIdx++) {
+            const r = workingResolutions[rIdx];
+            if (r.startsWith('>BX[') && r.includes('<D')) {
+              linkResolutions[j].push(r);
+              const banishedCard = r.replace(/^>BX\[(?:[a-z0-9#]+:)?([^\]]+)\].*$/i, '$1').toLowerCase();
+              for (let k = 0; k < j; k++) {
+                const targetCard = chainLinks[k].card ? chainLinks[k].card.toLowerCase() : '';
+                if (targetCard.includes(banishedCard) || banishedCard.includes(targetCard)) {
+                  negatedLinks.add(k);
+                  linkResolutions[j].push(`!NEG(EFF)[${chainLinks[k].card}]`);
+                }
+              }
+              workingResolutions.splice(rIdx, 1);
+              break;
+            }
+          }
+        }
+
+        // Called by the Grave
+        if (name.includes('called by the grave')) {
+          for (let rIdx = 0; rIdx < workingResolutions.length; rIdx++) {
+            const r = workingResolutions[rIdx];
+            if (r.startsWith('>BX[') && r.includes('<GY')) {
+              linkResolutions[j].push(r);
+              const banishedCard = r.replace(/^>BX\[(?:[a-z0-9#]+:)?([^\]]+)\].*$/i, '$1').toLowerCase();
+              for (let k = 0; k < j; k++) {
+                const targetCard = chainLinks[k].card ? chainLinks[k].card.toLowerCase() : '';
+                if (targetCard.includes(banishedCard) || banishedCard.includes(targetCard)) {
+                  negatedLinks.add(k);
+                  linkResolutions[j].push(`!NEG(EFF)[${chainLinks[k].card}]`);
+                }
+              }
+              workingResolutions.splice(rIdx, 1);
+              break;
+            }
+          }
+        }
+
+        // Direct Negation Cards
+        if (
+          name.includes('reframing') ||
+          name.includes('skull meister') ||
+          name.includes('ghost belle') ||
+          name.includes('solemn')
+        ) {
+          if (!negatedLinks.has(j) && j > 0) {
+            negatedLinks.add(j - 1);
+            linkResolutions[j].push(`!NEG(EFF)[${chainLinks[j - 1].card}]`);
+          }
+        }
+      }
+
+      for (const negIdx of negatedLinks) {
+        if (linkResolutions[negIdx].length === 0) {
+          linkResolutions[negIdx].push('!NEG(EFF)');
+        }
+      }
+
+      if (!negatedLinks.has(0) && workingResolutions.length > 0) {
+        linkResolutions[0].push(...workingResolutions);
+        workingResolutions.length = 0;
+      } else if (workingResolutions.length > 0) {
+        for (let k = n - 1; k >= 0; k--) {
+          if (!negatedLinks.has(k)) {
+            linkResolutions[k].push(...workingResolutions);
+            break;
+          }
+        }
+      }
+
+      return linkResolutions.map((resList) => (resList.length > 0 ? resList.join(', ') : 'OK'));
+    }
+
     function convertDuelingBookToYgn(rawLogText, options = {}) {
       const chainFormat = options.chainFormat || 'indented';
       const startTime = performance.now();
@@ -1090,17 +1175,23 @@
               advance++;
             }
 
+            // Attribute resolutions across chain links (taking negations and effects into account)
+            const attributedResolutions = attributeChainResolutions(chainLinks, resolutions);
+
             if (chainLinks.length === 1) {
               const c1 = chainLinks[0];
               const originTag = c1.dest ? `>${c1.dest}` : '';
               const c1Str = `A(${c1.origin})[${getAliasTag(c1.card)}]${originTag}${costStr}${targetStr}`;
-              const resStr = resolutions.length > 0 ? resolutions.join(', ') : 'OK';
+              const resStr = attributedResolutions[0] || 'OK';
               ygnLines.push(`  [C1: ${c1Str} // R1: ${resStr}]`);
             } else {
               if (chainFormat === 'inline') {
                 const cParts = chainLinks.map((c, idx) => `C${idx + 1}: A(${c.origin})[${getAliasTag(c.card)}]`).join(' > ');
-                const rParts = resolutions.length > 0 ? resolutions.map((r, idx) => `R${resolutions.length - idx}: ${r}`).join(' > ') : 'OK';
-                ygnLines.push(`  [${cParts} // ${rParts}]`);
+                const rParts = [];
+                for (let k = chainLinks.length - 1; k >= 0; k--) {
+                  rParts.push(`R${k + 1}: ${attributedResolutions[k]}`);
+                }
+                ygnLines.push(`  [${cParts} // ${rParts.join(' > ')}]`);
               } else {
                 for (let k = 0; k < chainLinks.length; k++) {
                   const c = chainLinks[k];
@@ -1113,9 +1204,7 @@
                 const n = chainLinks.length;
                 for (let k = n - 1; k >= 0; k--) {
                   const indent = '  ' + '    '.repeat(k);
-                  const resIndex = (n - 1) - k;
-                  const rAction = (resolutions.length > resIndex) ? resolutions[resIndex] : 'OK';
-                  ygnLines.push(`${indent}R${k + 1}: ${rAction}`);
+                  ygnLines.push(`${indent}R${k + 1}: ${attributedResolutions[k]}`);
                 }
               }
             }
