@@ -239,10 +239,10 @@
 
     <!-- Tool Hero -->
     <header class="project-hero" style="padding-bottom: 1.5rem;">
-      <div class="project-hero-badge">Haunted Labs Research Utility &middot; RFC 0001 (YGN / YBN)</div>
+      <div class="project-hero-badge">Haunted Labs Research Utility &middot; RFC 0001 (YGN / YBN) Scaffolding Workbench &amp; AI Copilot</div>
       <h1 class="project-hero-title">Universal Match Notary &amp; Algebraic Transcriber</h1>
       <p class="project-hero-lead">
-        A 100% client-side, zero-latency algebraic transcriber converting noisy browser DOM clickstreams from <strong>Dueling Book</strong> into standardized <strong>RFC 0001 YGN match records</strong> and <strong>YBN board state snapshots</strong>. Strips 90%+ clickstream noise directly in your browser.
+        An interactive client-side scaffolding workbench converting noisy browser DOM clickstreams from <strong>Dueling Book</strong> into clean <strong>RFC 0001 YGN match records</strong> and <strong>YBN board state snapshots</strong>. Strips 90%+ clickstream noise in under 5ms, structures LIFO chain stacks, and scaffolds drafts for human refinement or deep AI adjudication (<code>ygo-notary</code> + <code>ygo-judge</code>).
       </p>
     </header>
 
@@ -276,6 +276,7 @@
           <div class="notary-pane-header">
             <span class="notary-pane-title">
               <span style="color: var(--accent-cyan);">●</span> RFC 0001 Algebraic Output (YGN / YBN)
+              <span style="font-size: 0.72rem; color: #a5b4fc; background: rgba(99, 102, 241, 0.15); padding: 0.15rem 0.45rem; border-radius: 4px; border: 1px solid rgba(99, 102, 241, 0.3); margin-left: 0.4rem; font-weight: 500;">Editable Scaffolding</span>
             </span>
             <div>
               <button id="btnCopyYgn" class="btn-notary-secondary" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;">
@@ -287,8 +288,27 @@
               <span id="copyToast" class="copy-toast">✓ Copied!</span>
             </div>
           </div>
-          <textarea id="ygnOutput" class="notary-textarea" readonly placeholder="Standardized RFC 0001 YGN algebraic move sequence will appear here..."></textarea>
+          
+          <!-- Chain Format Selection Bar -->
+          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.6rem; padding: 0.4rem 0.6rem; background: rgba(11, 15, 25, 0.6); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 6px; font-size: 0.78rem; color: #cbd5e1;">
+            <span style="color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">LIFO Chain Format:</span>
+            <div style="display: flex; gap: 0.85rem; align-items: center;">
+              <label style="display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer;" title="Vertical LIFO stack nesting with matching C_k and R_k indentation">
+                <input type="radio" name="chainFormat" value="indented" checked style="cursor: pointer; accent-color: var(--accent-purple);">
+                <span style="color: #fff; font-weight: 500;">Indented LIFO Stack</span>
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer;" title="Traditional inline [C1 > C2 // R2 > R1] bracket">
+                <input type="radio" name="chainFormat" value="inline" style="cursor: pointer; accent-color: var(--accent-purple);">
+                <span>Compact Inline</span>
+              </label>
+            </div>
+          </div>
+
+          <textarea id="ygnOutput" class="notary-textarea" placeholder="Standardized RFC 0001 YGN algebraic move sequence will appear here... (You can edit or annotate this scaffolding directly)"></textarea>
           <div class="notary-controls">
+            <button id="btnCopyAiPrompt" class="btn-notary-action" style="background: linear-gradient(135deg, #0284c7, #0369a1);" title="Copy prompt formatted for AI Agents (ygo-notary + ygo-judge)">
+              <span>🤖</span> Copy AI Co-Pilot Prompt
+            </button>
             <button id="btnSendToTheory" class="btn-notary-action" style="background: linear-gradient(135deg, #7c3aed, #4f46e5);">
               <span>🚀</span> Send to Archetype Theory Form &rarr;
             </button>
@@ -432,7 +452,8 @@
         .trim();
     }
 
-    function convertDuelingBookToYgn(rawLogText) {
+    function convertDuelingBookToYgn(rawLogText, options = {}) {
+      const chainFormat = options.chainFormat || 'indented';
       const startTime = performance.now();
       const rawLines = rawLogText.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
       const originalByteSize = new Blob([rawLogText]).size;
@@ -750,7 +771,7 @@
             advance++;
           }
 
-          // Format RFC 0001 Chain String: [C1: ... // R1: ...]
+          // Format RFC 0001 Chain String: [C1: ... // R1: ...] or Indented LIFO Stack
           if (chainLinks.length === 1) {
             const c1 = chainLinks[0];
             const originTag = c1.dest ? `>${c1.dest}` : '';
@@ -758,9 +779,30 @@
             const resStr = resolutions.length > 0 ? resolutions.join(', ') : 'OK';
             ygnLines.push(`  [C1: ${c1Str} // R1: ${resStr}]`);
           } else {
-            const cParts = chainLinks.map((c, idx) => `C${idx + 1}: A(${c.origin})[${getAliasTag(c.card)}]`).join(' > ');
-            const rParts = resolutions.length > 0 ? resolutions.map((r, idx) => `R${resolutions.length - idx}: ${r}`).join(' > ') : 'OK';
-            ygnLines.push(`  [${cParts} // ${rParts}]`);
+            if (chainFormat === 'inline') {
+              const cParts = chainLinks.map((c, idx) => `C${idx + 1}: A(${c.origin})[${getAliasTag(c.card)}]`).join(' > ');
+              const rParts = resolutions.length > 0 ? resolutions.map((r, idx) => `R${resolutions.length - idx}: ${r}`).join(' > ') : 'OK';
+              ygnLines.push(`  [${cParts} // ${rParts}]`);
+            } else {
+              // Indented LIFO Stack (Expanded Format)
+              // Print activations C1..Cn with increasing indentation (stack push)
+              for (let k = 0; k < chainLinks.length; k++) {
+                const c = chainLinks[k];
+                const originTag = c.dest ? `>${c.dest}` : '';
+                const cCost = (k === 0) ? costStr : '';
+                const cTarget = (k === 0) ? targetStr : '';
+                const indent = '  ' + '    '.repeat(k);
+                ygnLines.push(`${indent}C${k + 1}: A(${c.origin})[${getAliasTag(c.card)}]${originTag}${cCost}${cTarget}`);
+              }
+              // Print resolutions Rn..R1 with decreasing indentation matching C_k (stack pop)
+              const n = chainLinks.length;
+              for (let k = n - 1; k >= 0; k--) {
+                const indent = '  ' + '    '.repeat(k);
+                const resIndex = (n - 1) - k;
+                const rAction = (resolutions.length > resIndex) ? resolutions[resIndex] : 'OK';
+                ygnLines.push(`${indent}R${k + 1}: ${rAction}`);
+              }
+            }
           }
 
           i = advance;
@@ -854,6 +896,7 @@
     const btnClear = document.getElementById("btnClear");
     const btnCopyYgn = document.getElementById("btnCopyYgn");
     const btnCopyYbn = document.getElementById("btnCopyYbn");
+    const btnCopyAiPrompt = document.getElementById("btnCopyAiPrompt");
     const btnCopyPr = document.getElementById("btnCopyPr");
     const copyToast = document.getElementById("copyToast");
 
@@ -871,6 +914,11 @@
       }, 2000);
     }
 
+    function getSelectedChainFormat() {
+      const checked = document.querySelector('input[name="chainFormat"]:checked');
+      return checked ? checked.value : 'indented';
+    }
+
     function runTranscribe() {
       const text = rawInput.value.trim();
       if (!text) {
@@ -882,7 +930,8 @@
         statYgnLines.textContent = "0";
         return;
       }
-      const res = convertDuelingBookToYgn(text);
+      const format = getSelectedChainFormat();
+      const res = convertDuelingBookToYgn(text, { chainFormat: format });
       ygnOutput.value = res.ygnText;
       statTime.textContent = `${res.latencyMs} ms`;
       statNoise.textContent = `${res.noisePercent}%`;
@@ -892,6 +941,15 @@
     }
 
     btnTranscribe.addEventListener("click", runTranscribe);
+
+    // Re-run transcription instantly on chain format toggle
+    document.querySelectorAll('input[name="chainFormat"]').forEach((radio) => {
+      radio.addEventListener("change", () => {
+        if (rawInput.value.trim()) {
+          runTranscribe();
+        }
+      });
+    });
 
     btnSample.addEventListener("click", () => {
       rawInput.value = SAMPLE_MATCH_LOG;
@@ -923,6 +981,38 @@
       } else {
         showToast("No YBN found");
       }
+    });
+
+    btnCopyAiPrompt.addEventListener("click", () => {
+      if (!rawInput.value.trim() && !ygnOutput.value.trim()) {
+        showToast("Paste a match log first!");
+        return;
+      }
+      const prompt = `You are ygo-notary and ygo-judge. Please adjudicate and refine the following scaffolded Dueling Book match log into formal RFC 0001 YGN algebraic notation and a terminal YBN board state snapshot.
+
+### Required Adjudication Workflow:
+1. Ground Card PSCT via ygoprodeck-mcp / official rulings:
+   - Identify precise activation conditions (:), activation costs / targets (before ;), and effect resolutions (after ;).
+2. Deduce Chain Links & Priority:
+   - Differentiate true Chain Links (C1, C2, ...) from separate open-game-state actions.
+   - Apply SEGOC and Fast Effect Timing priority handshakes.
+3. LIFO Chain Notation:
+   - For multi-link chains (N >= 2), format using Indented LIFO Stack blocks (matching C_k and R_k indentation depth).
+   - For single-link chains (N = 1), use compact inline brackets [C1: ... // R1: ...].
+4. Output the complete verified RFC 0001 YGN record, deck alias block (#1..#40, #e1..#e15), and terminal YBN snapshot.
+
+### Scaffolded Match Draft (from Haunted Labs Notary):
+\`\`\`ygn
+${ygnOutput.value.trim() || "(No draft yet)"}
+\`\`\`
+
+### Raw Dueling Book Source Snippet:
+\`\`\`text
+${rawInput.value.slice(0, 3000)}
+\`\`\``;
+
+      navigator.clipboard.writeText(prompt);
+      showToast("✓ Copied AI Co-Pilot Prompt!");
     });
 
     const btnSendToTheory = document.getElementById("btnSendToTheory");
