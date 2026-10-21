@@ -157,6 +157,52 @@
       font-weight: 600;
       margin-left: 0.5rem;
     }
+
+    .notary-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .notary-modal-card {
+      background: #121824;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      max-width: 540px;
+      width: 100%;
+      padding: 1.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .notary-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-close-modal {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 0.25rem;
+      transition: color 0.2s ease;
+    }
+
+    .btn-close-modal:hover {
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -249,6 +295,9 @@
             <button id="btnCopyPr" class="btn-notary-action" style="background: linear-gradient(135deg, #059669, #10b981);">
               <span>📄</span> Copy Markdown for ygo-archetypes PR
             </button>
+            <button id="btnReportIssue" type="button" class="btn-notary-secondary" style="border-color: rgba(239, 68, 68, 0.4); color: #f87171;">
+              <span>⚠️</span> Report Transcription Anomaly
+            </button>
           </div>
         </div>
 
@@ -278,6 +327,53 @@
         </div>
       </div>
     </section>
+
+    <!-- Modal for Reporting Transcription Bug -->
+    <div id="reportModal" class="notary-modal-overlay">
+      <div class="notary-modal-card">
+        <div class="notary-modal-header">
+          <h3 style="color: #fff; margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: #ef4444;">⚠️</span> Report Transcription Anomaly
+          </h3>
+          <button id="btnCloseModal" type="button" class="btn-close-modal">&times;</button>
+        </div>
+
+        <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; margin: 0.5rem 0 1rem 0;">
+          Found a card that wasn't recognized, a chain link inverted, or an inaccurate zone coordinate? Help us improve the open RFC 0001 parser.
+        </p>
+
+        <!-- Rate Limit Alert Box -->
+        <div id="rateLimitAlert" style="display: none; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); color: #fcd34d; padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 0.8rem; margin-bottom: 1rem;">
+          ⏳ <strong>Rate limit active:</strong> You recently submitted a report. Email reporting is on cooldown (<span id="cooldownMins">15</span>m remaining) to prevent inbox flooding. You can still open a public GitHub issue directly.
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0.85rem;">
+          <label style="display: block; font-size: 0.78rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.3rem;">ISSUE TYPE</label>
+          <select id="issueTypeSelect" class="form-select" style="width: 100%; background: #0b0f19; color: #fff; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; padding: 0.5rem; font-size: 0.85rem;">
+            <option value="Card Name Noise / Recognition">Card name corrupted or not recognized</option>
+            <option value="Chain Inversion / LIFO Resolution">Chain link or resolution order inverted</option>
+            <option value="Link / Xyz Material Missing">Link or Xyz materials not paired</option>
+            <option value="Tribute / Cost Misclassified">Tribute or payment cost misidentified</option>
+            <option value="Zone Coordinate Mismatch">Zone coordinate mismatch (M1..M5, EL, ER)</option>
+            <option value="Other Parser Anomaly">Other parser anomaly</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label style="display: block; font-size: 0.78rem; font-weight: 700; color: #cbd5e1; margin-bottom: 0.3rem;">WHAT WENT WRONG? (OPTIONAL DETAILS)</label>
+          <input type="text" id="issueNotes" class="form-input" placeholder="e.g. Card X on line 14 was treated as card Y" style="width: 100%; background: #0b0f19; color: #fff; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 6px; padding: 0.5rem; font-size: 0.85rem;">
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: flex-end; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1rem;">
+          <a id="btnGithubIssue" href="https://github.com/niloedson/ygn-standard/issues/new" target="_blank" rel="noopener noreferrer" class="btn-notary-action" style="background: linear-gradient(135deg, #2563eb, #1d4ed8); font-size: 0.82rem; text-decoration: none;">
+            <span>🐙</span> Open GitHub Issue (Recommended)
+          </a>
+          <button id="btnSubmitReportEmail" type="button" class="btn-notary-secondary" style="font-size: 0.82rem; border-color: rgba(239, 68, 68, 0.4); color: #f87171;">
+            <span>✉️</span> Send Throttled Email
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Haunted Labs Open Architecture Charter -->
     <section style="margin-top: 3.5rem; margin-bottom: 4rem;">
@@ -874,6 +970,98 @@
       const prMarkdown = "### Canonical Playline (RFC 0001 YGN)\n\n```ygn\n" + ygnOutput.value + "\n```\n";
       navigator.clipboard.writeText(prMarkdown);
       showToast("✓ Copied Markdown PR Block!");
+    });
+
+    // Modal & Bug Reporting with Rate-Limiting
+    const btnReportIssue = document.getElementById("btnReportIssue");
+    const reportModal = document.getElementById("reportModal");
+    const btnCloseModal = document.getElementById("btnCloseModal");
+    const rateLimitAlert = document.getElementById("rateLimitAlert");
+    const cooldownMins = document.getElementById("cooldownMins");
+    const issueTypeSelect = document.getElementById("issueTypeSelect");
+    const issueNotes = document.getElementById("issueNotes");
+    const btnGithubIssue = document.getElementById("btnGithubIssue");
+    const btnSubmitReportEmail = document.getElementById("btnSubmitReportEmail");
+
+    const REPORT_COOLDOWN_MS = 15 * 60 * 1000; // 15-minute cooldown per browser session
+
+    function getRemainingCooldown() {
+      const last = parseInt(localStorage.getItem("notary_report_last_time") || "0", 10);
+      const diff = Date.now() - last;
+      if (diff < REPORT_COOLDOWN_MS) {
+        return Math.ceil((REPORT_COOLDOWN_MS - diff) / 60000);
+      }
+      return 0;
+    }
+
+    function updateModalState() {
+      const remaining = getRemainingCooldown();
+      if (remaining > 0) {
+        rateLimitAlert.style.display = "block";
+        cooldownMins.textContent = remaining;
+        btnSubmitReportEmail.disabled = true;
+        btnSubmitReportEmail.style.opacity = "0.5";
+        btnSubmitReportEmail.style.cursor = "not-allowed";
+      } else {
+        rateLimitAlert.style.display = "none";
+        btnSubmitReportEmail.disabled = false;
+        btnSubmitReportEmail.style.opacity = "1";
+        btnSubmitReportEmail.style.cursor = "pointer";
+      }
+
+      // Pre-fill GitHub Issue URL dynamically
+      const type = issueTypeSelect.value;
+      const notes = issueNotes.value.trim() || "No additional notes";
+      const rawSample = rawInput.value.slice(0, 800);
+      const ygnSample = ygnOutput.value.slice(0, 800);
+
+      const issueTitle = encodeURIComponent(`[Parser Anomaly]: ${type}`);
+      const issueBody = encodeURIComponent(
+        `### Anomaly Classification\n**Type:** ${type}\n**Notes:** ${notes}\n\n### Problematic Raw Input (Snippet)\n\`\`\`text\n${rawSample}\n\`\`\`\n\n### Actual Flawed Output (Snippet)\n\`\`\`ygn\n${ygnSample}\n\`\`\`\n\n*Reported via Haunted Labs Match Notary (niloedson.github.io/tools/notary.html)*`
+      );
+
+      btnGithubIssue.href = `https://github.com/niloedson/ygn-standard/issues/new?title=${issueTitle}&body=${issueBody}`;
+    }
+
+    btnReportIssue.addEventListener("click", () => {
+      if (!rawInput.value.trim()) {
+        showToast("Paste a match log first!");
+        return;
+      }
+      reportModal.style.display = "flex";
+      updateModalState();
+    });
+
+    btnCloseModal.addEventListener("click", () => {
+      reportModal.style.display = "none";
+    });
+
+    reportModal.addEventListener("click", (e) => {
+      if (e.target === reportModal) {
+        reportModal.style.display = "none";
+      }
+    });
+
+    [issueTypeSelect, issueNotes].forEach((el) => {
+      el.addEventListener("input", updateModalState);
+    });
+
+    btnSubmitReportEmail.addEventListener("click", () => {
+      if (getRemainingCooldown() > 0) return;
+
+      const type = issueTypeSelect.value;
+      const notes = issueNotes.value.trim() || "No additional notes";
+      const rawSample = rawInput.value.slice(0, 600);
+      const ygnSample = ygnOutput.value.slice(0, 600);
+
+      const subject = `[YGN Notary Anomaly] [${type}]`;
+      const body = `### Transcription Anomaly Report\nType: ${type}\nNotes: ${notes}\nTimestamp: ${new Date().toISOString()}\n\n--- Raw Input Snippet ---\n${rawSample}\n\n--- Flawed YGN Output Snippet ---\n${ygnSample}\n\n---\nReported via Haunted Labs Match Notary`;
+
+      localStorage.setItem("notary_report_last_time", Date.now().toString());
+      reportModal.style.display = "none";
+      showToast("Report submitted! 15m cooldown active.");
+
+      window.location.href = `mailto:niloedson.ms@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   </script>
 </body>
