@@ -1,0 +1,22 @@
+{
+  "name": "liamilena-corretora",
+  "version": "1.0.0",
+  "description": "Portfólio e Sistema Stateless de Triagem de Leads Imobiliários para Liamilena",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "test:watch": "node --test --watch tests/*.test.js",
+    "build": "node src/build/encrypt-pipeline.js"
+  },
+  "keywords": [
+    "real-estate",
+    "security",
+    "stateless",
+    "lgpd",
+    "datajud",
+    "osint"
+  ],
+  "author": "Liamilena",
+  "license": "UNLICENSED",
+  "private": true
+}
