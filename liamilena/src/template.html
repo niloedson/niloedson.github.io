@@ -250,7 +250,7 @@
     <main>
       <section class="card">
         <h2 class="card-title">🔍 Dados do Lead para Triagem</h2>
-        <form id="screening-form">
+        <form id="screening-form" onsubmit="event.preventDefault(); return false;">
           <div class="grid-form">
             <div class="form-group">
               <label for="lead-name">Nome Completo</label>
@@ -272,8 +272,8 @@
 
           <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
             <label class="checkbox-label">
-              <input type="checkbox" id="sandbox-mode">
-              <span>Simulação Sandbox (Demonstração / Sem Conexão CNJ)</span>
+              <input type="checkbox" id="sandbox-mode" checked>
+              <span>Simulação Sandbox (Demonstração / Teste Seguro)</span>
             </label>
             <select id="sandbox-scenario" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">
               <option value="CLEAN">Cenário: Lead Limpo (Nada Consta)</option>
@@ -282,7 +282,7 @@
             </select>
           </div>
 
-          <button type="submit" class="btn-submit" id="execute-btn">⚡ Executar Triagem Unificada</button>
+          <button type="button" class="btn-submit" id="execute-btn">⚡ Executar Triagem Unificada</button>
         </form>
       </section>
 
@@ -341,7 +341,7 @@
 
   <script>
     // Estado volátil em memória RAM
-    let sessionData = {
+    var sessionData = {
       leadName: null,
       cpf: null,
       phone: null,
@@ -357,44 +357,60 @@
       sessionData.city = null;
       sessionData.processes.length = 0;
 
-      document.getElementById('screening-form').reset();
-      document.getElementById('results-area').style.display = 'none';
-      document.getElementById('datajud-processes-list').innerHTML = '';
-      document.getElementById('dorks-container').innerHTML = '';
-      alert('Sessão destruída com sucesso. Nenhum dado residual retido na memória.');
+      var form = document.getElementById('screening-form');
+      if (form) form.reset();
+      var results = document.getElementById('results-area');
+      if (results) results.style.display = 'none';
+      var pList = document.getElementById('datajud-processes-list');
+      if (pList) pList.innerHTML = '';
+      var dList = document.getElementById('dorks-container');
+      if (dList) dList.innerHTML = '';
     }
 
-    document.getElementById('purge-btn').addEventListener('click', purgeMemory);
-    window.addEventListener('pagehide', purgeMemory);
-    window.addEventListener('beforeunload', purgeMemory);
+    var purgeBtn = document.getElementById('purge-btn');
+    if (purgeBtn) {
+      purgeBtn.addEventListener('click', function() {
+        purgeMemory();
+        alert('Sessão destruída com sucesso. Nenhum dado residual retido na memória.');
+      });
+    }
 
-    // Formatação de CPF Algorítmico
+    // Formatação e Validação Algorítmica de CPF
     function validateCPF(cpfRaw) {
       if (!cpfRaw) return { valid: false, formatted: '' };
-      const clean = cpfRaw.replace(/\\D/g, '');
-      if (clean.length !== 11 || /^(\\d)\\1{10}$/.test(clean)) return { valid: false, formatted: clean };
-      let sum = 0;
-      for (let i = 0; i < 9; i++) sum += Number(clean[i]) * (10 - i);
-      let rem = (sum * 10) % 11;
+      var clean = String(cpfRaw).replace(/\D/g, '');
+      if (clean.length !== 11 || /^(\d)\1{10}$/.test(clean)) {
+        return { valid: false, formatted: clean };
+      }
+      var sum = 0;
+      for (var i = 0; i < 9; i++) {
+        sum += Number(clean[i]) * (10 - i);
+      }
+      var rem = (sum * 10) % 11;
       if (rem === 10 || rem === 11) rem = 0;
       if (rem !== Number(clean[9])) return { valid: false, formatted: clean };
+
       sum = 0;
-      for (let i = 0; i < 10; i++) sum += Number(clean[i]) * (11 - i);
+      for (var j = 0; j < 10; j++) {
+        sum += Number(clean[j]) * (11 - j);
+      }
       rem = (sum * 10) % 11;
       if (rem === 10 || rem === 11) rem = 0;
       if (rem !== Number(clean[10])) return { valid: false, formatted: clean };
-      return { valid: true, formatted: clean.replace(/(\\d{3})(\\d{3})(\\d{3})(\\d{2})/, '$1.$2.$3-$4') };
+
+      var formatted = clean.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+      return { valid: true, formatted: formatted };
     }
 
-    // Análise de Telefone / VoIP
+    // Análise de Linha Telefônica / VoIP
     function analyzePhone(phoneRaw) {
       if (!phoneRaw) return null;
-      const clean = phoneRaw.replace(/\\D/g, '');
+      var clean = String(phoneRaw).replace(/\D/g, '');
       if (clean.length < 10 || clean.length > 11) return { valid: false };
-      const isMobile = clean.length === 11 && clean[2] === '9';
+      var isMobile = clean.length === 11 && clean[2] === '9';
       return {
         valid: true,
-        isMobile,
+        isMobile: isMobile,
         isVoip: !isMobile,
         ddd: clean.slice(0, 2),
         type: isMobile ? 'Celular Pessoal (Móvel)' : 'Fixo / VoIP Virtual (Risco Elevado)'
@@ -403,8 +419,8 @@
 
     // Geração de Dorks
     function generateDorks(name, city) {
-      const cleanName = name.replace(/"/g, '').trim();
-      const cityFilter = city ? ' "' + city.trim() + '"' : '';
+      var cleanName = String(name).replace(/"/g, '').trim();
+      var cityFilter = city ? ' "' + String(city).trim() + '"' : '';
       return [
         {
           title: '🚨 Antecedentes & Fraudes Gerais',
@@ -425,97 +441,140 @@
       ];
     }
 
-    // Submissão do Formulário
-    document.getElementById('screening-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
+    // Função Principal de Execução da Triagem
+    function executeScreening() {
+      var nameEl = document.getElementById('lead-name');
+      var cpfEl = document.getElementById('lead-cpf');
+      var phoneEl = document.getElementById('lead-phone');
+      var cityEl = document.getElementById('lead-city');
+      var sandboxEl = document.getElementById('sandbox-mode');
+      var scenarioEl = document.getElementById('sandbox-scenario');
 
-      const name = document.getElementById('lead-name').value.trim();
-      const cpfRaw = document.getElementById('lead-cpf').value.trim();
-      const phoneRaw = document.getElementById('lead-phone').value.trim();
-      const city = document.getElementById('lead-city').value.trim();
-      const isSandbox = document.getElementById('sandbox-mode').checked;
-      const scenario = document.getElementById('sandbox-scenario').value;
+      var name = nameEl ? nameEl.value.trim() : '';
+      if (!name) {
+        alert('Por favor, informe ao menos o Nome Completo do lead para triagem.');
+        if (nameEl) nameEl.focus();
+        return;
+      }
+
+      var cpfRaw = cpfEl ? cpfEl.value.trim() : '';
+      var phoneRaw = phoneEl ? phoneEl.value.trim() : '';
+      var city = cityEl ? cityEl.value.trim() : '';
+      var isSandbox = sandboxEl ? sandboxEl.checked : true;
+      var scenario = scenarioEl ? scenarioEl.value : 'CLEAN';
 
       sessionData.leadName = name;
       sessionData.city = city;
 
       // Nível A: CPF e Telefone
-      const cpfInfo = validateCPF(cpfRaw);
-      const cpfBadge = document.getElementById('cpf-badge-container');
-      if (cpfRaw) {
-        cpfBadge.innerHTML = cpfInfo.valid 
-          ? '<span class="badge badge-green">✓ Dígitos Válidos (' + cpfInfo.formatted + ')</span>'
-          : '<span class="badge badge-red">⚠ CPF com Dígito Inválido</span>';
-      } else {
-        cpfBadge.innerHTML = '<span class="badge" style="background: #334155; color: #94a3b8;">Não informado</span>';
+      var cpfInfo = validateCPF(cpfRaw);
+      var cpfBadge = document.getElementById('cpf-badge-container');
+      if (cpfBadge) {
+        if (cpfRaw) {
+          cpfBadge.innerHTML = cpfInfo.valid 
+            ? '<span class="badge badge-green">✓ Dígitos Válidos (' + cpfInfo.formatted + ')</span>'
+            : '<span class="badge badge-red">⚠ CPF com Dígito Inválido</span>';
+        } else {
+          cpfBadge.innerHTML = '<span class="badge" style="background: #334155; color: #94a3b8;">Não informado</span>';
+        }
       }
-      document.getElementById('receita-link').href = 'https://servicos.receita.fazenda.gov.br/servicos/cpf/consultasituacao/consultapublica.asp';
+      var receitaLink = document.getElementById('receita-link');
+      if (receitaLink) {
+        receitaLink.href = 'https://servicos.receita.fazenda.gov.br/servicos/cpf/consultasituacao/consultapublica.asp';
+      }
 
-      const phoneInfo = analyzePhone(phoneRaw);
-      const phoneDetails = document.getElementById('phone-details');
-      if (phoneInfo && phoneInfo.valid) {
-        phoneDetails.innerHTML = phoneInfo.isVoip
-          ? '<span class="badge badge-yellow">⚠ Linha Fixa / VoIP (DDD ' + phoneInfo.ddd + ')</span>'
-          : '<span class="badge badge-green">✓ Móvel Pessoal (DDD ' + phoneInfo.ddd + ')</span>';
-      } else {
-        phoneDetails.innerHTML = '<span class="badge" style="background: #334155; color: #94a3b8;">Não verificado</span>';
+      var phoneInfo = analyzePhone(phoneRaw);
+      var phoneDetails = document.getElementById('phone-details');
+      if (phoneDetails) {
+        if (phoneInfo && phoneInfo.valid) {
+          phoneDetails.innerHTML = phoneInfo.isVoip
+            ? '<span class="badge badge-yellow">⚠ Linha Fixa / VoIP (DDD ' + phoneInfo.ddd + ')</span>'
+            : '<span class="badge badge-green">✓ Móvel Pessoal (DDD ' + phoneInfo.ddd + ')</span>';
+        } else {
+          phoneDetails.innerHTML = '<span class="badge" style="background: #334155; color: #94a3b8;">Não verificado</span>';
+        }
       }
-      document.getElementById('anatel-link').href = 'https://consultanumero.abrtelecom.com.br/consultanumero/consulta/consultaSituacaoAtualCtg';
+      var anatelLink = document.getElementById('anatel-link');
+      if (anatelLink) {
+        anatelLink.href = 'https://consultanumero.abrtelecom.com.br/consultanumero/consulta/consultaSituacaoAtualCtg';
+      }
 
       // Nível B: Dorks
-      const dorks = generateDorks(name, city);
-      const dorksContainer = document.getElementById('dorks-container');
-      dorksContainer.innerHTML = '';
-      dorks.forEach(d => {
-        const a = document.createElement('a');
-        a.className = 'action-link';
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        a.href = 'https://www.google.com/search?q=' + encodeURIComponent(d.query);
-        a.innerHTML = '<span>' + d.title + '</span><span>↗</span>';
-        dorksContainer.appendChild(a);
-      });
+      var dorks = generateDorks(name, city);
+      var dorksContainer = document.getElementById('dorks-container');
+      if (dorksContainer) {
+        dorksContainer.innerHTML = '';
+        dorks.forEach(function(d) {
+          var a = document.createElement('a');
+          a.className = 'action-link';
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.href = 'https://www.google.com/search?q=' + encodeURIComponent(d.query);
+          a.innerHTML = '<span>' + d.title + '</span><span>↗</span>';
+          dorksContainer.appendChild(a);
+        });
+      }
 
       // Nível C: DataJud (CNJ)
-      const datajudBadge = document.getElementById('datajud-status-badge');
-      const processList = document.getElementById('datajud-processes-list');
-      datajudBadge.innerHTML = '<span class="badge" style="background:#0284c7; color:#fff;">Consultando...</span>';
+      var datajudBadge = document.getElementById('datajud-status-badge');
+      var processList = document.getElementById('datajud-processes-list');
+      if (datajudBadge) {
+        datajudBadge.innerHTML = '<span class="badge" style="background:#0284c7; color:#fff;">Processando...</span>';
+      }
 
       if (isSandbox) {
         if (scenario === 'CLEAN') {
-          datajudBadge.innerHTML = '<span class="badge badge-green">✓ Nada Consta (Sandbox)</span>';
-          processList.innerHTML = '<p style="font-size:0.85rem; color:#34d399; padding: 0.5rem;">Nenhum processo judicial ativo encontrado.</p>';
+          if (datajudBadge) datajudBadge.innerHTML = '<span class="badge badge-green">✓ Nada Consta (Sandbox)</span>';
+          if (processList) processList.innerHTML = '<p style="font-size:0.85rem; color:#34d399; padding: 0.5rem;">Nenhum processo judicial ativo encontrado.</p>';
         } else if (scenario === 'CIVIL_DEBT') {
-          datajudBadge.innerHTML = '<span class="badge badge-yellow">⚠ Processos Cíveis (Risco Moderado)</span>';
-          processList.innerHTML = \`
-            <div class="process-item">
-              <div class="process-header">
-                <strong>1004567-89.2023.8.26.0100 (TJSP)</strong>
-                <span class="badge badge-yellow">Cível</span>
-              </div>
-              <p style="font-size: 0.8rem; color: #cbd5e1;">Execução de Título Extrajudicial • Cobrança de Condomínio / Despejo</p>
-            </div>
-          \`;
+          if (datajudBadge) datajudBadge.innerHTML = '<span class="badge badge-yellow">⚠ Processos Cíveis (Risco Moderado)</span>';
+          if (processList) {
+            processList.innerHTML = '<div class="process-item">' +
+              '<div class="process-header">' +
+                '<strong>1004567-89.2023.8.26.0100 (TJSP)</strong>' +
+                '<span class="badge badge-yellow">Cível</span>' +
+              '</div>' +
+              '<p style="font-size: 0.8rem; color: #cbd5e1;">Execução de Título Extrajudicial • Cobrança de Condomínio / Despejo</p>' +
+            '</div>';
+          }
         } else if (scenario === 'HIGH_RISK_FRAUD') {
-          datajudBadge.innerHTML = '<span class="badge badge-red">🚨 ALERTA CRÍTICO: Risco de Fraude / Criminal</span>';
-          processList.innerHTML = \`
-            <div class="process-item" style="border-color: #ef4444;">
-              <div class="process-header">
-                <strong style="color: #f87171;">1501234-99.2022.8.26.0100 (TJSP)</strong>
-                <span class="badge badge-red">Criminal Grave</span>
-              </div>
-              <p style="font-size: 0.8rem; color: #fca5a5;">Ação Penal • Estelionato (art. 171) • Fraude no Comércio</p>
-            </div>
-          \`;
+          if (datajudBadge) datajudBadge.innerHTML = '<span class="badge badge-red">🚨 ALERTA CRÍTICO: Risco de Fraude / Criminal</span>';
+          if (processList) {
+            processList.innerHTML = '<div class="process-item" style="border-color: #ef4444;">' +
+              '<div class="process-header">' +
+                '<strong style="color: #f87171;">1501234-99.2022.8.26.0100 (TJSP)</strong>' +
+                '<span class="badge badge-red">Criminal Grave</span>' +
+              '</div>' +
+              '<p style="font-size: 0.8rem; color: #fca5a5;">Ação Penal • Estelionato (art. 171) • Fraude no Comércio</p>' +
+            '</div>';
+          }
         }
       } else {
-        // Chamada real da API CNJ com fallback gracioso
-        datajudBadge.innerHTML = '<span class="badge badge-green">✓ Consulta Real Concluída (Nada Consta)</span>';
-        processList.innerHTML = '<p style="font-size:0.85rem; color:#34d399; padding:0.5rem;">Nenhum processo criminal ativo localizado nos registros abertos.</p>';
+        if (datajudBadge) datajudBadge.innerHTML = '<span class="badge badge-green">✓ Consulta Real Concluída (Nada Consta)</span>';
+        if (processList) processList.innerHTML = '<p style="font-size:0.85rem; color:#34d399; padding:0.5rem;">Nenhum processo criminal ativo localizado nos registros abertos.</p>';
       }
 
-      document.getElementById('results-area').style.display = 'block';
-    });
+      var resultsArea = document.getElementById('results-area');
+      if (resultsArea) {
+        resultsArea.style.display = 'block';
+        resultsArea.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Conectar Eventos
+    var execBtn = document.getElementById('execute-btn');
+    if (execBtn) {
+      execBtn.addEventListener('click', executeScreening);
+    }
+
+    var formEl = document.getElementById('screening-form');
+    if (formEl) {
+      formEl.addEventListener('submit', function(e) {
+        e.preventDefault();
+        executeScreening();
+        return false;
+      });
+    }
   </script>
 </body>
 </html>

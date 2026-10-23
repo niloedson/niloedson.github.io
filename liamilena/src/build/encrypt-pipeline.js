@@ -126,7 +126,7 @@ export function generateShellHtml(encryptedBundleJson) {
     <div class="icon">🔒</div>
     <h1>Liamilena • Terminal Seguro</h1>
     <p class="desc">Sistema Stateless de Triagem de Leads Imobiliários. Descriptografia direta em memória RAM (AES-256).</p>
-    <form id="auth-form">
+    <form id="auth-form" onsubmit="event.preventDefault(); return false;">
       <div class="form-group">
         <label for="pass">Chave Mestre de Acesso</label>
         <input type="password" id="pass" placeholder="••••••••••••" autocomplete="current-password" required autofocus>
@@ -136,8 +136,6 @@ export function generateShellHtml(encryptedBundleJson) {
     </form>
     <span class="badge">AES-256-GCM • Zero Storage • LGPD Compliant</span>
   </div>
-
-  <div id="app-root" style="display: none; width: 100%;"></div>
 
   <script>
     const ENCRYPTED_PAYLOAD = \`${safeBundle}\`;
@@ -206,23 +204,13 @@ export function generateShellHtml(encryptedBundleJson) {
       try {
         const decryptedHtml = await decryptInRam(ENCRYPTED_PAYLOAD, password);
         
-        // Destrói a senha do input imediatamente
+        // Destrói a senha digitada imediatamente da memória do input
         passInput.value = '';
 
-        // Oculta tela de login e monta dashboard em memória RAM
-        document.getElementById('auth-container').style.display = 'none';
-        const root = document.getElementById('app-root');
-        root.style.display = 'block';
-        root.innerHTML = decryptedHtml;
-
-        // Executa scripts presentes no HTML descriptografado
-        const scripts = root.querySelectorAll('script');
-        scripts.forEach((s) => {
-          const runScript = document.createElement('script');
-          if (s.type) runScript.type = s.type;
-          runScript.textContent = s.textContent;
-          document.body.appendChild(runScript);
-        });
+        // Substitui o documento estático pelo conteúdo completo da dashboard na RAM
+        document.open();
+        document.write(decryptedHtml);
+        document.close();
 
       } catch (err) {
         submitBtn.disabled = false;
