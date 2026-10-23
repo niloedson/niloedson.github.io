@@ -5,12 +5,14 @@ import {
   getReceitaFederalLink,
   analyzePhoneNumber,
   getAnatelConsultLink,
+  getWhatsAppLink,
+  getBnmpLink,
+  getPoliciaFederalLink,
 } from '../src/modules/deep-links.js';
 
 describe('Level A: Deep Links & Identity Verification', () => {
   describe('CPF Validation and Formatting', () => {
     test('should validate a correct CPF with valid check digits', () => {
-      // 52998224725 is a known valid algorithmic CPF format
       const validCpf = '529.982.247-25';
       const result = validateAndFormatCPF(validCpf);
       assert.equal(result.valid, true);
@@ -54,6 +56,23 @@ describe('Level A: Deep Links & Identity Verification', () => {
     test('should generate Anatel / ABR Telecom deep link for carrier check', () => {
       const link = getAnatelConsultLink();
       assert.ok(link.includes('abrtelecom.com.br'));
+    });
+
+    test('should generate direct WhatsApp link without saving to contacts', () => {
+      const link = getWhatsAppLink('(11) 98765-4321');
+      assert.equal(link, 'https://wa.me/5511987654321');
+    });
+  });
+
+  describe('Police Records and Arrest Warrants', () => {
+    test('should generate direct link to BNMP (Banco Nacional de Mandados de Prisão - CNJ)', () => {
+      const link = getBnmpLink();
+      assert.ok(link.includes('portalbnmp.cnj.jus.br'));
+    });
+
+    test('should generate direct link to Polícia Federal Antecedentes Criminais', () => {
+      const link = getPoliciaFederalLink();
+      assert.ok(link.includes('antecedentes.dpf.gov.br'));
     });
   });
 });

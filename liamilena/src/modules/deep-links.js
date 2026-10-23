@@ -1,6 +1,6 @@
 /**
  * Módulo Nível A: Deep Links Governamentais e Análise de Linhas Telefônicas
- * Oferece validação de CPF e identificação de padrões de telecomunicação / VoIP.
+ * Oferece validação de CPF, telecomunicação, WhatsApp, BNMP e Antecedentes Criminais.
  */
 
 const DDD_REGIONS = {
@@ -128,4 +128,34 @@ export function analyzePhoneNumber(phoneRaw) {
  */
 export function getAnatelConsultLink() {
   return 'https://consultanumero.abrtelecom.com.br/consultanumero/consulta/consultaSituacaoAtualCtg';
+}
+
+/**
+ * Gera link direto para conversa de WhatsApp sem precisar salvar o contato.
+ * Permite visualizar foto de perfil, status e biografia pública do lead.
+ * @param {string} phoneRaw
+ * @returns {string}
+ */
+export function getWhatsAppLink(phoneRaw) {
+  if (!phoneRaw || typeof phoneRaw !== 'string') return '#';
+  const clean = phoneRaw.replace(/\D/g, '');
+  if (clean.length < 10) return '#';
+  return `https://wa.me/55${clean}`;
+}
+
+/**
+ * Retorna link direto para o BNMP 3.0 (Banco Nacional de Mandados de Prisão - CNJ).
+ * Consulta pública aberta nacional para mandados de prisão em aberto.
+ * @returns {string}
+ */
+export function getBnmpLink() {
+  return 'https://portalbnmp.cnj.jus.br/#/pesquisa-peca';
+}
+
+/**
+ * Retorna link oficial para emissão de Certidão de Antecedentes Criminais da Polícia Federal.
+ * @returns {string}
+ */
+export function getPoliciaFederalLink() {
+  return 'https://antecedentes.dpf.gov.br/antecedentes-criminais/certidao';
 }

@@ -4,6 +4,8 @@ import {
   buildGoogleSearchUrl,
   buildDorkQuery,
   generateOsintSuite,
+  buildJusbrasilUrl,
+  buildEscavadorUrl,
 } from '../src/modules/osint-dorking.js';
 
 describe('Level B: OSINT & Google Dorking Engine', () => {
@@ -36,10 +38,36 @@ describe('Level B: OSINT & Google Dorking Engine', () => {
     assert.ok(query.includes('procuração falsa') || query.includes('falso proprietário'));
   });
 
+  test('buildDorkQuery should generate social OSINT queries (LinkedIn, Instagram)', () => {
+    const linkedIn = buildDorkQuery(leadName, 'LINKEDIN');
+    assert.ok(linkedIn.includes('site:linkedin.com/in/'));
+    assert.ok(linkedIn.includes(`"${leadName}"`));
+
+    const instagram = buildDorkQuery(leadName, 'INSTAGRAM');
+    assert.ok(instagram.includes('site:instagram.com'));
+    assert.ok(instagram.includes(`"${leadName}"`));
+  });
+
+  test('buildDorkQuery should generate corporate/business ownership queries', () => {
+    const corp = buildDorkQuery(leadName, 'EMPRESAS_SOCIOS');
+    assert.ok(corp.includes('casadosdados.com.br') || corp.includes('quadro societário'));
+    assert.ok(corp.includes(`"${leadName}"`));
+  });
+
+  test('buildJusbrasilUrl and buildEscavadorUrl should generate direct legal search links', () => {
+    const jusLink = buildJusbrasilUrl(leadName);
+    assert.ok(jusLink.startsWith('https://www.jusbrasil.com.br/busca?q='));
+    assert.ok(jusLink.includes(encodeURIComponent(leadName)));
+
+    const escavLink = buildEscavadorUrl(leadName);
+    assert.ok(escavLink.startsWith('https://www.escavador.com/busca?q='));
+    assert.ok(escavLink.includes(encodeURIComponent(leadName)));
+  });
+
   test('generateOsintSuite should return a complete ready-to-click suite of OSINT searches', () => {
     const suite = generateOsintSuite(leadName, { city: 'São Paulo' });
     assert.ok(Array.isArray(suite));
-    assert.ok(suite.length >= 4);
+    assert.ok(suite.length >= 6);
 
     const first = suite[0];
     assert.ok(first.id);

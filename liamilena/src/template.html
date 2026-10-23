@@ -16,6 +16,9 @@
       --danger: #ef4444;
       --warning: #f59e0b;
       --success: #10b981;
+      --whatsapp: #22c55e;
+      --whatsapp-hover: #16a34a;
+      --linkedin: #0a66c2;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,7 +32,7 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
@@ -107,7 +110,7 @@
 
     .grid-form {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
       margin-bottom: 1rem;
     }
@@ -201,6 +204,27 @@
       border-color: #38bdf8;
     }
 
+    .action-link.whatsapp-link {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: var(--whatsapp);
+      color: #4ade80;
+    }
+    .action-link.whatsapp-link:hover {
+      background: var(--whatsapp);
+      color: #fff;
+    }
+
+    .tip-box {
+      background: rgba(14, 165, 233, 0.08);
+      border: 1px solid rgba(14, 165, 233, 0.3);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      color: #bae6fd;
+      line-height: 1.4;
+    }
+
     .process-item {
       background: #090d16;
       border: 1px solid var(--border);
@@ -214,6 +238,16 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 0.4rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.85rem;
+      margin-bottom: 0.35rem;
     }
 
     .footer-stateless {
@@ -239,7 +273,7 @@
     <header>
       <div class="brand">
         <h1>LIAMILENA • IMÓVEIS DE ALTO PADRÃO</h1>
-        <p>Terminal de Triagem Pré-Atendimento & Prevenção de Fraudes</p>
+        <p>Terminal de Triagem Pré-Atendimento, Segurança & Reputação de Leads</p>
       </div>
       <div class="header-actions">
         <button type="button" class="btn-outline" onclick="window.print()">🖨️ Imprimir Dossiê</button>
@@ -257,8 +291,12 @@
               <input type="text" id="lead-name" placeholder="Ex: Roberto Carlos da Silva" required>
             </div>
             <div class="form-group">
-              <label for="lead-cpf">CPF (Opcional)</label>
+              <label for="lead-cpf">CPF</label>
               <input type="text" id="lead-cpf" placeholder="000.000.000-00" maxlength="14">
+            </div>
+            <div class="form-group">
+              <label for="lead-birthdate">Data de Nascimento (Opcional)</label>
+              <input type="text" id="lead-birthdate" placeholder="DD/MM/AAAA" maxlength="10">
             </div>
             <div class="form-group">
               <label for="lead-phone">Telefone / WhatsApp</label>
@@ -288,44 +326,87 @@
 
       <div id="results-area" style="display: none;">
         <div class="results-grid">
-          <!-- Nível A: Cadastral & Telecom -->
+          <!-- Nível A: Identidade, Telecom & Antecedentes Policiais -->
           <section class="card">
-            <h2 class="card-title">🏛️ Nível A: Cadastral & Telecom</h2>
+            <h2 class="card-title">🏛️ Nível A: Identidade, Telecom & Polícia</h2>
+            
             <div id="cpf-result" style="margin-bottom: 1rem;">
               <p style="font-size: 0.85rem; color: var(--muted);">Validação de CPF:</p>
               <div id="cpf-badge-container" style="margin-top: 0.3rem;"></div>
               <a id="receita-link" href="#" target="_blank" rel="noopener noreferrer" class="action-link">
-                <span>Consulta Oficial Receita Federal</span>
+                <span>Consulta Situação Cadastral (Receita Federal)</span>
                 <span>↗</span>
               </a>
+              <p style="font-size: 0.7rem; color: #64748b; margin-top: 0.25rem;">*Exige CPF e Data de Nascimento no portal oficial.</p>
             </div>
 
-            <div id="phone-result">
-              <p style="font-size: 0.85rem; color: var(--muted);">Análise Telefônica:</p>
+            <div id="phone-result" style="margin-bottom: 1rem;">
+              <p style="font-size: 0.85rem; color: var(--muted);">Verificação Telefônica:</p>
               <div id="phone-details" style="font-size: 0.85rem; margin-top: 0.3rem;"></div>
+              <a id="whatsapp-link" href="#" target="_blank" rel="noopener noreferrer" class="action-link whatsapp-link" style="display: none;">
+                <span>💬 Abrir Conversa no WhatsApp (Ver Foto & Bio)</span>
+                <span>↗</span>
+              </a>
               <a id="anatel-link" href="#" target="_blank" rel="noopener noreferrer" class="action-link">
-                <span>Consulta Operadora (Anatel / ABR)</span>
+                <span>Consulta de Operadora / Portabilidade (Anatel)</span>
+                <span>↗</span>
+              </a>
+              <div class="tip-box">
+                <strong>💡 Dica de Validação de Titularidade (PIX):</strong>
+                Simule uma transferência de R$ 0,01 para este telefone no app do seu banco. A tela de confirmação revelará o <em>Nome Completo</em> e dígitos do CPF do titular registrado no Banco Central.
+              </div>
+            </div>
+
+            <div id="police-result">
+              <p style="font-size: 0.85rem; color: var(--muted);">Sistemas Policiais & Mandados:</p>
+              <a id="bnmp-link" href="https://portalbnmp.cnj.jus.br/#/pesquisa-peca" target="_blank" rel="noopener noreferrer" class="action-link" style="border-color: #ef4444; color: #fca5a5;">
+                <span>🚨 Banco Nacional de Mandados de Prisão (BNMP)</span>
+                <span>↗</span>
+              </a>
+              <a id="pf-link" href="https://antecedentes.dpf.gov.br/antecedentes-criminais/certidao" target="_blank" rel="noopener noreferrer" class="action-link">
+                <span>📄 Antecedentes Criminais (Polícia Federal)</span>
                 <span>↗</span>
               </a>
             </div>
           </section>
 
-          <!-- Nível B: Automação OSINT -->
+          <!-- Nível B: Redes Sociais & OSINT -->
           <section class="card">
-            <h2 class="card-title">🌐 Nível B: Automação OSINT (Dorks)</h2>
-            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem;">
-              Consultas booleanas em diários oficiais e fontes abertas:
-            </p>
-            <div id="dorks-container"></div>
+            <h2 class="card-title">🌐 Nível B: Redes Sociais & OSINT</h2>
+            
+            <p class="section-subtitle">💼 Redes Sociais & Reputação</p>
+            <div id="social-dorks-container"></div>
+
+            <p class="section-subtitle">🏢 Empresas & Sócios</p>
+            <div id="corp-dorks-container"></div>
+
+            <p class="section-subtitle">🚨 Riscos & Diários Oficiais</p>
+            <div id="fraud-dorks-container"></div>
           </section>
         </div>
 
-        <!-- Nível C: DataJud CNJ -->
+        <!-- Nível C: Tribunais & Bureaus (Jusbrasil, Escavador e DataJud) -->
         <section class="card" style="margin-top: 1.25rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-            <h2 class="card-title" style="margin-bottom: 0;">⚖️ Nível C: Metadados Processuais (DataJud CNJ)</h2>
+            <h2 class="card-title" style="margin-bottom: 0;">⚖️ Nível C: Processos Judiciais & Bureaus Abertos</h2>
             <div id="datajud-status-badge"></div>
           </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.75rem; margin-bottom: 1rem;">
+            <a id="jusbrasil-direct-btn" href="#" target="_blank" rel="noopener noreferrer" class="action-link" style="border-color: #38bdf8; background: rgba(56, 189, 248, 0.1);">
+              <span>🔍 Buscar no Jusbrasil (Todos os Tribunais)</span>
+              <span>↗</span>
+            </a>
+            <a id="escavador-direct-btn" href="#" target="_blank" rel="noopener noreferrer" class="action-link" style="border-color: #38bdf8; background: rgba(56, 189, 248, 0.1);">
+              <span>🔍 Buscar no Escavador (Diários de Justiça)</span>
+              <span>↗</span>
+            </a>
+          </div>
+
+          <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem;">
+            *Bureaus agregam decisões abertas de todas as instâncias (incluindo JEC e ações cíveis comuns).
+          </p>
+
           <div id="datajud-processes-list">
             <p style="font-size: 0.85rem; color: var(--muted);">Nenhum processo carregado.</p>
           </div>
@@ -344,6 +425,7 @@
     var sessionData = {
       leadName: null,
       cpf: null,
+      birthdate: null,
       phone: null,
       city: null,
       processes: []
@@ -353,6 +435,7 @@
     function purgeMemory() {
       sessionData.leadName = null;
       sessionData.cpf = null;
+      sessionData.birthdate = null;
       sessionData.phone = null;
       sessionData.city = null;
       sessionData.processes.length = 0;
@@ -363,8 +446,12 @@
       if (results) results.style.display = 'none';
       var pList = document.getElementById('datajud-processes-list');
       if (pList) pList.innerHTML = '';
-      var dList = document.getElementById('dorks-container');
-      if (dList) dList.innerHTML = '';
+      var sDorks = document.getElementById('social-dorks-container');
+      if (sDorks) sDorks.innerHTML = '';
+      var cDorks = document.getElementById('corp-dorks-container');
+      if (cDorks) cDorks.innerHTML = '';
+      var fDorks = document.getElementById('fraud-dorks-container');
+      if (fDorks) fDorks.innerHTML = '';
     }
 
     var purgeBtn = document.getElementById('purge-btn');
@@ -410,6 +497,7 @@
       var isMobile = clean.length === 11 && clean[2] === '9';
       return {
         valid: true,
+        clean: clean,
         isMobile: isMobile,
         isVoip: !isMobile,
         ddd: clean.slice(0, 2),
@@ -417,34 +505,11 @@
       };
     }
 
-    // Geração de Dorks
-    function generateDorks(name, city) {
-      var cleanName = String(name).replace(/"/g, '').trim();
-      var cityFilter = city ? ' "' + String(city).trim() + '"' : '';
-      return [
-        {
-          title: '🚨 Antecedentes & Fraudes Gerais',
-          query: '"' + cleanName + '"' + cityFilter + ' AND ("estelionato" OR "fraude" OR "processo" OR "golpe" OR "art. 171")'
-        },
-        {
-          title: '📜 Diários Oficiais & PDFs Públicos',
-          query: '"' + cleanName + '"' + cityFilter + ' filetype:pdf AND ("Réu" OR "Indiciado" OR "Executado" OR "Sentença" OR "Penhora")'
-        },
-        {
-          title: '🏢 Golpes no Setor Imobiliário',
-          query: '"' + cleanName + '" AND ("procuração falsa" OR "falso proprietário" OR "dupla venda" OR "CRECI" OR "despejo")'
-        },
-        {
-          title: '⚖️ Jusbrasil & Escavador',
-          query: '"' + cleanName + '"' + cityFilter + ' (site:jusbrasil.com.br OR site:escavador.com)'
-        }
-      ];
-    }
-
     // Função Principal de Execução da Triagem
     function executeScreening() {
       var nameEl = document.getElementById('lead-name');
       var cpfEl = document.getElementById('lead-cpf');
+      var birthEl = document.getElementById('lead-birthdate');
       var phoneEl = document.getElementById('lead-phone');
       var cityEl = document.getElementById('lead-city');
       var sandboxEl = document.getElementById('sandbox-mode');
@@ -458,6 +523,7 @@
       }
 
       var cpfRaw = cpfEl ? cpfEl.value.trim() : '';
+      var birthdate = birthEl ? birthEl.value.trim() : '';
       var phoneRaw = phoneEl ? phoneEl.value.trim() : '';
       var city = cityEl ? cityEl.value.trim() : '';
       var isSandbox = sandboxEl ? sandboxEl.checked : true;
@@ -465,6 +531,7 @@
 
       sessionData.leadName = name;
       sessionData.city = city;
+      sessionData.birthdate = birthdate;
 
       // Nível A: CPF e Telefone
       var cpfInfo = validateCPF(cpfRaw);
@@ -485,37 +552,114 @@
 
       var phoneInfo = analyzePhone(phoneRaw);
       var phoneDetails = document.getElementById('phone-details');
+      var waBtn = document.getElementById('whatsapp-link');
+
       if (phoneDetails) {
         if (phoneInfo && phoneInfo.valid) {
           phoneDetails.innerHTML = phoneInfo.isVoip
             ? '<span class="badge badge-yellow">⚠ Linha Fixa / VoIP (DDD ' + phoneInfo.ddd + ')</span>'
             : '<span class="badge badge-green">✓ Móvel Pessoal (DDD ' + phoneInfo.ddd + ')</span>';
+          
+          if (waBtn) {
+            waBtn.href = 'https://wa.me/55' + phoneInfo.clean;
+            waBtn.style.display = 'inline-flex';
+          }
         } else {
           phoneDetails.innerHTML = '<span class="badge" style="background: #334155; color: #94a3b8;">Não verificado</span>';
+          if (waBtn) waBtn.style.display = 'none';
         }
       }
-      var anatelLink = document.getElementById('anatel-link');
-      if (anatelLink) {
-        anatelLink.href = 'https://consultanumero.abrtelecom.com.br/consultanumero/consulta/consultaSituacaoAtualCtg';
-      }
 
-      // Nível B: Dorks
-      var dorks = generateDorks(name, city);
-      var dorksContainer = document.getElementById('dorks-container');
-      if (dorksContainer) {
-        dorksContainer.innerHTML = '';
-        dorks.forEach(function(d) {
+      // Nível B: Dorks Separados por Categoria
+      var cleanName = name.replace(/"/g, '').trim();
+      var cityFilter = city ? ' "' + city.trim() + '"' : '';
+
+      // Redes Sociais
+      var socialDorks = [
+        {
+          title: 'LinkedIn: Perfil Profissional & Cargo',
+          query: 'site:linkedin.com/in/ "' + cleanName + '"' + cityFilter
+        },
+        {
+          title: 'Instagram: Perfil Pessoal & Estilo de Vida',
+          query: 'site:instagram.com "' + cleanName + '"' + cityFilter
+        }
+      ];
+      var sContainer = document.getElementById('social-dorks-container');
+      if (sContainer) {
+        sContainer.innerHTML = '';
+        socialDorks.forEach(function(d) {
           var a = document.createElement('a');
           a.className = 'action-link';
           a.target = '_blank';
           a.rel = 'noopener noreferrer';
           a.href = 'https://www.google.com/search?q=' + encodeURIComponent(d.query);
           a.innerHTML = '<span>' + d.title + '</span><span>↗</span>';
-          dorksContainer.appendChild(a);
+          sContainer.appendChild(a);
         });
       }
 
-      // Nível C: DataJud (CNJ)
+      // Empresas e Sócios
+      var corpDorks = [
+        {
+          title: 'Sócios & CNPJs Ativos (Casa dos Dados)',
+          query: '"' + cleanName + '" (site:casadosdados.com.br OR "quadro societário" OR "sócio administrador")'
+        }
+      ];
+      var cContainer = document.getElementById('corp-dorks-container');
+      if (cContainer) {
+        cContainer.innerHTML = '';
+        corpDorks.forEach(function(d) {
+          var a = document.createElement('a');
+          a.className = 'action-link';
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.href = 'https://www.google.com/search?q=' + encodeURIComponent(d.query);
+          a.innerHTML = '<span>' + d.title + '</span><span>↗</span>';
+          cContainer.appendChild(a);
+        });
+      }
+
+      // Riscos e Fraudes
+      var fraudDorks = [
+        {
+          title: '🚨 Antecedentes & Fraudes Gerais',
+          query: '"' + cleanName + '"' + cityFilter + ' AND ("estelionato" OR "fraude" OR "processo" OR "golpe" OR "art. 171")'
+        },
+        {
+          title: '🏢 Golpes no Setor Imobiliário (Procuração Falsa / Despejo)',
+          query: '"' + cleanName + '" AND ("procuração falsa" OR "falso proprietário" OR "dupla venda" OR "CRECI" OR "despejo")'
+        },
+        {
+          title: '📜 Diários Oficiais & PDFs Públicos (Réu ou Executado)',
+          query: '"' + cleanName + '"' + cityFilter + ' filetype:pdf AND ("Réu" OR "Indiciado" OR "Executado" OR "Sentença" OR "Penhora")'
+        }
+      ];
+      var fContainer = document.getElementById('fraud-dorks-container');
+      if (fContainer) {
+        fContainer.innerHTML = '';
+        fraudDorks.forEach(function(d) {
+          var a = document.createElement('a');
+          a.className = 'action-link';
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.href = 'https://www.google.com/search?q=' + encodeURIComponent(d.query);
+          a.innerHTML = '<span>' + d.title + '</span><span>↗</span>';
+          fContainer.appendChild(a);
+        });
+      }
+
+      // Nível C: Jusbrasil e Escavador Diretos
+      var jusBtn = document.getElementById('jusbrasil-direct-btn');
+      if (jusBtn) {
+        jusBtn.href = 'https://www.jusbrasil.com.br/busca?q=' + encodeURIComponent(cleanName);
+      }
+      var escavBtn = document.getElementById('escavador-direct-btn');
+      if (escavBtn) {
+        escavBtn.href = 'https://www.escavador.com/busca?q=' + encodeURIComponent(cleanName);
+      }
+
+      // Nível C: DataJud Status & Sandbox
       var datajudBadge = document.getElementById('datajud-status-badge');
       var processList = document.getElementById('datajud-processes-list');
       if (datajudBadge) {
@@ -525,7 +669,7 @@
       if (isSandbox) {
         if (scenario === 'CLEAN') {
           if (datajudBadge) datajudBadge.innerHTML = '<span class="badge badge-green">✓ Nada Consta (Sandbox)</span>';
-          if (processList) processList.innerHTML = '<p style="font-size:0.85rem; color:#34d399; padding: 0.5rem;">Nenhum processo judicial ativo encontrado.</p>';
+          if (processList) processList.innerHTML = '<p style="font-size:0.85rem; color:#34d399; padding: 0.5rem;">Nenhum processo judicial ativo encontrado nos filtros restritivos.</p>';
         } else if (scenario === 'CIVIL_DEBT') {
           if (datajudBadge) datajudBadge.innerHTML = '<span class="badge badge-yellow">⚠ Processos Cíveis (Risco Moderado)</span>';
           if (processList) {
@@ -550,8 +694,8 @@
           }
         }
       } else {
-        if (datajudBadge) datajudBadge.innerHTML = '<span class="badge badge-green">✓ Consulta Real Concluída (Nada Consta)</span>';
-        if (processList) processList.innerHTML = '<p style="font-size:0.85rem; color:#34d399; padding:0.5rem;">Nenhum processo criminal ativo localizado nos registros abertos.</p>';
+        if (datajudBadge) datajudBadge.innerHTML = '<span class="badge badge-green">✓ Bureaus Conectados</span>';
+        if (processList) processList.innerHTML = '<p style="font-size:0.85rem; color:#94a3b8; padding:0.5rem;">Utilize os botões do Jusbrasil e Escavador acima para visualizar o histórico processual completo do lead em todas as instâncias.</p>';
       }
 
       var resultsArea = document.getElementById('results-area');

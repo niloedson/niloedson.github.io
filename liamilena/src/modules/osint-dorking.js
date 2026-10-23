@@ -1,6 +1,6 @@
 /**
  * Módulo Nível B: Automação OSINT (Google Dorking para Triagem Imobiliária)
- * Constrói consultas lógicas avançadas para varredura de certidões, diários oficiais e riscos criminais.
+ * Constrói consultas lógicas avançadas para varredura de certidões, diários oficiais, redes sociais e empresas.
  */
 
 /**
@@ -16,9 +16,29 @@ export function buildGoogleSearchUrl(query) {
 }
 
 /**
+ * Gera URL de busca direta no Jusbrasil (sem barreiras de CORS).
+ * @param {string} name
+ * @returns {string}
+ */
+export function buildJusbrasilUrl(name) {
+  if (!name || typeof name !== 'string') return '#';
+  return `https://www.jusbrasil.com.br/busca?q=${encodeURIComponent(name.trim())}`;
+}
+
+/**
+ * Gera URL de busca direta no Escavador.
+ * @param {string} name
+ * @returns {string}
+ */
+export function buildEscavadorUrl(name) {
+  if (!name || typeof name !== 'string') return '#';
+  return `https://www.escavador.com/busca?q=${encodeURIComponent(name.trim())}`;
+}
+
+/**
  * Constrói queries booleanas direcionadas conforme o tipo de investigação de antecedentes.
  * @param {string} leadName
- * @param {'CRIME_FRAUD'|'DIARIOS_OFICIAIS'|'REAL_ESTATE_SCAMS'|'JUSBRASIL_TRIBUNAIS'} type
+ * @param {'CRIME_FRAUD'|'DIARIOS_OFICIAIS'|'REAL_ESTATE_SCAMS'|'JUSBRASIL_TRIBUNAIS'|'LINKEDIN'|'INSTAGRAM'|'EMPRESAS_SOCIOS'} type
  * @param {{ city?: string }} [options={}]
  * @returns {string}
  */
@@ -43,6 +63,15 @@ export function buildDorkQuery(leadName, type, options = {}) {
 
     case 'REAL_ESTATE_SCAMS':
       return `"${cleanName}" AND ("procuração falsa" OR "falso proprietário" OR "dupla venda" OR "CRECI" OR "despejo")`;
+
+    case 'LINKEDIN':
+      return `site:linkedin.com/in/ "${cleanName}"${cityFilter}`;
+
+    case 'INSTAGRAM':
+      return `site:instagram.com "${cleanName}"${cityFilter}`;
+
+    case 'EMPRESAS_SOCIOS':
+      return `"${cleanName}" (site:casadosdados.com.br OR "quadro societário" OR "sócio administrador")`;
 
     case 'JUSBRASIL_TRIBUNAIS':
       return `"${cleanName}"${cityFilter} (site:jusbrasil.com.br OR site:escavador.com)`;
@@ -91,8 +120,29 @@ export function generateOsintSuite(leadName, options = {}) {
       description: 'Filtra alertas de procurações falsas, falso proprietário, ausência de CRECI ou despejos.',
     },
     {
+      id: 'linkedin-profile',
+      title: 'LinkedIn (Perfil Profissional & Cargo)',
+      category: 'Redes Sociais & Reputação',
+      type: 'LINKEDIN',
+      description: 'Localiza o histórico de trabalho, empresa atual e conexões profissionais do lead.',
+    },
+    {
+      id: 'instagram-profile',
+      title: 'Instagram (Presença Digital & Estilo de Vida)',
+      category: 'Redes Sociais & Reputação',
+      type: 'INSTAGRAM',
+      description: 'Busca o perfil pessoal ou institucional do lead na Meta.',
+    },
+    {
+      id: 'empresas-socios',
+      title: 'Sócios & CNPJs Ativos (Casa dos Dados)',
+      category: 'Patrimonial & Negócios',
+      type: 'EMPRESAS_SOCIOS',
+      description: 'Verifica se a pessoa possui empresas, quadro societário ou registros de CNPJ.',
+    },
+    {
       id: 'jusbrasil-tribunais',
-      title: 'Jusbrasil & Escavador',
+      title: 'Jusbrasil & Escavador (Indexação Aberta)',
       category: 'Bureaus Jurídicos Abertos',
       type: 'JUSBRASIL_TRIBUNAIS',
       description: 'Consulta páginas públicas agregadas de tribunais estaduais e federais.',
