@@ -73,8 +73,8 @@ describe('Level A: Deep Links & Identity Verification', () => {
 
     test('should generate active official link to Polícia Federal Antecedentes Criminais', () => {
       const link = getPoliciaFederalLink();
-      assert.ok(link.includes('servicos.dpf.gov.br') || link.includes('gov.br'));
-      assert.ok(link.includes('antecedentes-criminais'));
+      assert.ok(link.includes('servicos.pf.gov.br') || link.includes('gov.br'));
+      assert.ok(link.includes('epol-sinic-publico'));
     });
 
     test('should generate direct link to TJAM Certidão Criminal (Amazonas)', () => {

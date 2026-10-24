@@ -153,11 +153,11 @@ export function getBnmpLink() {
 }
 
 /**
- * Retorna link oficial para emissão de Certidão de Antecedentes Criminais da Polícia Federal.
+ * Retorna link oficial para emissão de Certidão de Antecedentes Criminais da Polícia Federal (Sistema SINIC / Epol).
  * @returns {string}
  */
 export function getPoliciaFederalLink() {
-  return 'https://servicos.dpf.gov.br/antecedentes-criminais/certidao';
+  return 'https://servicos.pf.gov.br/epol-sinic-publico/';
 }
 
 /**
