@@ -157,5 +157,13 @@ export function getBnmpLink() {
  * @returns {string}
  */
 export function getPoliciaFederalLink() {
-  return 'https://antecedentes.dpf.gov.br/antecedentes-criminais/certidao';
+  return 'https://servicos.dpf.gov.br/antecedentes-criminais/certidao';
+}
+
+/**
+ * Retorna link oficial para emissão de Certidão Unificada de Distribuição Criminal do TJAM (Amazonas).
+ * @returns {string}
+ */
+export function getTjamCertidaoLink() {
+  return 'https://sistemas.tjam.jus.br/certidaounica';
 }

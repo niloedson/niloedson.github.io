@@ -8,6 +8,7 @@ import {
   getWhatsAppLink,
   getBnmpLink,
   getPoliciaFederalLink,
+  getTjamCertidaoLink,
 } from '../src/modules/deep-links.js';
 
 describe('Level A: Deep Links & Identity Verification', () => {
@@ -70,9 +71,16 @@ describe('Level A: Deep Links & Identity Verification', () => {
       assert.ok(link.includes('portalbnmp.cnj.jus.br'));
     });
 
-    test('should generate direct link to Polícia Federal Antecedentes Criminais', () => {
+    test('should generate active official link to Polícia Federal Antecedentes Criminais', () => {
       const link = getPoliciaFederalLink();
-      assert.ok(link.includes('antecedentes.dpf.gov.br'));
+      assert.ok(link.includes('servicos.dpf.gov.br') || link.includes('gov.br'));
+      assert.ok(link.includes('antecedentes-criminais'));
+    });
+
+    test('should generate direct link to TJAM Certidão Criminal (Amazonas)', () => {
+      const link = getTjamCertidaoLink();
+      assert.ok(link.includes('tjam.jus.br'));
+      assert.ok(link.includes('certidao'));
     });
   });
 });
