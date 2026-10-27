@@ -182,7 +182,7 @@
           <div>
             <div class="project-meta-top">
               <span class="project-category">Specification &amp; Grammar</span>
-              <span class="project-status-pill">RFC 0001 Approved</span>
+              <span class="project-status-pill" style="color: #10b981; border-color: rgba(16, 185, 129, 0.4);">RFC 0001 &middot; npm v1.0.0</span>
             </div>
             <h3 class="project-title">YGN Standard</h3>
             <p class="project-description">
@@ -200,23 +200,28 @@
               </div>
               <div class="metric-pill">
                 <span class="metric-label">Reference Tooling</span>
-                <strong>TS / Py / Lua</strong>
+                <strong>TS / Py / Lua / MV3</strong>
               </div>
             </div>
 
             <div class="tag-list">
+              <span class="tech-tag" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: rgba(239, 68, 68, 0.4);">npm v1.0.0</span>
               <span class="tech-tag">Algebraic Grammar</span>
               <span class="tech-tag">RFC Process</span>
               <span class="tech-tag">TypeScript</span>
               <span class="tech-tag">Python</span>
+              <span class="tech-tag">WebExtension</span>
+              <span class="tech-tag">Userscript</span>
               <span class="tech-tag">Lua Emitter</span>
-              <span class="tech-tag">AST Parser</span>
             </div>
           </div>
 
           <div class="project-actions">
             <a href="projects/ygn-standard.html" class="btn-primary">
               Read Specification &rarr;
+            </a>
+            <a href="https://www.npmjs.com/package/ygn-standard" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4);">
+              npm Package (v1.0.0)
             </a>
             <a href="https://github.com/niloedson/ygn-standard" target="_blank" rel="noopener noreferrer" class="btn-secondary">
               GitHub Repo
@@ -415,6 +420,28 @@
           <div class="project-actions">
             <a href="tools/submit-archetype-theory.html" class="btn-primary" style="background: linear-gradient(135deg, #7c3aed, #4f46e5); border: none;">
               <span>✉️</span> Submit Archetype Theory &rarr;
+            </a>
+          </div>
+        </article>
+
+        <!-- Tool 3: Dueling Book Helper (Userscript / WebExtension) -->
+        <article class="project-card" style="border-color: rgba(251, 191, 36, 0.35);">
+          <div>
+            <div class="project-meta-top">
+              <span class="project-category">Browser Integration</span>
+              <span class="project-status-pill" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.4);">1-Click Native</span>
+            </div>
+            <h3 class="project-title">Dueling Book Helper (ygn-db-helper)</h3>
+            <p class="project-description">
+              Zero-friction in-browser exporter for Dueling Book. Operates post-Cloudflare Turnstile verification inside authenticated browser sessions, injecting 1-click YGN export buttons directly into live match controls and replay transport bars.
+            </p>
+          </div>
+          <div class="project-actions">
+            <a href="tools/ygn-duelingbook.user.js" target="_blank" class="btn-primary" style="background: linear-gradient(135deg, #059669, #10b981); border: none;">
+              <span>⚡</span> Install Tampermonkey Script &rarr;
+            </a>
+            <a href="https://github.com/niloedson/ygn-standard/tree/main/ygn-standard/extensions/ygn-db-helper" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+              Manifest V3 Extension
             </a>
           </div>
         </article>
