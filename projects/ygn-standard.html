@@ -121,27 +121,33 @@
 [Format "TCG Advanced"]
 [Player1 "nedsonbr" 8000]
 [Player2 "Opponent" 8000]
+[Visibility "Omniscient"]
+[Standard "RFC 0001 (YGN v1.1)"]
 
 [Deck1_Aliases]
 1:44001993:Exceptional Schedule
 2:12266229:Urgent Schedule
 3:98684220:Night Train Blue Traveler
 4:24088928:Infinitrack Harvester
+5:37742478:Machina Fortress
 e1:59400890:Qliphort Genius
 
 [Deck2_Aliases]
 o1:70405001:Mulcharmy Purulia
 
 T1: nedsonbr vs Opponent
+@DP
+  +H[#1:Exceptional Schedule, #5:Machina Fortress, ?, ?, ?]<D
+  o.+H[#o1:Mulcharmy Purulia, ?, ?, ?, ?]<o.D
 @SP
-  [C1: A(o.H)[#o1:Purulia]>o.GY // R1: OK ~LING(o.+H<D on S<H>)]
+  [C1: A(o.H)[#o1:Mulcharmy Purulia]>o.GY // R1: OK ~LING(o.+H<D on S<H>)]
 @M1
-  [C1: A(H)[#1:Exceptional]>S3 // R1: +H[#2:Urgent]<D, S[Token](def)>o.M3, [#1]>GY]
-  [C1: A(H)[#2:Urgent]>S3 // R1: S[#3:Blue Traveler](def)>M4<D, S[#4:Harvester](def)>M3<D, [#2]>GY]
-  L[#4:M3 + #3:M4]>ER[#e1:Genius](atk)<ED
+  [C1: A(H)[#1:Exceptional Schedule]>S3 // R1: +H[#2:Urgent Schedule]<D, S[Token](def)>o.M3, [#1]>GY]
+  [C1: A(H)[#2:Urgent Schedule]>S3 // R1: S[#3:Night Train Blue Traveler](def)>M4<D, S[#4:Infinitrack Harvester](def)>M3<D, [#2]>GY]
+  L[[#4:Infinitrack Harvester:M3] + [#3:Night Train Blue Traveler:M4]]>ER[#e1:Qliphort Genius](atk)<ED
 
 ; Resulting Single-Line Board State Snapshot (YBN / FEN Equivalent):
-YBN: T1|M1|LP8000:8000|P1:ER[#e1:Genius(atk)],GY:[#4:Harvester,#3:Blue Traveler,#1:Exceptional,#2:Urgent],H:3,D:35,ED:14|P2:o.M3[Token(def)],o.GY:[#o1:Purulia],H:4,D:35,ED:15|G:NS=1,LING(o.+H<D on S<H>)</code></pre>
+YBN: T1|M1|LP8000:8000|P1:ER[#e1:Genius(atk)],GY:[#4:Harvester,#3:Blue Traveler,#1:Exceptional,#2:Urgent],H:4,D:32,ED:14|P2:M3[Token(def)],GY:[#o1:Purulia],H:4,D:35,ED:15|G:NS=1,LING(o.+H<D on S<H>)</code></pre>
           </div>
         </div>
 
