@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Obsidian TCG Intelligence Hub — Haunted Labs</title>
+  <meta name="description" content="Central hub for Obsidian TCG competitive reports, metagame trend audits, and tactical technical briefings.">
+  <meta name="author" content="Nilo Edson (Obsidian TCG / Haunted Labs)">
+
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/project.css">
+
+  <style>
+    .hub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.75rem;
+      margin: 2.5rem 0;
+    }
+    .report-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .report-card:hover {
+      border-color: var(--accent-purple);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(188, 140, 255, 0.12);
+    }
+    .report-card-featured {
+      border-color: rgba(188, 140, 255, 0.4);
+      background: linear-gradient(180deg, rgba(188, 140, 255, 0.06) 0%, rgba(18, 24, 38, 0.95) 100%);
+    }
+    .report-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent-purple);
+      background: rgba(188, 140, 255, 0.15);
+      border: 1px solid rgba(188, 140, 255, 0.3);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 0.85rem;
+      align-self: flex-start;
+    }
+    .report-card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.65rem;
+      line-height: 1.3;
+    }
+    .report-card-title a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .report-card-title a:hover {
+      color: var(--accent-purple);
+    }
+    .report-card-desc {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+    .report-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-brand">
+        Nilo Edson
+        <span class="brand-badge">Obsidian TCG</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" style="color: var(--accent-purple); font-weight: 600;">Obsidian Hub</a></li>
+        <li><a href="../projects/ygo-meta-mcp.html">ygo-meta-mcp</a></li>
+        <li><a href="../projects/ygoprodeck-mcp.html">ygoprodeck-mcp</a></li>
+        <li><a href="../projects/ygo-sim-core.html">ygo-sim-core</a></li>
+        <li><a href="../index.html#projects">Portfolio</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <a href="../index.html" class="project-nav-back">
+      &larr; Back to Portfolio
+    </a>
+
+    <!-- Hub Hero -->
+    <header class="project-hero">
+      <div class="project-hero-badge">Haunted Labs &middot; Obsidian TCG Team</div>
+      <h1 class="project-hero-title">Obsidian TCG Intelligence Reports</h1>
+      <p class="project-hero-lead">
+        Dedicated briefings, single metagame reports, and empirical non-engine audits prepared for the <strong>Obsidian TCG Team</strong>. Sourced directly from our multi-source Bayesian consensus intelligence engine (<strong>ygo-meta-mcp</strong>) and updated with each competitive tournament cycle.
+      </p>
+    </header>
+
+    <div class="hub-grid">
+
+      <!-- Featured Report -->
+      <article class="report-card report-card-featured">
+        <div>
+          <span class="report-card-badge">★ Featured Report &middot; TCG Advanced</span>
+          <h2 class="report-card-title">
+            <a href="tcg-tech-trends-nov-2026.html">TCG Metagame Tech Intelligence Report</a>
+          </h2>
+          <p class="report-card-desc">
+            Multi-source empirical audit of Hand Traps, Board Breakers, and Side Deck polarization across 739 tournament decks (256 YGOPRODeck Top Cuts + 483 Yu-Gi-Oh! Meta lists) from October 19 to November 9, 2026. Highlights the Ghost Ogre takeover (68.3% Main), Typhoon #1 Side Deck breakthrough (46.4%), and Droll 3-2-1 ratio calibrations.
+          </p>
+        </div>
+        <div>
+          <div style="margin-bottom: 1rem;">
+            <a href="tcg-tech-trends-nov-2026.html" class="btn-primary" style="width: 100%; text-align: center; justify-content: center;">
+              Read Full Intelligence Report &rarr;
+            </a>
+          </div>
+          <div class="report-card-meta">
+            <span>Published: Nov 9, 2026</span>
+            <span style="color: var(--accent-cyan);">739 Decks Analyzed</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- MCP Architecture Reference Card -->
+      <article class="report-card">
+        <div>
+          <span class="report-card-badge" style="color: var(--accent-blue); background: rgba(88, 166, 255, 0.15); border-color: rgba(88, 166, 255, 0.3);">
+            MCP Engine Infrastructure
+          </span>
+          <h2 class="report-card-title">
+            <a href="../projects/ygo-meta-mcp.html">ygo-meta-mcp Server</a>
+          </h2>
+          <p class="report-card-desc">
+            The underlying competitive intelligence engine powering these reports. Connects to YGOPRODeck, Yu-Gi-Oh! Meta, and Road of the King, performing automated daily SQLite synchronizations, sample-weighted Bayesian consensus scoring, and air-gapped sub-2ms local queries.
+          </p>
+        </div>
+        <div>
+          <div style="margin-bottom: 1rem;">
+            <a href="../projects/ygo-meta-mcp.html" class="btn-secondary" style="width: 100%; text-align: center; justify-content: center;">
+              View Engine Documentation &rarr;
+            </a>
+          </div>
+          <div class="report-card-meta">
+            <span>npm: v1.1.1</span>
+            <span style="color: var(--accent-purple);">Local-First WAL</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div>
+          <span class="footer-brand-title">Nilo Edson</span>
+          <span class="footer-brand-sub">&middot; Haunted Labs / Obsidian TCG</span>
+        </div>
+        <p class="footer-tagline">
+          Competitive Yu-Gi-Oh! data science, Bayesian consensus algorithms, and tournament engineering.
+        </p>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Nilo Edson. All rights reserved.</p>
+        <p class="footer-links">
+          <a href="../index.html">Portfolio</a> &middot;
+          <a href="index.html">Obsidian Hub</a> &middot;
+          <a href="tcg-tech-trends-nov-2026.html">Latest Tech Report</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

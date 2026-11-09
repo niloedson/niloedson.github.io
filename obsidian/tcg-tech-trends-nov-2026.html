@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCG Tech Landscape &amp; Chokepoint Intelligence (Nov 2026) — Obsidian TCG</title>
+  <meta name="description" content="Cross-source empirical tournament report on TCG tech card adoption, hand trap densities, and side deck polarization across YGOPRODeck and Yu-Gi-Oh! Meta for the Obsidian TCG Team.">
+  <meta name="author" content="Nilo Edson (Obsidian TCG / Haunted Labs)">
+
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/project.css">
+
+  <style>
+    .badge-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.18rem 0.55rem;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .badge-handtrap {
+      background: rgba(56, 189, 248, 0.14);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+    .badge-breaker {
+      background: rgba(251, 146, 60, 0.14);
+      color: #fb923c;
+      border: 1px solid rgba(251, 146, 60, 0.35);
+    }
+    .badge-defensive {
+      background: rgba(192, 132, 252, 0.14);
+      color: #c084fc;
+      border: 1px solid rgba(192, 132, 252, 0.35);
+    }
+    .badge-extra {
+      background: rgba(74, 222, 128, 0.14);
+      color: #4ade80;
+      border: 1px solid rgba(74, 222, 128, 0.35);
+    }
+    .stat-highlight {
+      font-weight: 700;
+      color: #fff;
+    }
+    .metric-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+      margin: 1.75rem 0;
+    }
+    .metric-card {
+      background: rgba(18, 24, 38, 0.9);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent-purple);
+    }
+    .metric-card.cyan::before { background: var(--accent-cyan); }
+    .metric-card.orange::before { background: var(--accent-orange); }
+    .metric-card.blue::before { background: var(--accent-blue); }
+    .metric-value {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: var(--font-mono);
+      line-height: 1.1;
+      margin-bottom: 0.35rem;
+    }
+    .metric-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .metric-sub {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 0.35rem;
+    }
+    .chart-container {
+      background: #090d16;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+    }
+    .chart-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.65rem;
+    }
+    .chart-label {
+      width: 220px;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .chart-bar-bg {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 4px;
+      height: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+    .chart-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #7928ca, #ff0080);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .chart-bar-fill.cyan { background: linear-gradient(90deg, #0070f3, #00dfd8); }
+    .chart-bar-fill.orange { background: linear-gradient(90deg, #f5a623, #ff5722); }
+    .chart-pct {
+      width: 55px;
+      text-align: right;
+      color: #fff;
+      font-weight: 700;
+    }
+    .report-toc {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .report-toc a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+    .report-toc a:hover {
+      color: var(--accent-purple);
+      transform: translateX(4px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-brand">
+        Nilo Edson
+        <span class="brand-badge">Obsidian TCG</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" style="color: var(--accent-purple); font-weight: 600;">Obsidian Hub</a></li>
+        <li><a href="../projects/ygo-meta-mcp.html">ygo-meta-mcp</a></li>
+        <li><a href="../projects/ygoprodeck-mcp.html">ygoprodeck-mcp</a></li>
+        <li><a href="../projects/ygo-sim-core.html">ygo-sim-core</a></li>
+        <li><a href="../index.html#projects">Portfolio</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <a href="index.html" class="project-nav-back">
+      &larr; Back to Obsidian TCG Reports Hub
+    </a>
+
+    <!-- Report Hero -->
+    <header class="project-hero">
+      <div class="project-hero-badge">Obsidian Competitive Intelligence &middot; TCG Advanced Horizon</div>
+      <h1 class="project-hero-title">TCG Metagame Tech Intelligence Report</h1>
+      <p class="project-hero-lead">
+        Multi-source empirical audit of <strong>Hand Traps</strong>, <strong>Board Breakers</strong>, and <strong>Side Deck Polarization</strong> across the North American, European, and Latin American championship circuits covering October 19 to November 9, 2026.
+      </p>
+
+      <div class="metric-card-grid">
+        <div class="metric-card">
+          <div class="metric-value">739</div>
+          <div class="metric-label">Decks Analyzed</div>
+          <div class="metric-sub">256 YGOPRODeck Top Cuts + 483 YGO Meta Decks</div>
+        </div>
+        <div class="metric-card cyan">
+          <div class="metric-value">68.3%</div>
+          <div class="metric-label">Ghost Ogre Main</div>
+          <div class="metric-sub">Surpassed Ash Blossom as #1 Main Deck tech</div>
+        </div>
+        <div class="metric-card orange">
+          <div class="metric-value">53.1%</div>
+          <div class="metric-label">Typhoon Adoption</div>
+          <div class="metric-sub">#1 Side Deck trap hand trap in top cut</div>
+        </div>
+        <div class="metric-card blue">
+          <div class="metric-value">98.4%</div>
+          <div class="metric-label">Fuwalos Ceiling</div>
+          <div class="metric-sub">Universal 3x draw punisher in premier top-8</div>
+        </div>
+      </div>
+
+      <div class="project-hero-actions">
+        <a href="#master-table" class="btn-primary">
+          View Master Tech Table &darr;
+        </a>
+        <a href="#deckbuilding-blueprint" class="btn-secondary">
+          Obsidian Deckbuilding Blueprint &darr;
+        </a>
+      </div>
+    </header>
+
+    <div class="project-layout">
+
+      <!-- Main Article -->
+      <article class="project-main">
+
+        <h2 id="executive-summary">1. Executive Summary &amp; Core Macro Shifts</h2>
+        <p>
+          Over the past three weeks (October 19 – November 9, 2026), the competitive TCG landscape underwent structural polarization following Regional and Open championships in Milan, Casoria, Weston-Super-Mare, Barentin, and Sofia. Utilizing the <strong>ygo-meta-mcp</strong> sample-weighted Bayesian consensus engine, the Obsidian TCG intelligence cell observed four definitive shifts in non-engine tech construction:
+        </p>
+
+        <div class="callout callout-cyan">
+          <div class="callout-title">Key Finding 1: Ghost Ogre Overthrows Ash Blossom in Main Decks</div>
+          <div class="callout-body">
+            <strong>Ghost Ogre &amp; Snow Rabbit</strong> has climbed to <strong>68.32% Main Deck adoption</strong> on Yu-Gi-Oh! Meta (330 of 483 decks) and <strong>92.19%</strong> in premier YGOPRODeck top cuts. Because Tier-1 engines (Elfnote, Dark Magician Chaos Ritual, Kewl Tune) rely heavily on continuous field assets and field spells that fail to resolve if sent to the GY, spot destruction without negation has emerged as more lethal than pure 1-for-1 negation.
+          </div>
+        </div>
+
+        <div class="callout callout-orange">
+          <div class="callout-title">Key Finding 2: The Typhoon Trap-Hand-Trap Breakthrough</div>
+          <div class="callout-body">
+            <strong>Typhoon</strong> has become the undisputed <strong>#1 Side Deck tech</strong> across the TCG, capturing <strong>46.38% Side Deck adoption</strong> on Yu-Gi-Oh! Meta and <strong>53.13%</strong> in top cuts. Activatable from hand on Turn 0 whenever the opponent controls two or more Spells/Traps, it bypasses monster-based spell negates (*Baronne*, *Caesar*) and snipes continuous engine starters before combos solidify.
+          </div>
+        </div>
+
+        <div class="callout callout-purple">
+          <div class="callout-title">Key Finding 3: Ratio Tuning on Droll &amp; Lock Bird (The 3-2-1 Standard)</div>
+          <div class="callout-body">
+            While adoption of <strong>Droll &amp; Lock Bird</strong> remains near-universal (93.36% in top cuts), copy density has declined sharply from 3 copies down to an average of <strong>1.20 to 1.29 copies per deck</strong>. As proved by Jesse Kotton’s tempo economics, drawing duplicate copies of a hard turn-restriction card produces zero net tempo, creating unplayable dead draws across long Swiss horizons.
+          </div>
+        </div>
+
+        <!-- Master Tech Table -->
+        <h2 id="master-table">2. Master Tech Adoption Matrix (TCG Consensus)</h2>
+        <p>
+          The table below integrates verified top-cut tournament decks ($N=256$) and global competitive lists ($N=483$) synced directly from the multi-source database:
+        </p>
+
+        <div class="spec-table-wrapper">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Card Name</th>
+                <th>Taxonomy</th>
+                <th>Top-Cut %</th>
+                <th>YGO Meta Main</th>
+                <th>YGO Meta Side</th>
+                <th>Avg Copies</th>
+                <th>Format Chokepoint &amp; Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Mulcharmy Fuwalos</strong></td>
+                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
+                <td><span class="stat-highlight">98.44%</span></td>
+                <td>62.53%</td>
+                <td>—</td>
+                <td>3.00</td>
+                <td>Draws off Main/Extra Deck summons; stops combo over-extension</td>
+              </tr>
+              <tr>
+                <td><strong>Ash Blossom &amp; Joyous Spring</strong></td>
+                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
+                <td><span class="stat-highlight">98.05%</span></td>
+                <td>57.76%</td>
+                <td>—</td>
+                <td>2.97</td>
+                <td>Universal 1-for-1 gatekeeper against search, dump, and deck summons</td>
+              </tr>
+              <tr>
+                <td><strong>Ghost Ogre &amp; Snow Rabbit</strong></td>
+                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
+                <td><span class="stat-highlight">92.19%</span></td>
+                <td><span class="stat-highlight">68.32%</span></td>
+                <td>—</td>
+                <td>2.75</td>
+                <td><strong>#1 Main Deck Card</strong>; punishes field spells, continuous assets &amp; ignition monsters</td>
+              </tr>
+              <tr>
+                <td><strong>Droll &amp; Lock Bird</strong></td>
+                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
+                <td><span class="stat-highlight">93.36%</span></td>
+                <td>52.80%</td>
+                <td>—</td>
+                <td>1.29</td>
+                <td>Turn-ending search lock; calibrated to 1–2 copies to eliminate duplicate clash</td>
+              </tr>
+              <tr>
+                <td><strong>Nibiru, the Primal Being</strong></td>
+                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
+                <td>70.31%</td>
+                <td>24.02%</td>
+                <td>25.88%</td>
+                <td>2.21</td>
+                <td>Tributes all face-up monsters past the 5th summon threshold</td>
+              </tr>
+              <tr>
+                <td><strong>Mulcharmy Purulia</strong></td>
+                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
+                <td>64.45%</td>
+                <td>—</td>
+                <td>29.40%</td>
+                <td>2.64</td>
+                <td>Hand-summon punishment; heavily boarded in going second</td>
+              </tr>
+              <tr>
+                <td><strong>S:P Little Knight</strong></td>
+                <td><span class="badge-tag badge-extra">[EXTRA-GENERIC]</span></td>
+                <td>60.55%</td>
+                <td>—</td>
+                <td>—</td>
+                <td>1.00</td>
+                <td>Premier generic Link-2 removal and evasive quick-effect banish dodge</td>
+              </tr>
+              <tr>
+                <td><strong>Typhoon</strong></td>
+                <td><span class="badge-tag badge-breaker">[TECH-BREAKER]</span></td>
+                <td>53.13%</td>
+                <td>—</td>
+                <td><span class="stat-highlight">46.38%</span></td>
+                <td>2.81</td>
+                <td><strong>#1 Side Deck Card</strong>; Turn 0 trap hand trap targeting 2+ opposing S/T</td>
+              </tr>
+              <tr>
+                <td><strong>Effect Veiler</strong></td>
+                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
+                <td>37.50%</td>
+                <td>23.19%</td>
+                <td>—</td>
+                <td>2.49</td>
+                <td>Targeted monster effect negation during opponent's Main Phase</td>
+              </tr>
+              <tr>
+                <td><strong>Dominus Impulse</strong></td>
+                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
+                <td>36.33%</td>
+                <td>—</td>
+                <td>—</td>
+                <td>3.00</td>
+                <td>Trap hand trap negating summon-triggering effects with lockouts</td>
+              </tr>
+              <tr>
+                <td><strong>Solemn Judgment</strong></td>
+                <td><span class="badge-tag badge-defensive">[TECH-DEFENSIVE]</span></td>
+                <td>33.59%</td>
+                <td>—</td>
+                <td>18.84%</td>
+                <td>1.00</td>
+                <td>Turn 1 insulation; boarded going first against blowout spell wipes</td>
+              </tr>
+              <tr>
+                <td><strong>Pot of Sloth</strong></td>
+                <td><span class="badge-tag badge-breaker">[TECH-BREAKER]</span></td>
+                <td>33.20%</td>
+                <td>—</td>
+                <td>18.84%</td>
+                <td>2.41</td>
+                <td>Resource recursion and draw consistency for grind-oriented decks</td>
+              </tr>
+              <tr>
+                <td><strong>Hey, Space Trunade!</strong></td>
+                <td><span class="badge-tag badge-breaker">[TECH-BREAKER]</span></td>
+                <td>32.42%</td>
+                <td>—</td>
+                <td>20.29%</td>
+                <td>2.02</td>
+                <td>Un-negatable backrow bounce solution transitioning from OCG to TCG</td>
+              </tr>
+              <tr>
+                <td><strong>Cosmic Cyclone</strong></td>
+                <td><span class="badge-tag badge-breaker">[TECH-BREAKER]</span></td>
+                <td>—</td>
+                <td>—</td>
+                <td>20.50%</td>
+                <td>2.47</td>
+                <td>Quick-Play banish targeting floodgates and graveyard-floating spells</td>
+              </tr>
+              <tr>
+                <td><strong>Skull Meister</strong></td>
+                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
+                <td>—</td>
+                <td>—</td>
+                <td>20.08%</td>
+                <td>2.59</td>
+                <td>Targetless graveyard effect negation; dodges anti-targeting protections</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Asymmetric Hand Size Axiom -->
+        <h2 id="probability-mechanics">3. Probability &amp; Asymmetric Hand Size Axiom</h2>
+        <p>
+          According to the <strong>Asymmetric Hand Size Axiom</strong> codified in the <code>ygo-deck-architect</code> engine, non-engine tech must be mathematically segregated into two evaluation horizons:
+        </p>
+        <ul>
+          <li>
+            <strong>Turn 0 Hand Traps (\(n = 5\)):</strong> Must disrupt the opponent <em>during their Turn 1</em> before their board lock is established. Top-decking a defensive hand trap as the 6th card on Turn 2 is completely dead against layered negates.
+          </li>
+          <li>
+            <strong>Turn 2 Board Breakers (\(n = 6\)):</strong> Evaluated across 6 cards because the going-second pilot draws for turn prior to taking actions in Main Phase 1.
+          </li>
+        </ul>
+
+        <div class="chart-container">
+          <div style="font-weight:700; color:#fff; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.5rem;">
+            Turn 0 Opening Probability Curves (40-Card Deck, n = 5)
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">9 Hand Traps (≥1 HT)</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill cyan" style="width: 74.2%;">74.2%</div>
+            </div>
+            <span class="chart-pct">74.2%</span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">12 Hand Traps (≥1 HT)</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill cyan" style="width: 85.1%;">85.1%</div>
+            </div>
+            <span class="chart-pct">85.1%</span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">14 Hand Traps (≥1 HT) [RECOMMENDED]</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill" style="width: 90.0%;">90.0%</div>
+            </div>
+            <span class="chart-pct">90.0%</span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">14 Hand Traps (≥2 HTs)</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill orange" style="width: 58.4%;">58.4%</div>
+            </div>
+            <span class="chart-pct">58.4%</span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">16 Hand Traps (≥1 HT)</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill" style="width: 93.6%;">93.6%</div>
+            </div>
+            <span class="chart-pct">93.6%</span>
+          </div>
+        </div>
+
+        <!-- Deckbuilding Blueprint -->
+        <h2 id="deckbuilding-blueprint">4. Obsidian TCG Deckbuilding Blueprint</h2>
+        <p>
+          Applying the hypergeometric benchmarks ($P(\text{Disruption} \ge 1) \ge 90\%$) and the 3-2-1 copy standard, the Obsidian analytics cell recommends the following standardized non-engine ratio structure for competitive Swiss events:
+        </p>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span>Obsidian Standard Non-Engine Architecture (Main Deck: 14 Slots)</span>
+            <span>Taxonomy</span>
+          </div>
+          <div class="code-content">
+<pre><code>3x Ghost Ogre &amp; Snow Rabbit    [TECH-HANDTRAP] -> Format-wide field/ignition removal
+3x Mulcharmy Fuwalos           [TECH-HANDTRAP] -> Universal Turn 0 draw punishment
+3x Ash Blossom &amp; Joyous Spring [TECH-HANDTRAP] -> Primary search/dump choke gatekeeper
+2x Droll &amp; Lock Bird           [TECH-HANDTRAP] -> Turn-ender (capped at 2 to prevent clash)
+2x Mulcharmy Purulia           [TECH-HANDTRAP] -> Hand-summon punishment
+1x Called by the Grave         [TECH-DEFENSIVE]-> Mandatory Turn 1 hand trap insulation</code></pre>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span>Obsidian Standard Side Deck Architecture (15 Slots)</span>
+            <span>Sideboard</span>
+          </div>
+          <div class="code-content">
+<pre><code>3x Typhoon                     [TECH-BREAKER]  -> Hand trap trap against field/continuous setup
+3x Nibiru, the Primal Being    [TECH-HANDTRAP] -> High-extension blowout past 5th summon
+3x Solemn Judgment             [TECH-DEFENSIVE]-> Boarded going first against blowout wipes
+2x Hey, Space Trunade!         [TECH-BREAKER]  -> Un-negatable mass backrow bounce
+2x Lava Golem / Sphere Mode    [TECH-BREAKER]  -> Contact-tribute monster negate bypass
+2x Cosmic Cyclone              [TECH-BREAKER]  -> Quick-play spot banish for floodgates</code></pre>
+          </div>
+        </div>
+
+        <!-- YDK String -->
+        <h2 id="ydk-export">5. Simulator .YDK Export String</h2>
+        <p>
+          Copy the sanitized simulator string below directly into EDOPro, YGO Omega, or Project Ignis to import the Obsidian Tech Baseline:
+        </p>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span>obsidian_tech_baseline_nov2026.ydk</span>
+            <span>YDK Format</span>
+          </div>
+          <div class="code-content">
+<pre><code>#created by Obsidian TCG Intelligence (Haunted Labs)
+#main
+42141493
+42141493
+42141493
+14558127
+14558127
+14558127
+59438930
+59438930
+59438930
+94145021
+94145021
+10045474
+10045474
+24224830
+#extra
+65305468
+!side
+82301904
+82301904
+82301904
+27204311
+27204311
+27204311
+41420027
+41420027
+41420027
+8267140
+8267140
+00192529
+00192529
+00192529
+67750322</code></pre>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="project-sidebar">
+
+        <div>
+          <div class="sidebar-section-title">Report Metadata</div>
+          <ul class="sidebar-info-list">
+            <li class="sidebar-info-item">
+              <span>Date</span>
+              <strong>Nov 9, 2026</strong>
+            </li>
+            <li class="sidebar-info-item">
+              <span>Format</span>
+              <strong style="color: var(--accent-cyan);">TCG Advanced</strong>
+            </li>
+            <li class="sidebar-info-item">
+              <span>Timeframe</span>
+              <strong>Last 3 Weeks</strong>
+            </li>
+            <li class="sidebar-info-item">
+              <span>Sync Engine</span>
+              <strong style="color: var(--accent-purple);">ygo-meta-mcp v1.1.1</strong>
+            </li>
+            <li class="sidebar-info-item">
+              <span>DB Timestamp</span>
+              <strong style="font-family: var(--font-mono); font-size: 0.75rem;">2026-11-09 14:53 UTC</strong>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Sample Scope</div>
+          <ul class="sidebar-info-list">
+            <li class="sidebar-info-item">
+              <span>YGOPRODeck</span>
+              <strong>256 Top Cuts</strong>
+            </li>
+            <li class="sidebar-info-item">
+              <span>Yu-Gi-Oh! Meta</span>
+              <strong>483 Tourney Decks</strong>
+            </li>
+            <li class="sidebar-info-item">
+              <span>Total Population</span>
+              <strong style="color:#fff;">739 Decks</strong>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Report Navigation</div>
+          <ul class="report-toc">
+            <li><a href="#executive-summary">&rarr; 1. Executive Summary</a></li>
+            <li><a href="#master-table">&rarr; 2. Master Tech Matrix</a></li>
+            <li><a href="#probability-mechanics">&rarr; 3. Probability Curves</a></li>
+            <li><a href="#deckbuilding-blueprint">&rarr; 4. Obsidian Blueprint</a></li>
+            <li><a href="#ydk-export">&rarr; 5. Simulator .YDK Export</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Obsidian Intelligence Team</div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin: 0;">
+            Authored by Nilo Edson for the Obsidian TCG competitive roster. Sourced via air-gapped Bayesian consensus aggregation from verified premier tournament data.
+          </p>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div>
+          <span class="footer-brand-title">Nilo Edson</span>
+          <span class="footer-brand-sub">&middot; Haunted Labs / Obsidian TCG</span>
+        </div>
+        <p class="footer-tagline">
+          Automated competitive Yu-Gi-Oh! data science, Bayesian consensus algorithms, and tournament engineering.
+        </p>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Nilo Edson. All rights reserved.</p>
+        <p class="footer-links">
+          <a href="../index.html">Portfolio</a> &middot;
+          <a href="index.html">Obsidian Hub</a> &middot;
+          <a href="../projects/ygo-meta-mcp.html">ygo-meta-mcp</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
