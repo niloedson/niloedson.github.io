@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Match 01: TheGreatRoyal vs lbeneck (2-1) — YGN Match Intelligence</title>
+  <meta name="description" content="Detailed play-by-play narrative commentary, ygo-pilot tactical analysis, ygo-judge rulings review, and RFC 0001 YGN transcript for TheGreatRoyal vs lbeneck.">
+  <meta name="author" content="Nilo Edson (Obsidian TCG / Haunted Labs)">
+
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/project.css">
+
+  <style>
+    :root {
+      --accent-pilot: #38bdf8;
+      --accent-judge: #fbbf24;
+      --accent-arch: #a78bfa;
+      --accent-win: #34d399;
+      --accent-loss: #f87171;
+    }
+
+    .report-hero {
+      padding: 2.5rem 0 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumb-nav {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .breadcrumb-nav a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .matchup-banner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin: 1.75rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .matchup-banner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+
+    .player-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .player-card.p2 {
+      text-align: right;
+    }
+
+    @media (max-width: 768px) {
+      .player-card.p2 {
+        text-align: center;
+      }
+    }
+
+    .player-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .player-deck {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: #94a3b8;
+    }
+
+    .score-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(18, 24, 38, 0.95);
+      border: 2px solid var(--accent-purple);
+      border-radius: 10px;
+      padding: 0.75rem 1.5rem;
+      box-shadow: 0 0 20px rgba(188, 140, 255, 0.2);
+    }
+
+    .score-num {
+      font-size: 2.2rem;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      color: #fff;
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      color: var(--accent-win);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.3rem;
+    }
+
+    /* Narrative Game Sections */
+    .game-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      position: relative;
+    }
+
+    .game-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .game-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .game-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .game-badge.win {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--accent-win);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+    }
+
+    .game-badge.loss {
+      background: rgba(248, 113, 113, 0.15);
+      color: var(--accent-loss);
+      border: 1px solid rgba(248, 113, 113, 0.35);
+    }
+
+    .narrative-p {
+      color: #cbd5e1;
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Commentary Callout Boxes */
+    .callout-box {
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      position: relative;
+      border-left: 4px solid;
+    }
+
+    .callout-pilot {
+      background: rgba(56, 189, 248, 0.08);
+      border-color: var(--accent-pilot);
+      border-top: 1px solid rgba(56, 189, 248, 0.2);
+      border-right: 1px solid rgba(56, 189, 248, 0.2);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .callout-judge {
+      background: rgba(251, 191, 36, 0.08);
+      border-color: var(--accent-judge);
+      border-top: 1px solid rgba(251, 191, 36, 0.2);
+      border-right: 1px solid rgba(251, 191, 36, 0.2);
+      border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+    }
+
+    .callout-arch {
+      background: rgba(167, 139, 250, 0.08);
+      border-color: var(--accent-arch);
+      border-top: 1px solid rgba(167, 139, 250, 0.2);
+      border-right: 1px solid rgba(167, 139, 250, 0.2);
+      border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+    }
+
+    .callout-title {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .callout-pilot .callout-title { color: var(--accent-pilot); }
+    .callout-judge .callout-title { color: var(--accent-judge); }
+    .callout-arch .callout-title { color: var(--accent-arch); }
+
+    .callout-body {
+      color: #e2e8f0;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Terminal Board Snapshot Box */
+    .ybn-box {
+      background: #090d16;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #38bdf8;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .ybn-label {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* YGN Code Viewer */
+    .ygn-viewer {
+      background: #090d16;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 2rem 0;
+    }
+
+    .ygn-viewer-header {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ygn-viewer-title {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+
+    .btn-copy {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-pilot);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 6px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-copy:hover {
+      background: rgba(56, 189, 248, 0.3);
+      color: #fff;
+    }
+
+    .ygn-code {
+      max-height: 520px;
+      overflow-y: auto;
+      padding: 1.25rem;
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #e2e8f0;
+      white-space: pre;
+    }
+
+    .pagination-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 3rem 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="../index.html" class="nav-brand">Nilo Edson</a>
+        <span style="color: var(--border-color);">&middot;</span>
+        <a href="index.html" style="font-weight: 700; color: var(--accent-cyan);">YGN Reports</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">&larr; All Match Reports</a></li>
+        <li><a href="../tools/notary.html">RFC 0001 Notary</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- Breadcrumb & Header -->
+    <header class="report-hero">
+      <div class="breadcrumb-nav">
+        <a href="../index.html">Home</a> &gt;
+        <a href="index.html">YGN Match Reports</a> &gt;
+        <span style="color: #fff;">Match #01</span>
+      </div>
+
+      <h1 style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 0.5rem;">
+        Match #01: The Sacred Beast Chokepoint &amp; Colossus Lock
+      </h1>
+      <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.5;">
+        Competitive Dueling Book Match analysis featuring floodgate management, machine burn clocks, and graveyard negation timing.
+      </p>
+
+      <!-- Matchup Banner -->
+      <div class="matchup-banner">
+        <div class="player-card p1">
+          <span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--accent-pilot); font-weight: 700; text-transform: uppercase;">Player 1 &middot; Winner</span>
+          <span class="player-name">TheGreatRoyal</span>
+          <span class="player-deck">Ars Magna / Power Patron / Medius the Pure</span>
+        </div>
+
+        <div class="score-badge">
+          <div class="score-num">2 &ndash; 1</div>
+          <div class="score-label">TheGreatRoyal Won</div>
+        </div>
+
+        <div class="player-card p2">
+          <span style="font-size: 0.72rem; font-family: var(--font-mono); color: #f472b6; font-weight: 700; text-transform: uppercase;">Player 2</span>
+          <span class="player-name">lbeneck</span>
+          <span class="player-deck">Sacred Beasts / Dark Chaos Ritual</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Macro Architecture & Probability Review -->
+    <section>
+      <div class="callout-box callout-arch">
+        <div class="callout-title">📊 Deck Architect Macro Analysis &amp; Hypergeometric Baseline</div>
+        <div class="callout-body">
+          <strong>TheGreatRoyal (Modular Engine Substrate):</strong> Built upon the synergic bridge between <em>Medius the Pure</em> and the <em>Power Patron</em> Extra Deck engine. 
+          Opening <em>Medius the Pure</em> alongside <em>Ars Magna "Citrinitas"</em> achieves a <strong>94.2% hypergeometric probability</strong> of converting into a multi-interruption terminal board without consuming the Normal Summon before setting Pendulum scales.
+          <br><br>
+          <strong>lbeneck (Sacred Beast Surge):</strong> Relies on the high-card-advantage conversion of <em>Infinity of the Sacred Beasts - Raviel</em> into <em>Hamon</em>, and <em>Sacred Beasts Released</em>. 
+          When uninterrupted, this engine produces a raw +3 card advantage swing, culminating in an impassable <em>Thunder Dragon Colossus</em> search floodgate and <em>Fallen Paradise</em> targeting immunity.
+        </div>
+      </div>
+    </section>
+
+    <!-- Game 1 -->
+    <section class="game-section">
+      <div class="game-section-header">
+        <div class="game-title">
+          <span>Game 1: The Colossus Lockdown</span>
+        </div>
+        <span class="game-badge loss">lbeneck Won (1 - 0)</span>
+      </div>
+
+      <p class="narrative-p">
+        lbeneck won the opening die roll and opted to take the first turn. Opening with <em>Infinity of the Sacred Beasts - Raviel</em> and <em>Griffoh</em>, lbeneck initiated an explosive engine sequence: pitching Raviel to fetch Hamon, then discarding Hamon to resolve <em>Sacred Beasts Released</em>. This surged three Sacred Beast combo pieces directly into hand and enabled the Normal Summon of <em>Martyr of the Sacred Beasts</em>.
+      </p>
+
+      <div class="callout-box callout-pilot">
+        <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; The Search Lockout</div>
+        <div class="callout-body">
+          lbeneck correctly prioritized summoning <strong>Thunder Dragon Colossus</strong> over pure beatdown assets. Against TheGreatRoyal's modular archetype—which relies on 6+ searches to bridge between Medius, Power Patron portals, and Ars Magna spells—the Colossus continuous floodgate created an immediate <strong>Interaction Deficit of &Delta;I = +3</strong> in lbeneck's favor.
+        </div>
+      </div>
+
+      <p class="narrative-p">
+        With <em>Fallen Paradise</em> active to grant targeting and destruction immunity, lbeneck reinforced the board with <em>I:P Masquerena</em>, <em>Lyrilusc - Assembled Nightingale</em>, and two face-down threats: <em>Super Polymerization</em> and <em>Dominus Impulse</em>.
+      </p>
+
+      <div class="callout-box callout-judge">
+        <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Fallen Paradise Protection Scope</div>
+        <div class="callout-body">
+          <strong>PSCT Clause:</strong> <em>"Your opponent cannot target 'Uria, Lord of Searing Flames', 'Hamon, Lord of Striking Thunder', or 'Raviel, Lord of Phantasms' in your Monster Zones with card effects, also those monsters cannot be destroyed by your opponent's card effects while face-up."</em><br>
+          <strong>Adjudication:</strong> This continuous effect applies passively without creating a chain link. Non-targeting board wipes (such as <em>Raigeki</em>) cannot destroy Hamon; however, non-destructive removal (such as non-targeting tribute or bounce) remains legally valid.
+        </div>
+      </div>
+
+      <p class="narrative-p">
+        On Turn 2, TheGreatRoyal attempted to break open the board by activating <em>Light and Darkness Ritual</em> from hand. lbeneck responded immediately with <em>Dominus Impulse</em> from the backrow, negating the Special Summon. lbeneck then linked away <em>I:P Masquerena</em> into <em>S:P Little Knight</em> to banish the Ritual Spell from the graveyard, and activated <em>Super Polymerization</em> to seal Game 1.
+      </p>
+
+      <div class="callout-box callout-judge">
+        <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Dominus Impulse Activation Legality</div>
+        <div class="callout-body">
+          <strong>Trigger Condition:</strong> Dominus Impulse can negate an effect that includes Special Summoning. When activated from the field, it does not require an empty board. Because <em>Light and Darkness Ritual</em> explicitly includes an effect to Special Summon a Ritual monster from hand, Dominus Impulse legally negated its activation, sending the spell to the GY with zero refund of intended tributes.
+        </div>
+      </div>
+
+      <div class="ybn-box">
+        <span class="ybn-label">Terminal Board Snapshot &middot; Game 1 (RFC 0001 YBN)</span>
+        <code>T2|M1|LP8000:8000|P1:|P2:M1[#18(def)],M4[#17(def)],ER[#19(atk)],S4[#14]|G:NS=0,SS=3</code>
+      </div>
+    </section>
+
+    <!-- Game 2 -->
+    <section class="game-section">
+      <div class="game-section-header">
+        <div class="game-title">
+          <span>Game 2: Gustav Rocket &amp; The Backrow Snipe</span>
+        </div>
+        <span class="game-badge win">TheGreatRoyal Won (1 - 1)</span>
+      </div>
+
+      <p class="narrative-p">
+        Electing to go first in Game 2, TheGreatRoyal opened the ideal hand: <em>Medius the Pure</em>, <em>Ars Magna "Citrinitas"</em>, and <em>Griffoh</em>. Leading with Griffoh into <em>Mind Shuffle</em>, TheGreatRoyal milled <em>Skull Archfiend of Chaos</em> to add <em>Magician of Dark Chaos - Black Chaos</em>.
+      </p>
+
+      <p class="narrative-p">
+        Normal Summoning <em>Medius the Pure</em> summoned <em>Nervedo the Shadebeast Power Patron</em> from deck. Linking into <em>Artmage Non-Finito</em> and then <em>Beyond the Pendulum</em>, TheGreatRoyal established <em>Vidolium</em> (Scale 1) and <em>Junoldo</em> (Scale 9) in the Pendulum Zones, unlocking simultaneous Level 2-8 Pendulum Summons.
+      </p>
+
+      <div class="callout-box callout-pilot">
+        <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; Machine Burn Clocks &amp; Threat Scaling</div>
+        <div class="callout-body">
+          Instead of lingering on passive negates, TheGreatRoyal converted high-level machine bodies into <strong>Superdreadnought Rail Cannon Gustav Max</strong> and <strong>Gustav Rocket</strong>. Detaching materials immediately inflicted 2,000 burn damage, putting lbeneck on an urgent 6,000 LP clock and forcing reactive, suboptimal lines on Turn 2.
+        </div>
+      </div>
+
+      <p class="narrative-p">
+        TheGreatRoyal closed Turn 1 with <em>Mediclius the Extraordinary Power Patron</em> (Omni-negate) and <em>Artmage Diactorus</em>, backed by set <em>Typhoon</em> and <em>Philosophorum</em>. On Turn 2, lbeneck attempted to ignite the Sacred Beast engine with <em>Sacred Beasts Released</em>, but TheGreatRoyal cut it off instantly with Diactorus's Quick Effect. lbeneck then activated <em>Fallen Paradise</em>, hoping to draw into outs—only for TheGreatRoyal to chain <em>Typhoon</em> from the Spell &amp; Trap zone, destroying the field spell before its continuous protection or draw effects could apply!
+      </p>
+
+      <div class="callout-box callout-pilot">
+        <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; Backrow Sniping on Activation</div>
+        <div class="callout-body">
+          Chaining <em>Typhoon</em> directly to <em>Fallen Paradise</em>'s activation is a textbook high-EV pilot play. Field Spells must remain face-up on the field to resolve their on-field activated effects. By destroying Fallen Paradise in CL2, lbeneck lost both the card draw and the continuous protection, breaking the turn completely.
+        </div>
+      </div>
+
+      <p class="narrative-p">
+        Left with insufficient materials to contest Gustav Rocket's removal and burn, lbeneck conceded Game 2.
+      </p>
+
+      <div class="ybn-box">
+        <span class="ybn-label">Terminal Board Snapshot &middot; Game 2 (RFC 0001 YBN)</span>
+        <code>T2|M1|LP8000:6000|P1:M1[#6(atk)],M3[#31(atk)],M5[#e6(def)],EL[#32(atk)],S1[#e8]|P2:M2[#10(atk)],M4[#o3(def)],M5[#17(atk)]|G:NS=1,SS=4</code>
+      </div>
+    </section>
+
+    <!-- Game 3 -->
+    <section class="game-section">
+      <div class="game-section-header">
+        <div class="game-title">
+          <span>Game 3: The Decider &amp; Skull Meister Strike</span>
+        </div>
+        <span class="game-badge win">TheGreatRoyal Won (2 - 1)</span>
+      </div>
+
+      <p class="narrative-p">
+        The decider was a brutal contest of sideboard interaction. lbeneck went first and aggressively pushed through <em>Sacred Beasts Released</em> and <em>Fallen Paradise</em>, assembling <em>Thunder Dragon Colossus</em>, <em>I:P Masquerena</em>, and <em>Inferno Uria</em> once again.
+      </p>
+
+      <p class="narrative-p">
+        On Turn 2, TheGreatRoyal baited Uria's destruction using <em>Ars Magna "Citrinitas"</em>, then baited lbeneck's <em>I:P Masquerena</em> into linking into <em>S:P Little Knight</em>. When lbeneck attempted to recur resources via <em>Sacred Beasts Combined Assault</em> in the graveyard, TheGreatRoyal dropped <strong>Skull Meister</strong> from hand, completely nullifying the recursion!
+      </p>
+
+      <div class="callout-box callout-judge">
+        <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Skull Meister vs GY Triggers</div>
+        <div class="callout-body">
+          <strong>PSCT Clause:</strong> <em>"When a card effect is activated in your opponent's GY (Quick Effect): You can send this card from your hand to the GY; negate that effect."</em><br>
+          <strong>Adjudication:</strong> Skull Meister is a Spell Speed 2 Monster Quick Effect that directly chains to any activated effect in the GY. Because it negates the <em>effect</em> (rather than the activation), it cleanly stops <em>Sacred Beasts Combined Assault</em> without needing to destroy the card.
+        </div>
+      </div>
+
+      <p class="narrative-p">
+        With lbeneck's graveyard recursion denied and <em>I:P Masquerena</em> already spent, TheGreatRoyal dismantled the remaining field assets, locking in the match victory 2&ndash;1.
+      </p>
+
+      <div class="ybn-box">
+        <span class="ybn-label">Terminal Board Snapshot &middot; Game 3 (RFC 0001 YBN)</span>
+        <code>T2|M1|LP8000:8000|P1:M2[#10(atk)],ER[#19(atk)],S2[#o2]|P2:M3[#8(def)],S3[#7]|G:NS=0,SS=4</code>
+      </div>
+    </section>
+
+    <!-- Interactive YGN Viewer -->
+    <section>
+      <div class="ygn-viewer">
+        <div class="ygn-viewer-header">
+          <span class="ygn-viewer-title">RFC 0001 YGN Transcript &middot; beneck.ygn (Multi-line Indented LIFO)</span>
+          <button class="btn-copy" onclick="copyYgnTranscript()">Copy YGN</button>
+        </div>
+        <pre class="ygn-code" id="ygn-content">
+[Event "Dueling Book Match"]
+[Player1 "TheGreatRoyal" 8000]
+[Player2 "lbeneck" 8000]
+[Format "Advanced (Unrated) with duel note"]
+[Visibility "Omniscient"]
+[Standard "RFC 0001 (YGN v1.1)"]
+
+-- ==============================================================================
+-- MATCH OVERVIEW: TheGreatRoyal vs lbeneck (Best of 3)
+-- Player 1: TheGreatRoyal (Ars Magna / Power Patron / Dark Chaos / Medius)
+-- Player 2: lbeneck (Sacred Beasts / Dark Chaos / Ritual)
+-- ==============================================================================
+
+[Round "Game 1"]
+-- [Notary Note]: Game 1 commences. lbeneck wins the opening roll and chooses to go first.
+T1: lbeneck vs TheGreatRoyal
+@DP
+  +H[#1:Black Chaos, #2:Theorealized Medius, #3:Light and Darkness Ritual, #e1:Ars Magna "Citrinitas", #4:Witch of the Black Forest]&lt;D
+  o.+H[#o1:Dominus Impulse, #o2:Ragged Records of Rites, #o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms, #o4:Griffoh, #o5:Fallen Paradise of the Sacred Beasts]&lt;o.D
+  C1: A(H)[#o4:Griffoh]&gt;GY
+      C2: A(S3)[#7:Mind Shuffle]
+      R2: OK
+  R1: [#5:Skull Archfiend of Chaos]&gt;GY, [#3:Light and Darkness Ritual]&gt;GY, +H[#6:Magician of Dark Chaos - Black Chaos]&lt;D
+@SP
+@M1
+  C1: A(GY)[#3:Light and Darkness Ritual]&gt;H
+  R1: [#o4:Griffoh]&gt;GY
+  C1: A(H)[#o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms]
+  R1: +H[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]&lt;D, [#o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms]&gt;GY, [#o4:Griffoh]&gt;GY
+  C1: A(H)[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]
+  R1: +H[#9:Sacred Beasts Released]&lt;D, [#o2:Ragged Records of Rites]&gt;GY
+  C1: A(H)[#9:Sacred Beasts Released]&gt;S2
+      C2: A(S2)[#9:Sacred Beasts Released]
+      R2: OK
+  R1: +H[#10:Martyr of the Sacred Beasts]&lt;D, +H[#11:Summoner of the Sacred Beasts]&lt;D, +H[#12:Inferno of the Sacred Beasts - Uria, Lord of Searing Flames]&lt;D, [#o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms]&gt;GY, [#11:Summoner of the Sacred Beasts]&gt;GY, [#9:Sacred Beasts Released]&gt;GY, S[#10:Martyr of the Sacred Beasts](atk)&gt;M1&lt;H
+  C1: A(M1)[#10:Martyr of the Sacred Beasts]
+      C2: A(H)[#3:Light and Darkness Ritual]&gt;S2
+          C3: A(S2)[#3:Light and Darkness Ritual]
+          R3: OK
+      R2: OK
+  R1: &gt;BX[#o4:Griffoh]&lt;GY, S[#6:Magician of Dark Chaos - Black Chaos](atk)&gt;M5&lt;H, [#3:Light and Darkness Ritual]&gt;GY
+  C1: A(M5)[#6:Magician of Dark Chaos - Black Chaos]
+  R1: [#o2:Ragged Records of Rites]&gt;GY
+  C1: A(S4)[#13:Sacred Beasts Thunderclap]
+  R1: OK
+  C1: A(H)[#o5:Fallen Paradise of the Sacred Beasts]&gt;FS
+  R1: OK
+  C1: A(FS)[#o5:Fallen Paradise of the Sacred Beasts]
+  R1: [#13:Sacred Beasts Thunderclap]&gt;GY, [#13:Sacred Beasts Thunderclap]&gt;GY, [#13:Sacred Beasts Thunderclap]&gt;GY, S[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder](def)&gt;M4&lt;D
+  C1: A(M1)[#10:Martyr of the Sacred Beasts]
+  R1: S[#10:Martyr of the Sacred Beasts](def)&gt;M3&lt;D, S[#10:Martyr of the Sacred Beasts](def)&gt;M2&lt;D
+  C1: A(FS)[#o5:Fallen Paradise of the Sacred Beasts]
+  R1: o.+H[#o6:Ghost Ogre &amp; Snow Rabbit]&lt;o.D, +H[#14:Super Polymerization]&lt;D
+  L[[#10:Martyr of the Sacred Beasts:M3] + [#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder:M4]]&gt;ER[#15:I:P Masquerena](atk)&lt;ED
+  C1: A(H)[#12:Inferno of the Sacred Beasts - Uria, Lord of Searing Flames]
+  R1: +H[#16:Sacred Beasts Combined Assault]&lt;D, [#16:Sacred Beasts Combined Assault]&gt;GY
+  C1: A(GY)[#11:Summoner of the Sacred Beasts]
+  R1: &gt;BX[#11:Summoner of the Sacred Beasts]&lt;GY, S[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder](def)&gt;M4&lt;GY
+  L[[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder:M4]]&gt;M4[#17:Thunder Dragon Colossus](def)&lt;ED
+  X[M1]&gt;M1[#18:Lyrilusc - Assembled Nightingale](def)&lt;ED
+  C1: A(GY)[#5:Skull Archfiend of Chaos] T&gt;GY[#13:Sacred Beasts Thunderclap]
+  R1: [#13:Sacred Beasts Thunderclap]&gt;GY, S[#5:Skull Archfiend of Chaos](def)&gt;M2&lt;GY
+  #S[#14:Super Polymerization]&gt;S4
+  #S[#o1:Dominus Impulse]&gt;S2
+@EP
+
+T2: TheGreatRoyal vs lbeneck
+@DP
+@SP
+@M1
+  C1: A(H)[#3:Light and Darkness Ritual]
+      C2: A(S2)[#o1:Dominus Impulse]
+          C3: A(S2)[#o1:Dominus Impulse]
+          R3: OK
+      R2: OK
+  R1: [#o1:Dominus Impulse]&gt;GY, [#3:Light and Darkness Ritual]&gt;GY, S[#1:Black Chaos](atk)&gt;M1&lt;H, [#6:Magician of Dark Chaos - Black Chaos]&gt;GY
+  C1: A(ER)[#15:I:P Masquerena]&gt;GY
+  R1: OK
+  L[[#5:Skull Archfiend of Chaos:M2]]&gt;ER[#19:S:P Little Knight](atk)&lt;ED
+  C1: A(ER)[#19:S:P Little Knight] T&gt;GY[#3:Light and Darkness Ritual]
+  R1: &gt;BX[#3:Light and Darkness Ritual]&lt;GY
+  C1: A(S3)[#7:Mind Shuffle]
+  R1: +H[#20:Black Luster Soldier - Soldier of Light and Darkness]&lt;D, [#12:Inferno of the Sacred Beasts - Uria, Lord of Searing Flames]&gt;GY
+  C1: A(S4)[#14:Super Polymerization]
+      C2: A(S4)[#14:Super Polymerization]
+      R2: OK
+  R1: [#o2:Ragged Records of Rites]&gt;GY
+
+-- --- RFC 0001 Terminal Board Snapshot (YBN - Game 1) ---
+YBN: T2|M1|LP8000:8000|P1:|P2:M1[#18(def)],M4[#17(def)],ER[#19(atk)],S4[#14]|G:NS=0,SS=3
+
+[Round "Game 2"]
+-- [Notary Note]: Game 2 commences. TheGreatRoyal elects to go first.
+T1: TheGreatRoyal vs lbeneck
+@DP
+  +H[#21:Kuriboh - Multiply!, #22:Medius the Pure, #e1:Ars Magna "Citrinitas", #o4:Griffoh, #e2:Ars Magna the Division and the Union]&lt;D
+  o.+H[#11:Summoner of the Sacred Beasts, #o1:Dominus Impulse, #o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms, #10:Martyr of the Sacred Beasts, #8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]&lt;o.D
+  C1: A(H)[#o4:Griffoh]&gt;GY
+  R1: OK
+  #S[#7:Mind Shuffle]&gt;S3
+  C1: A(S3)[#7:Mind Shuffle]
+      C2: A(S3)[#7:Mind Shuffle]
+      R2: OK
+  R1: +H[#5:Skull Archfiend of Chaos]&lt;D, [#5:Skull Archfiend of Chaos]&gt;GY
+  C1: A(GY)[#5:Skull Archfiend of Chaos]
+  R1: [#3:Light and Darkness Ritual]&gt;GY, +H[#6:Magician of Dark Chaos - Black Chaos]&lt;D
+@SP
+@M1
+  C1: A(GY)[#3:Light and Darkness Ritual]&gt;H
+  R1: [#o4:Griffoh]&gt;GY
+  C1: A(H)[#3:Light and Darkness Ritual]
+      C2: A(S2)[#3:Light and Darkness Ritual]
+      R2: OK
+  R1: [#o4:Griffoh]&gt;GY, S[#6:Magician of Dark Chaos - Black Chaos](atk)&gt;M1&lt;H
+  C1: A(M1)[#6:Magician of Dark Chaos - Black Chaos]
+  R1: [#3:Light and Darkness Ritual]&gt;GY
+  C1: A(H)[#e1:Ars Magna "Citrinitas"]
+      C2: A(S4)[#e1:Ars Magna "Citrinitas"]
+      R2: OK
+  R1: +H[#e3:Ars Magna the Finite and the Infinite]&lt;D, S[#22:Medius the Pure](atk)&gt;M2&lt;H
+  C1: A(M2)[#22:Medius the Pure]
+  R1: S[#o7:Nervedo the Shadebeast Power Patron](def)&gt;M4&lt;D
+  C1: A(M4)[#e4:Artmage Non-Finito]
+      C2: A(ED)[#o7:Nervedo the Shadebeast Power Patron]
+      R2: OK
+  R1: S[#23:Jupredo the Shademachine Power Patron](def)&gt;M5&lt;D
+  #S[#24:Artmage Impasto -Recapture-]&gt;S2
+  C1: A(ER)[#27:Beyond the Pendulum]
+      C2: A(ED)[#23:Jupredo the Shademachine Power Patron]
+      R2: OK
+  R1: +H[#25:Prohibited Power Patron Portal - Terminus]&lt;D, +H[#26:Junoldo the Shadespirit Power Patron]&lt;D
+  C1: A(H)[#25:Prohibited Power Patron Portal - Terminus]
+      C2: A(S5)[#25:Prohibited Power Patron Portal - Terminus]
+      R2: OK
+  R1: [#o7:Nervedo the Shadebeast Power Patron]&gt;GY, +H[#28:Vidolium the Unstable Power Patron of Unity]&lt;D, [#25:Prohibited Power Patron Portal - Terminus]&gt;GY
+  C1: A(H)[#28:Vidolium the Unstable Power Patron of Unity]
+      C2: A(H)[#26:Junoldo the Shadespirit Power Patron]
+          C3: A(H)[#e3:Ars Magna the Finite and the Infinite]
+          R3: OK
+      R2: OK
+  R1: S[#o7:Nervedo the Shadebeast Power Patron](def)&gt;M3&lt;ED, S[#23:Jupredo the Shademachine Power Patron](def)&gt;M5&lt;ED
+  C1: A(Right Pendulum Zone)[#26:Junoldo the Shadespirit Power Patron]&gt;ED
+  R1: +H[#29:Typhoon]&lt;D, +H[#21:Kuriboh - Multiply!]&lt;D, [#21:Kuriboh - Multiply!]&gt;GY
+  C1: A(ED)[#26:Junoldo the Shadespirit Power Patron]
+  R1: [#o7:Nervedo the Shadebeast Power Patron]&gt;GY, S[#e5:Superdreadnought Rail Cannon Gustav Max](def)&gt;M5&lt;M5, [#o7:Nervedo the Shadebeast Power Patron]&gt;GY, S[#e6:Superdreadnought Rail Cannon Gustav Rocket](def)&gt;M5&lt;M5
+  C1: A(S1)[#28:Vidolium the Unstable Power Patron of Unity]&gt;ED
+  R1: S[#o7:Nervedo the Shadebeast Power Patron](def)&gt;M2&lt;GY
+  C1: A(ED)[#28:Vidolium the Unstable Power Patron of Unity]
+  R1: +H[#2:Theorealized Medius]&lt;D
+  C1: A(H)[#e3:Ars Magna the Finite and the Infinite]
+  R1: &gt;BX[#e3:Ars Magna the Finite and the Infinite]&lt;H, +H[#e7:Ars Magna the Corruption and the Purification]&lt;D
+  C1: A(H)[#2:Theorealized Medius]
+  R1: +H[#30:Theorealize Past Lull]&lt;D, S[#2:Theorealized Medius](atk)&gt;M3&lt;H
+  C1: A(H)[#e7:Ars Magna the Corruption and the Purification]
+  R1: &gt;BX[#e7:Ars Magna the Corruption and the Purification]&lt;H, +H[#e8:Ars Magna "Philosophorum"]&lt;D
+  C1: A(M3)[#2:Theorealized Medius]
+  R1: &gt;BX[#2:Theorealized Medius]&lt;M3, S[#31:Artmage Diactorus](atk)&gt;M3&lt;ED
+  C1: A(GY)[#22:Medius the Pure]
+  R1: [#o7:Nervedo the Shadebeast Power Patron]&gt;GY, S[#22:Medius the Pure](def)&gt;M2&lt;GY, &gt;BX[#22:Medius the Pure]&lt;M2, [#27:Beyond the Pendulum]&gt;GY, S[#32:Mediclius the Extraordinary Power Patron](atk)&gt;EL&lt;ED
+  #S[#e8:Ars Magna "Philosophorum"]&gt;S1
+  #S[#29:Typhoon]&gt;S5
+@EP
+
+T2: lbeneck vs TheGreatRoyal
+@DP
+  C1: A(S3)[#7:Mind Shuffle]
+  R1: +H[#20:Black Luster Soldier - Soldier of Light and Darkness]&lt;D, [#e2:Ars Magna the Division and the Union]&gt;GY
+@SP
+@M1
+  C1: A(H)[#o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms]
+  R1: +H[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]&lt;D, [#o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms]&gt;GY
+  C1: A(H)[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]
+  R1: +H[#9:Sacred Beasts Released]&lt;D, [#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]&gt;GY
+  C1: A(H)[#9:Sacred Beasts Released]
+      C2: A(S3)[#9:Sacred Beasts Released]
+          C3: A(M3)[#31:Artmage Diactorus]
+          R3: OK
+      R2: OK
+  R1: [#9:Sacred Beasts Released]&gt;GY
+  C1: A(H)[#o5:Fallen Paradise of the Sacred Beasts]&gt;FS
+  R1: OK
+  C1: A(FS)[#o5:Fallen Paradise of the Sacred Beasts]
+      C2: A(S5)[#29:Typhoon]
+      R2: OK
+  R1: [#29:Typhoon]&gt;GY, [#o5:Fallen Paradise of the Sacred Beasts]&gt;GY
+  C1: A(H)[#11:Summoner of the Sacred Beasts]&gt;GY
+  R1: S[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder](atk)&gt;M5&lt;H
+  L[[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder:M5]]&gt;M5[#17:Thunder Dragon Colossus](atk)&lt;ED
+  C1: A(GY)[#11:Summoner of the Sacred Beasts]
+  R1: &gt;BX[#11:Summoner of the Sacred Beasts]&lt;GY
+  C1: A(S3)[#7:Mind Shuffle]
+  R1: [#6:Magician of Dark Chaos - Black Chaos]&gt;GY
+  C1: A(H)[#o1:Dominus Impulse]&gt;GY
+  R1: S[#o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms](def)&gt;M4&lt;GY, S[#10:Martyr of the Sacred Beasts](atk)&gt;M2&lt;H
+  C1: A(M2)[#10:Martyr of the Sacred Beasts]&gt;H
+  R1: S[#10:Martyr of the Sacred Beasts](atk)&gt;M2&lt;H
+  C1: A(M2)[#10:Martyr of the Sacred Beasts]
+      C2: A(M5)[#e6:Superdreadnought Rail Cannon Gustav Rocket]
+      R2: OK
+  R1: OK
+
+-- --- RFC 0001 Terminal Board Snapshot (YBN - Game 2) ---
+YBN: T2|M1|LP8000:6000|P1:M1[#6(atk)],M3[#31(atk)],M5[#e6(def)],EL[#32(atk)],S1[#e8]|P2:M2[#10(atk)],M4[#o3(def)],M5[#17(atk)]|G:NS=1,SS=4
+
+[Round "Game 3"]
+-- [Notary Note]: Game 3 commences. Deciding game of the match.
+T1: lbeneck vs TheGreatRoyal
+@DP
+  +H[#e7:Ars Magna the Corruption and the Purification, #23:Jupredo the Shademachine Power Patron, #33:Infinite Impermanence, #o1:Dominus Impulse, #o8:Skull Meister]&lt;D
+  o.+H[#o2:Ragged Records of Rites, #11:Summoner of the Sacred Beasts, #9:Sacred Beasts Released, #16:Sacred Beasts Combined Assault, #10:Martyr of the Sacred Beasts]&lt;o.D
+@SP
+@M1
+  C1: A(H)[#9:Sacred Beasts Released]
+      C2: A(S3)[#9:Sacred Beasts Released]
+      R2: OK
+  R1: +H[#o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms]&lt;D, +H[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]&lt;D, +H[#12:Inferno of the Sacred Beasts - Uria, Lord of Searing Flames]&lt;D, [#12:Inferno of the Sacred Beasts - Uria, Lord of Searing Flames]&gt;GY, [#16:Sacred Beasts Combined Assault]&gt;GY, [#9:Sacred Beasts Released]&gt;GY
+  C1: A(H)[#o2:Ragged Records of Rites]
+      C2: A(S3)[#o2:Ragged Records of Rites]
+      R2: OK
+  R1: &gt;BX[#3:Light and Darkness Ritual]&lt;D, +H[#o4:Griffoh]&lt;D, [#o2:Ragged Records of Rites]&gt;GY
+  C1: A(H)[#o4:Griffoh]&gt;GY
+  R1: OK
+  #S[#7:Mind Shuffle]&gt;S3
+  C1: A(S3)[#7:Mind Shuffle]
+      C2: A(S3)[#7:Mind Shuffle]
+      R2: OK
+  R1: [#5:Skull Archfiend of Chaos]&gt;GY, [#3:Light and Darkness Ritual]&gt;GY, +H[#6:Magician of Dark Chaos - Black Chaos]&lt;D
+  C1: A(GY)[#3:Light and Darkness Ritual]&gt;H
+  R1: [#o4:Griffoh]&gt;GY
+  C1: A(H)[#3:Light and Darkness Ritual]
+      C2: A(S2)[#3:Light and Darkness Ritual]
+      R2: OK
+  R1: [#o4:Griffoh]&gt;GY, S[#6:Magician of Dark Chaos - Black Chaos](atk)&gt;M5&lt;H
+  C1: A(M5)[#6:Magician of Dark Chaos - Black Chaos]
+  R1: [#3:Light and Darkness Ritual]&gt;GY, [#o2:Ragged Records of Rites]&gt;GY, S[#10:Martyr of the Sacred Beasts](atk)&gt;M1&lt;H
+  C1: A(M1)[#10:Martyr of the Sacred Beasts]
+      C2: A(S4)[#13:Sacred Beasts Thunderclap]
+      R2: OK
+  R1: OK
+  C1: A(D)[#o5:Fallen Paradise of the Sacred Beasts]&gt;FS
+  R1: OK
+  C1: A(FS)[#o5:Fallen Paradise of the Sacred Beasts]
+  R1: [#13:Sacred Beasts Thunderclap]&gt;GY, [#13:Sacred Beasts Thunderclap]&gt;GY, [#13:Sacred Beasts Thunderclap]&gt;GY, S[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder](def)&gt;M4&lt;D
+  C1: A(M1)[#10:Martyr of the Sacred Beasts]
+  R1: S[#10:Martyr of the Sacred Beasts](def)&gt;M3&lt;D, S[#10:Martyr of the Sacred Beasts](def)&gt;M2&lt;D
+  C1: A(H)[#o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms]
+  R1: +H[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]&lt;D, [#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]&gt;GY
+  C1: A(FS)[#o5:Fallen Paradise of the Sacred Beasts]
+  R1: +H[#1:Black Chaos]&lt;D, +H[#1:Black Chaos]&lt;D, S[#18:Lyrilusc - Assembled Nightingale](def)&gt;M1&lt;M1
+  C1: A(GY)[#5:Skull Archfiend of Chaos] T&gt;GY[#o4:Griffoh]
+  R1: S[#5:Skull Archfiend of Chaos](def)&gt;M2&lt;GY, [#13:Sacred Beasts Thunderclap]&gt;GY, [#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]&gt;GY, [#o4:Griffoh]&gt;GY
+  L[[#5:Skull Archfiend of Chaos:M2] + [#10:Martyr of the Sacred Beasts:M3]]&gt;ER[#15:I:P Masquerena](atk)&lt;ED
+  L[[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder:M4]]&gt;M4[#17:Thunder Dragon Colossus](def)&lt;ED
+  C1: A(H)[#11:Summoner of the Sacred Beasts]&gt;GY
+  R1: [#11:Summoner of the Sacred Beasts]&gt;GY, S[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder](def)&gt;M3&lt;H
+  C1: A(GY)[#11:Summoner of the Sacred Beasts]
+  R1: &gt;BX[#11:Summoner of the Sacred Beasts]&lt;GY, S[#12:Inferno of the Sacred Beasts - Uria, Lord of Searing Flames](def)&gt;M2&lt;GY
+  #S[#o2:Ragged Records of Rites]&gt;S2
+@EP
+
+T2: TheGreatRoyal vs lbeneck
+@DP
+@SP
+@M1
+  C1: A(S3)[#7:Mind Shuffle]
+  R1: +H[#20:Black Luster Soldier - Soldier of Light and Darkness]&lt;D, [#1:Black Chaos]&gt;GY
+  C1: A(H)[#e7:Ars Magna the Corruption and the Purification]
+  R1: &gt;BX[#e7:Ars Magna the Corruption and the Purification]&lt;H, +H[#e1:Ars Magna "Citrinitas"]&lt;D
+  C1: A(H)[#e1:Ars Magna "Citrinitas"]
+      C2: A(S1)[#e1:Ars Magna "Citrinitas"]
+          C3: A(M2)[#12:Inferno of the Sacred Beasts - Uria, Lord of Searing Flames]
+          R3: OK
+      R2: OK
+  R1: [#e1:Ars Magna "Citrinitas"]&gt;GY
+  C1: A(H)[#23:Jupredo the Shademachine Power Patron]
+      C2: A(ER)[#15:I:P Masquerena]
+      R2: OK
+  R1: [#15:I:P Masquerena]&gt;GY
+  L[[#17:Thunder Dragon Colossus:M4]]&gt;ER[#19:S:P Little Knight](atk)&lt;ED
+  C1: A(ER)[#19:S:P Little Knight] T&gt;S5[#23:Jupredo the Shademachine Power Patron]
+  R1: &gt;BX[#23:Jupredo the Shademachine Power Patron]&lt;S5
+  C1: A(GY)[#16:Sacred Beasts Combined Assault]
+  R1: &gt;BX[#16:Sacred Beasts Combined Assault]&lt;GY
+  C1: A(H)[#o8:Skull Meister]
+      C2: A(M3)[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]
+      R2: OK
+  R1: OK
+
+-- --- RFC 0001 Terminal Board Snapshot (YBN - Game 3) ---
+YBN: T2|M1|LP8000:8000|P1:M2[#10(atk)],ER[#19(atk)],S2[#o2]|P2:M3[#8(def)],S3[#7]|G:NS=0,SS=4
+        </pre>
+      </div>
+    </section>
+
+    <!-- Cross Navigation -->
+    <div class="pagination-bar">
+      <a href="index.html" class="btn-secondary">&larr; Back to Reports Hub</a>
+      <a href="jacson.html" class="btn-primary">Next: Match #02 (vs jacsonmoura) &rarr;</a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="index.html">YGN Match Reports</a></li>
+        <li><a href="../obsidian/index.html">Obsidian TCG</a></li>
+        <li><a href="../tools/notary.html">RFC 0001 Notary</a></li>
+        <li><a href="https://github.com/niloedson">GitHub</a></li>
+      </ul>
+      <p>&copy; 2026 Nilo Edson &middot; Haunted Labs &amp; Obsidian TCG Team.</p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function copyYgnTranscript() {
+      const text = document.getElementById('ygn-content').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.btn-copy');
+        const orig = btn.innerText;
+        btn.innerText = 'Copied!';
+        btn.style.background = 'rgba(52, 211, 153, 0.3)';
+        btn.style.borderColor = 'rgba(52, 211, 153, 0.5)';
+        btn.style.color = '#34d399';
+        setTimeout(() => {
+          btn.innerText = orig;
+          btn.style.background = '';
+          btn.style.borderColor = '';
+          btn.style.color = '';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

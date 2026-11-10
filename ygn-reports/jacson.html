@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Match 02: TheGreatRoyal vs jacsonmoura (2-1) — YGN Match Intelligence</title>
+  <meta name="description" content="Detailed play-by-play narrative commentary, ygo-pilot tactical analysis, ygo-judge rulings review, and RFC 0001 YGN transcript for TheGreatRoyal vs jacsonmoura.">
+  <meta name="author" content="Nilo Edson (Obsidian TCG / Haunted Labs)">
+
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/project.css">
+
+  <style>
+    :root {
+      --accent-pilot: #38bdf8;
+      --accent-judge: #fbbf24;
+      --accent-arch: #a78bfa;
+      --accent-win: #34d399;
+      --accent-loss: #f87171;
+    }
+
+    .report-hero {
+      padding: 2.5rem 0 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumb-nav {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .breadcrumb-nav a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .matchup-banner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin: 1.75rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .matchup-banner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+
+    .player-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .player-card.p2 {
+      text-align: right;
+    }
+
+    @media (max-width: 768px) {
+      .player-card.p2 {
+        text-align: center;
+      }
+    }
+
+    .player-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .player-deck {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: #94a3b8;
+    }
+
+    .score-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(18, 24, 38, 0.95);
+      border: 2px solid var(--accent-purple);
+      border-radius: 10px;
+      padding: 0.75rem 1.5rem;
+      box-shadow: 0 0 20px rgba(188, 140, 255, 0.2);
+    }
+
+    .score-num {
+      font-size: 2.2rem;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      color: #fff;
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      color: var(--accent-win);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.3rem;
+    }
+
+    .game-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      position: relative;
+    }
+
+    .game-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .game-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .game-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .game-badge.win {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--accent-win);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+    }
+
+    .game-badge.loss {
+      background: rgba(248, 113, 113, 0.15);
+      color: var(--accent-loss);
+      border: 1px solid rgba(248, 113, 113, 0.35);
+    }
+
+    .narrative-p {
+      color: #cbd5e1;
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+
+    .callout-box {
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      position: relative;
+      border-left: 4px solid;
+    }
+
+    .callout-pilot {
+      background: rgba(56, 189, 248, 0.08);
+      border-color: var(--accent-pilot);
+      border-top: 1px solid rgba(56, 189, 248, 0.2);
+      border-right: 1px solid rgba(56, 189, 248, 0.2);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .callout-judge {
+      background: rgba(251, 191, 36, 0.08);
+      border-color: var(--accent-judge);
+      border-top: 1px solid rgba(251, 191, 36, 0.2);
+      border-right: 1px solid rgba(251, 191, 36, 0.2);
+      border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+    }
+
+    .callout-arch {
+      background: rgba(167, 139, 250, 0.08);
+      border-color: var(--accent-arch);
+      border-top: 1px solid rgba(167, 139, 250, 0.2);
+      border-right: 1px solid rgba(167, 139, 250, 0.2);
+      border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+    }
+
+    .callout-title {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .callout-pilot .callout-title { color: var(--accent-pilot); }
+    .callout-judge .callout-title { color: var(--accent-judge); }
+    .callout-arch .callout-title { color: var(--accent-arch); }
+
+    .callout-body {
+      color: #e2e8f0;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .ybn-box {
+      background: #090d16;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #38bdf8;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .ybn-label {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .ygn-viewer {
+      background: #090d16;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 2rem 0;
+    }
+
+    .ygn-viewer-header {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ygn-viewer-title {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+
+    .btn-copy {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-pilot);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 6px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-copy:hover {
+      background: rgba(56, 189, 248, 0.3);
+      color: #fff;
+    }
+
+    .ygn-code {
+      max-height: 520px;
+      overflow-y: auto;
+      padding: 1.25rem;
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #e2e8f0;
+      white-space: pre;
+    }
+
+    .pagination-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 3rem 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="../index.html" class="nav-brand">Nilo Edson</a>
+        <span style="color: var(--border-color);">&middot;</span>
+        <a href="index.html" style="font-weight: 700; color: var(--accent-cyan);">YGN Reports</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">&larr; All Match Reports</a></li>
+        <li><a href="../tools/notary.html">RFC 0001 Notary</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- Breadcrumb & Header -->
+    <header class="report-hero">
+      <div class="breadcrumb-nav">
+        <a href="../index.html">Home</a> &gt;
+        <a href="index.html">YGN Match Reports</a> &gt;
+        <span style="color: #fff;">Match #02</span>
+      </div>
+
+      <h1 style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 0.5rem;">
+        Match #02: Clash of the Typhoons &amp; 5-Link Chain Resolution
+      </h1>
+      <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.5;">
+        Competitive Dueling Book Match analysis featuring unchainable fusion board-breakers, deep reverse LIFO chain unwinding, and lingering banish floodgates.
+      </p>
+
+      <!-- Matchup Banner -->
+      <div class="matchup-banner">
+        <div class="player-card p1">
+          <span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--accent-pilot); font-weight: 700; text-transform: uppercase;">Player 1 &middot; Winner</span>
+          <span class="player-name">TheGreatRoyal</span>
+          <span class="player-deck">Medius / Power Patron / Dark Chaos / Artmage</span>
+        </div>
+
+        <div class="score-badge">
+          <div class="score-num">2 &ndash; 1</div>
+          <div class="score-label">TheGreatRoyal Won</div>
+        </div>
+
+        <div class="player-card p2">
+          <span style="font-size: 0.72rem; font-family: var(--font-mono); color: #f472b6; font-weight: 700; text-transform: uppercase;">Player 2</span>
+          <span class="player-name">jacsonmoura</span>
+          <span class="player-deck">Radiant Typhoon (Wind Beast-Warrior)</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Macro Architecture Review -->
+    <section>
+      <div class="callout-box callout-arch">
+        <div class="callout-title">📊 Deck Architect Macro Analysis &middot; Engine Synergies</div>
+        <div class="callout-body">
+          <strong>TheGreatRoyal:</strong> Combines ritual recursion via <em>Ragged Records of Rites</em> with <em>Medius the Pure</em>'s machine engine. This allows assembling multi-negate boards (<em>Number 38</em> for Spell negation and <em>Mediclius</em> for monster/omni negation) while maintaining follow-up resources in the Extra Deck.
+          <br><br>
+          <strong>jacsonmoura (Radiant Typhoon Engine):</strong> A WIND Beast-Warrior swarm strategy searching key starters via <em>Fire Formation - Tenki</em>. The deck's primary win condition is establishing <em>Totem Bird</em> to lock down opposing spells, supported by powerful board-breakers (<em>Super Polymerization</em>) and disruptive silver bullets (<em>Artifact Lancea</em>).
+        </div>
+      </div>
+    </section>
+
+    <!-- Game 1 -->
+    <section class="game-section">
+      <div class="game-section-header">
+        <div class="game-title">
+          <span>Game 1: The Layered Citadel &amp; The 5-Link Chain</span>
+        </div>
+        <span class="game-badge win">TheGreatRoyal Won (1 - 0)</span>
+      </div>
+
+      <p class="narrative-p">
+        TheGreatRoyal took the first turn and opened with <em>Medius the Pure</em> and <em>Ragged Records of Rites</em>. Using Ragged Records to pitch Griffoh and retrieve Light and Darkness Ritual, TheGreatRoyal summoned <em>Magician of Dark Chaos</em> to recycle resources before Normal Summoning Medius.
+      </p>
+
+      <p class="narrative-p">
+        The combo proceeded through <em>Beyond the Pendulum</em> into <em>Gustav Max</em>, <em>Gustav Rocket</em>, and <em>Mediclius the Extraordinary Power Patron</em>, concluding with the Xyz Summon of <strong>Number 38: Hope Harbinger Dragon Titanic Galaxy</strong>.
+      </p>
+
+      <p class="narrative-p">
+        On Turn 2, jacsonmoura attempted to break the formidable board immediately by dropping <strong>Super Polymerization</strong>, fusing TheGreatRoyal's <em>Artmage Non-Finito</em> and <em>Gustav Rocket</em> into <em>Mudragon of the Swamp</em>.
+      </p>
+
+      <div class="callout-box callout-judge">
+        <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Super Polymerization vs Number 38</div>
+        <div class="callout-body">
+          <strong>PSCT Clause:</strong> <em>"Neither player can activate cards or effects in response to this card's activation."</em><br>
+          <strong>Adjudication:</strong> Despite <em>Number 38: Hope Harbinger</em> having an active Quick Effect that negates Spell cards, it cannot legally chain to <em>Super Polymerization</em>. The fusion resolved unhindered, stripping TheGreatRoyal of two key monsters without allowing spell negation response.
+        </div>
+      </div>
+
+      <p class="narrative-p">
+        Following the fusion summon, an extraordinary <strong>5-link chain</strong> erupted when jacsonmoura activated <em>Radiant Typhoon Krosea</em> in hand:
+      </p>
+
+      <div class="callout-box callout-judge">
+        <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; 5-Link LIFO Chain Stack Resolution</div>
+        <div class="callout-body">
+          <strong>Chain Building:</strong><br>
+          • <strong>CL1:</strong> Krosea activates in hand to Special Summon itself.<br>
+          • <strong>CL2:</strong> Ash Blossom &amp; Joyous Spring responds from hand.<br>
+          • <strong>CL3:</strong> Mediclius the Extraordinary Power Patron activates to negate Mudragon.<br>
+          • <strong>CL4:</strong> Radiant Typhoon Vision responds.<br>
+          • <strong>CL5:</strong> Number 38: Hope Harbinger activates, detaching material to negate Vision.<br><br>
+          <strong>Chain Resolution (Reverse LIFO Order):</strong><br>
+          • <strong>R5:</strong> Number 38 successfully negates and absorbs <em>Vision</em>.<br>
+          • <strong>R4:</strong> Vision is negated (fizzles).<br>
+          • <strong>R3:</strong> Mediclius negates Mudragon.<br>
+          • <strong>R2:</strong> Ash Blossom resolves.<br>
+          • <strong>R1:</strong> Krosea resolves its summon without further deck searching.<br><br>
+          With all major extenders suppressed by TheGreatRoyal's layered negations, jacsonmoura conceded Game 1.
+        </div>
+      </div>
+
+      <div class="ybn-box">
+        <span class="ybn-label">Terminal Board Snapshot &middot; Game 1 (RFC 0001 YBN)</span>
+        <code>T2|M1|LP8000:8000|P1:M1[#20(atk)],EL[#19(atk)],S2[#e7]|P2:M1[#21(atk)],M3[#o1(atk)]|G:NS=0,SS=3</code>
+      </div>
+    </section>
+
+    <!-- Game 2 -->
+    <section class="game-section">
+      <div class="game-section-header">
+        <div class="game-title">
+          <span>Game 2: Artifact Lancea &amp; Totem Bird Lock</span>
+        </div>
+        <span class="game-badge loss">jacsonmoura Won (1 - 1)</span>
+      </div>
+
+      <p class="narrative-p">
+        Going first in Game 2, jacsonmoura showcased the full consistency of the Radiant Typhoon engine. Leading with <em>Fire Formation - Tenki</em> to search <em>Swen</em>, jacsonmoura swarmed the field with <em>Eldam</em>, <em>Varuroon</em>, and <em>Meghala</em>.
+      </p>
+
+      <div class="callout-box callout-pilot">
+        <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; Proactive Totem Bird Setup</div>
+        <div class="callout-body">
+          jacsonmoura recognized that TheGreatRoyal's engine relies heavily on normal and continuous Spells (<em>Theorealize</em>, <em>Ars Magna</em>, <em>Pendulum Treasure</em>). Overlaying two Level 3 WIND monsters into <strong>Totem Bird</strong> created an on-field Spell/Trap omni-negate that directly checked TheGreatRoyal's ignition lines.
+        </div>
+      </div>
+
+      <p class="narrative-p">
+        On Turn 2, jacsonmoura immediately dropped <strong>Artifact Lancea</strong> from hand during the Draw Phase.
+      </p>
+
+      <div class="callout-box callout-judge">
+        <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Artifact Lancea Lingering Banish Lock</div>
+        <div class="callout-body">
+          <strong>PSCT Clause:</strong> <em>"During your opponent's turn (Quick Effect): You can tribute this card from your hand or face-up field; neither player can banish cards for the rest of this turn."</em><br>
+          <strong>Adjudication:</strong> Lancea applies a lingering game rule modification. Cards that require banishing as an activation cost (such as Ars Magna fusion spells, Medius GY triggers, or Griffoh) <strong>cannot legally be activated</strong> because a player cannot attempt an action that requires an illegal payment.
+        </div>
+      </div>
+
+      <p class="narrative-p">
+        Struggling under the Lancea banish lock, TheGreatRoyal attempted to activate <em>Pendulum Treasure</em> to setup scales manually. jacsonmoura detached from <em>Totem Bird</em> to negate the activation and destroy the card. Paralyzed without banishing or spells, TheGreatRoyal conceded Game 2.
+      </p>
+
+      <div class="ybn-box">
+        <span class="ybn-label">Terminal Board Snapshot &middot; Game 2 (RFC 0001 YBN)</span>
+        <code>T2|M1|LP8000:8000|P1:|P2:M2[#31(def)],M3[#33(def)],M4[#35(atk)],M5[#32(def)],S3[#26]|G:NS=0,SS=4</code>
+      </div>
+    </section>
+
+    <!-- Game 3 -->
+    <section class="game-section">
+      <div class="game-section-header">
+        <div class="game-title">
+          <span>Game 3: The Decider &amp; Dragostapelia Predator Counters</span>
+        </div>
+        <span class="game-badge win">TheGreatRoyal Won (2 - 1)</span>
+      </div>
+
+      <p class="narrative-p">
+        Game 3 saw jacsonmoura shotgunning <em>Artifact Lancea</em> during the Draw Phase once again. However, TheGreatRoyal adapted, playing through the graveyard via <em>Skull Archfiend of Chaos</em> and <em>Light and Darkness Ritual</em> without relying on early banishing.
+      </p>
+
+      <p class="narrative-p">
+        On Turn 2, jacsonmoura Normal Summoned <em>The Great Gallant Bandit</em> and attempted to build momentum with <em>Noble Knight's Shield-Bearer</em> and <em>Radiant Typhoon Eldam</em>. TheGreatRoyal responded by Fusion Summoning <strong>Predaplant Dragostapelia</strong>.
+      </p>
+
+      <div class="callout-box callout-judge">
+        <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Predaplant Dragostapelia Predator Counters</div>
+        <div class="callout-body">
+          <strong>PSCT Clause:</strong> <em>"Once per turn (Quick Effect): You can target 1 face-up monster your opponent controls; place 1 Predator Counter on it... Negate the activated effects of any opponent's monster that has a Predator Counter."</em><br>
+          <strong>Adjudication:</strong> Dragostapelia targeted <em>The Great Gallant Bandit</em>, placing a Predator Counter on it. This negated Bandit's activated effects continuously while on field. In the same chain, TheGreatRoyal's <em>Ash Blossom</em> intercepted Eldam's deck search, shutting down jacsonmoura's extenders simultaneously.
+        </div>
+      </div>
+
+      <p class="narrative-p">
+        jacsonmoura attempted to pivot into <em>Wynn the Wind Charmer, Verdant</em> to revive Gallant Bandit for an attack, but TheGreatRoyal cleanly dismantled the remaining board during the battle phase, locking up the series 2&ndash;1.
+      </p>
+
+      <div class="ybn-box">
+        <span class="ybn-label">Terminal Board Snapshot &middot; Game 3 (RFC 0001 YBN)</span>
+        <code>T2|BP|LP0:8000|P1:|P2:M1[#37(atk)],M3[#37(atk)],ER[#42(atk)]|G:NS=1,SS=5</code>
+      </div>
+    </section>
+
+    <!-- Interactive YGN Viewer -->
+    <section>
+      <div class="ygn-viewer">
+        <div class="ygn-viewer-header">
+          <span class="ygn-viewer-title">RFC 0001 YGN Transcript &middot; jacson.ygn (Multi-line Indented LIFO)</span>
+          <button class="btn-copy" onclick="copyYgnTranscript()">Copy YGN</button>
+        </div>
+        <pre class="ygn-code" id="ygn-content">
+[Event "Dueling Book Match"]
+[Player1 "TheGreatRoyal" 8000]
+[Player2 "jacsonmoura" 8000]
+[Format "Advanced (Unrated) with duel note"]
+[Visibility "Omniscient"]
+[Standard "RFC 0001 (YGN v1.1)"]
+
+-- ==============================================================================
+-- MATCH OVERVIEW: TheGreatRoyal vs jacsonmoura (Best of 3)
+-- Player 1: TheGreatRoyal (Medius the Pure / Power Patron / Dark Chaos / Artmage)
+-- Player 2: jacsonmoura (Radiant Typhoon / Wind / Beast-Warrior)
+-- ==============================================================================
+
+[Round "Game 1"]
+-- [Notary Note]: Game 1 commences. TheGreatRoyal wins the opening roll and chooses to go first.
+T1: TheGreatRoyal vs jacsonmoura
+@DP
+  +H[#1:Medius the Pure, #2:Ash Blossom & Joyous Spring, #3:Mulcharmy Fuwalos, #4:Black Chaos, #5:Ragged Records of Rites]&lt;D
+  o.+H[#o1:Radiant Typhoon Krosea, #o2:Radiant Typhoon Vision, #o3:Radiant Typhoon Chant, #o4:Radiant Typhoon Eldam, #o5:Super Polymerization]&lt;o.D
+@SP
+@M1
+  C1: A(H)[#5:Ragged Records of Rites]&gt;S3
+      C2: A(S3)[#5:Ragged Records of Rites]
+      R2: OK
+  R1: +H[#6:Griffoh]&lt;D, [#7:Light and Darkness Ritual]&gt;GY, [#5:Ragged Records of Rites]&gt;GY
+  C1: A(H)[#6:Griffoh]&gt;GY
+  R1: OK
+  #S[#8:Mind Shuffle]&gt;S3
+  C1: A(S3)[#8:Mind Shuffle]
+      C2: A(S3)[#8:Mind Shuffle]
+      R2: OK
+  R1: +H[#9:Skull Archfiend of Chaos]&lt;D, [#9:Skull Archfiend of Chaos]&gt;GY
+  C1: A(GY)[#9:Skull Archfiend of Chaos]
+  R1: [#7:Light and Darkness Ritual]&gt;GY, +H[#10:Magician of Dark Chaos - Black Chaos]&lt;D
+  C1: A(GY)[#7:Light and Darkness Ritual]&gt;H
+  R1: [#9:Skull Archfiend of Chaos]&gt;GY
+  C1: A(H)[#7:Light and Darkness Ritual]&gt;S4
+  R1: &gt;BX[#6:Griffoh]&lt;GY, S[#10:Magician of Dark Chaos - Black Chaos](atk)&gt;M1&lt;H, [#7:Light and Darkness Ritual]&gt;GY
+  C1: A(M1)[#10:Magician of Dark Chaos - Black Chaos]
+  R1: [#5:Ragged Records of Rites]&gt;GY, S[#1:Medius the Pure](atk)&gt;M2&lt;H
+  C1: A(M2)[#1:Medius the Pure]
+  R1: S[#o6:Nervedo the Shadebeast Power Patron](def)&gt;M4&lt;D
+  C1: A(M4)[#e1:Artmage Non-Finito]
+      C2: A(ED)[#o6:Nervedo the Shadebeast Power Patron]
+      R2: OK
+  R1: S[#11:Jupredo the Shademachine Power Patron](def)&gt;M3&lt;D
+  #S[#12:Artmage Impasto -Recapture-]&gt;S4
+  C1: A(ER)[#15:Beyond the Pendulum]
+      C2: A(ED)[#11:Jupredo the Shademachine Power Patron]
+      R2: OK
+  R1: +H[#13:Prohibited Power Patron Portal - Terminus]&lt;D, +H[#14:Junoldo the Shadespirit Power Patron]&lt;D
+  C1: A(H)[#13:Prohibited Power Patron Portal - Terminus]&gt;S2
+      C2: A(S2)[#13:Prohibited Power Patron Portal - Terminus]
+      R2: OK
+  R1: [#o6:Nervedo the Shadebeast Power Patron]&gt;GY, +H[#16:Vidolium the Unstable Power Patron of Unity]&lt;D, [#13:Prohibited Power Patron Portal - Terminus]&gt;GY
+  C1: A(H)[#16:Vidolium the Unstable Power Patron of Unity]
+      C2: A(H)[#14:Junoldo the Shadespirit Power Patron]
+      R2: OK
+  R1: S[#o6:Nervedo the Shadebeast Power Patron](def)&gt;M3&lt;ED, S[#11:Jupredo the Shademachine Power Patron](def)&gt;M5&lt;ED, S[#e2:Superdreadnought Rail Cannon Gustav Max](def)&gt;M5&lt;M5, S[#e3:Superdreadnought Rail Cannon Gustav Rocket](def)&gt;M5&lt;M5
+  C1: A(H)[#3:Mulcharmy Fuwalos]&gt;S1
+      C2: A(S1)[#16:Vidolium the Unstable Power Patron of Unity]
+      R2: OK
+  R1: [#16:Vidolium the Unstable Power Patron of Unity]&gt;GY, S[#o6:Nervedo the Shadebeast Power Patron](def)&gt;M2&lt;GY
+  C1: A(ED)[#16:Vidolium the Unstable Power Patron of Unity]
+  R1: +H[#17:Theorealized Medius]&lt;D
+  C1: A(H)[#17:Theorealized Medius]
+  R1: +H[#18:Theorealize Past Lull]&lt;D, S[#17:Theorealized Medius](atk)&gt;M3&lt;H
+  C1: A(Right Pendulum Zone)[#14:Junoldo the Shadespirit Power Patron]
+  R1: +H[#e4:Ars Magna the Corruption and the Purification]&lt;D, +H[#3:Mulcharmy Fuwalos]&lt;D
+  C1: A(H)[#3:Mulcharmy Fuwalos]&gt;GY
+  R1: [#14:Junoldo the Shadespirit Power Patron]&gt;GY
+  C1: A(ED)[#14:Junoldo the Shadespirit Power Patron]
+      C2: A(GY)[#1:Medius the Pure]
+      R2: OK
+  R1: [#o6:Nervedo the Shadebeast Power Patron]&gt;GY, S[#1:Medius the Pure](def)&gt;M2&lt;GY, &gt;BX[#1:Medius the Pure]&lt;M2, [#15:Beyond the Pendulum]&gt;GY, S[#19:Mediclius the Extraordinary Power Patron](atk)&gt;EL&lt;ED
+  C1: A(M3)[#17:Theorealized Medius]
+  R1: +H[#e5:Ars Magna the Finite and the Infinite]&lt;D
+  C1: A(H)[#e5:Ars Magna the Finite and the Infinite]
+  R1: &gt;BX[#e5:Ars Magna the Finite and the Infinite]&lt;H, +H[#e6:Ars Magna the Division and the Union]&lt;D
+  C1: A(H)[#e4:Ars Magna the Corruption and the Purification]
+  R1: &gt;BX[#e4:Ars Magna the Corruption and the Purification]&lt;H, +H[#e7:Ars Magna "Citrinitas"]&lt;D
+  C1: A(H)[#e6:Ars Magna the Division and the Union]
+  R1: &gt;BX[#e6:Ars Magna the Division and the Union]&lt;H, S[#20:Number 38: Hope Harbinger Dragon Titanic Galaxy](atk)&gt;M1&lt;M1
+  C1: A(H)[#e7:Ars Magna "Citrinitas"]&gt;S2
+      C2: A(S2)[#e7:Ars Magna "Citrinitas"]
+      R2: OK
+  R1: +H[#1:Medius the Pure]&lt;D
+@EP
+  C1: A(M5)[#e3:Superdreadnought Rail Cannon Gustav Rocket]
+  R1: OK
+
+T2: jacsonmoura vs TheGreatRoyal
+@DP
+  C1: A(H)[#o5:Super Polymerization]
+      C2: A(H)[#2:Ash Blossom &amp; Joyous Spring]
+      R2: OK
+  R1: OK
+  L[[#e1:Artmage Non-Finito:M4] + [#e3:Superdreadnought Rail Cannon Gustav Rocket:M5]]&gt;M1[#21:Mudragon of the Swamp](atk)&lt;ED
+  C1: A(H)[#o1:Radiant Typhoon Krosea]
+      C2: A(M1)[#21:Mudragon of the Swamp]
+      R2: OK
+  R1: S[#o1:Radiant Typhoon Krosea](atk)&gt;M3&lt;H
+  C1: A(M3)[#o1:Radiant Typhoon Krosea]
+      C2: A(H)[#2:Ash Blossom &amp; Joyous Spring]
+          C3: A(EL)[#19:Mediclius the Extraordinary Power Patron]
+              C4: A(H)[#o2:Radiant Typhoon Vision]
+                  C5: A(M1)[#20:Number 38: Hope Harbinger Dragon Titanic Galaxy]
+                  R5: OK
+              R4: OK
+          R3: OK
+      R2: OK
+  R1: OK
+
+-- --- RFC 0001 Terminal Board Snapshot (YBN - Game 1) ---
+YBN: T2|M1|LP8000:8000|P1:M1[#20(atk)],EL[#19(atk)],S2[#e7]|P2:M1[#21(atk)],M3[#o1(atk)]|G:NS=0,SS=3
+
+[Round "Game 2"]
+-- [Notary Note]: Game 2 commences. jacsonmoura elects to go first.
+T1: jacsonmoura vs TheGreatRoyal
+@DP
+  +H[#22:Dominus Impulse, #23:Theorealize, #24:Typhoon, #e4:Ars Magna the Corruption and the Purification, #25:Pendulum Treasure]&lt;D
+  o.+H[#26:Solemn Strike, #o3:Radiant Typhoon Chant, #o7:Artifact Lancea, #27:Fire Formation - Tenki, #28:Radiant Typhoon Swen]&lt;o.D
+  C1: A(H)[#o3:Radiant Typhoon Chant]&gt;S2
+      C2: A(S2)[#o3:Radiant Typhoon Chant]
+      R2: OK
+  R1: +H[#o4:Radiant Typhoon Eldam]&lt;D, [#o3:Radiant Typhoon Chant]&gt;GY
+@SP
+@M1
+  C1: A(M3)[#28:Radiant Typhoon Swen]
+  R1: +H[#o2:Radiant Typhoon Vision]&lt;D, S[#o4:Radiant Typhoon Eldam](def)&gt;M1&lt;H
+  C1: A(M1)[#o4:Radiant Typhoon Eldam]
+  R1: +H[#o1:Radiant Typhoon Krosea]&lt;D
+  C1: A(H)[#27:Fire Formation - Tenki]&gt;S3
+      C2: A(S3)[#27:Fire Formation - Tenki]
+      R2: OK
+  R1: +H[#28:Radiant Typhoon Swen]&lt;D
+  L[[#28:Radiant Typhoon Swen:M3] + [#o4:Radiant Typhoon Eldam:M1]]&gt;ER[#29:Radiant Typhoon Varuroon, the Marine Eidolon](atk)&lt;ED
+  C1: A(ER)[#29:Radiant Typhoon Varuroon, the Marine Eidolon]
+  R1: +H[#30:Mystical Space Typhoon]&lt;D
+  C1: A(H)[#o2:Radiant Typhoon Vision]&gt;S2
+  R1: o.+H[#o1:Radiant Typhoon Krosea]&lt;o.D, +H[#31:Radiant Typhoon Varuroon, the Vibrant Vortex]&lt;D, [#31:Radiant Typhoon Varuroon, the Vibrant Vortex]&gt;GY
+  C1: A(H)[#o1:Radiant Typhoon Krosea]
+  R1: [#o2:Radiant Typhoon Vision]&gt;GY
+  C1: A(ER)[#29:Radiant Typhoon Varuroon, the Marine Eidolon]
+  R1: S[#o1:Radiant Typhoon Krosea](def)&gt;M1&lt;H
+  C1: A(M1)[#o1:Radiant Typhoon Krosea]
+  R1: +H[#32:Radiant Typhoon Meghala]&lt;D, +H[#30:Mystical Space Typhoon]&lt;D, S[#32:Radiant Typhoon Meghala](def)&gt;M5&lt;H
+  C1: A(H)[#30:Mystical Space Typhoon]&gt;S4 T&gt;S3[#27:Fire Formation - Tenki]
+  R1: [#27:Fire Formation - Tenki]&gt;GY, [#30:Mystical Space Typhoon]&gt;GY
+  C1: A(M5)[#32:Radiant Typhoon Meghala]
+      C2: A(GY)[#31:Radiant Typhoon Varuroon, the Vibrant Vortex]
+      R2: OK
+  R1: S[#31:Radiant Typhoon Varuroon, the Vibrant Vortex](def)&gt;M2&lt;GY, S[#o4:Radiant Typhoon Eldam](def)&gt;M3&lt;D, S[#28:Radiant Typhoon Swen](atk)&gt;M4&lt;H, S[#33:Totem Bird](def)&gt;M3&lt;M3
+  #S[#26:Solemn Strike]&gt;S3
+  #S[#30:Mystical Space Typhoon]&gt;S4
+
+T2: TheGreatRoyal vs jacsonmoura
+@DP
+  C1: A(H)[#o7:Artifact Lancea]&gt;GY
+  R1: OK
+@SP
+@M1
+  C1: A(H)[#23:Theorealize]&gt;S5
+      C2: A(S5)[#23:Theorealize]
+      R2: OK
+  R1: [#1:Medius the Pure]&gt;GY, [#34:Radiant Typhoon Ascendance]&gt;GY, [#23:Theorealize]&gt;GY
+  C1: A(H)[#6:Griffoh]&gt;GY
+  R1: OK
+  #S[#8:Mind Shuffle]&gt;S4
+  C1: A(S4)[#8:Mind Shuffle]
+      C2: A(S4)[#8:Mind Shuffle]
+          C3: A(S4)[#30:Mystical Space Typhoon]
+          R3: OK
+      R2: OK
+  R1: [#8:Mind Shuffle]&gt;GY, [#30:Mystical Space Typhoon]&gt;GY
+  C1: A(M5)[#32:Radiant Typhoon Meghala]
+  R1: S[#35:Radiant Typhoon Fonix, the Great Flame](atk)&gt;M4&lt;D
+  C1: A(S2)[#36:Radiant Typhoon Mandate] T&gt;S2[#36:Radiant Typhoon Mandate]
+  R1: [#36:Radiant Typhoon Mandate]&gt;GY, [#24:Typhoon]&gt;GY
+  C1: A(GY)[#1:Medius the Pure]
+  R1: [#e4:Ars Magna the Corruption and the Purification]&gt;GY, S[#1:Medius the Pure](atk)&gt;M1&lt;GY
+  C1: A(M1)[#1:Medius the Pure]
+      C2: A(M2)[#31:Radiant Typhoon Varuroon, the Vibrant Vortex]
+      R2: OK
+  R1: [#1:Medius the Pure]&gt;GY
+  C1: A(H)[#25:Pendulum Treasure]&gt;S2
+      C2: A(S2)[#25:Pendulum Treasure]
+          C3: A(M3)[#33:Totem Bird]
+          R3: OK
+      R2: OK
+  R1: OK
+
+-- --- RFC 0001 Terminal Board Snapshot (YBN - Game 2) ---
+YBN: T2|M1|LP8000:8000|P1:|P2:M2[#31(def)],M3[#33(def)],M4[#35(atk)],M5[#32(def)],S3[#26]|G:NS=0,SS=4
+
+[Round "Game 3"]
+-- [Notary Note]: Game 3 commences. Deciding game of the match.
+T1: TheGreatRoyal vs jacsonmoura
+@DP
+  +H[#4:Black Chaos, #37:The Great Gallant Bandit, #2:Ash Blossom &amp; Joyous Spring, #5:Ragged Records of Rites, #14:Junoldo the Shadespirit Power Patron]&lt;D
+  o.+H[#o2:Radiant Typhoon Vision, #32:Radiant Typhoon Meghala, #34:Radiant Typhoon Ascendance, #o7:Artifact Lancea, #38:Noble Knight's Shield-Bearer]&lt;o.D
+  C1: A(H)[#o7:Artifact Lancea]&gt;GY
+  R1: OK
+@SP
+@M1
+  C1: A(H)[#5:Ragged Records of Rites]&gt;S3
+      C2: A(S3)[#5:Ragged Records of Rites]
+      R2: OK
+  R1: +H[#9:Skull Archfiend of Chaos]&lt;D, [#7:Light and Darkness Ritual]&gt;GY, [#5:Ragged Records of Rites]&gt;GY, S[#37:The Great Gallant Bandit](atk)&gt;M1&lt;H, [#14:Junoldo the Shadespirit Power Patron]&gt;GY, [#9:Skull Archfiend of Chaos]&gt;GY
+  C1: A(GY)[#9:Skull Archfiend of Chaos]
+  R1: [#7:Light and Darkness Ritual]&gt;GY, +H[#10:Magician of Dark Chaos - Black Chaos]&lt;D
+  C1: A(H)[#4:Black Chaos]
+      C2: A(GY)[#7:Light and Darkness Ritual]
+      R2: OK
+  R1: [#7:Light and Darkness Ritual]&gt;GY, [#4:Black Chaos]&gt;GY
+  C1: A(H)[#7:Light and Darkness Ritual]&gt;S4
+  R1: [#4:Black Chaos]&gt;GY, S[#10:Magician of Dark Chaos - Black Chaos](atk)&gt;M2&lt;H
+  C1: A(M2)[#10:Magician of Dark Chaos - Black Chaos]
+  R1: [#7:Light and Darkness Ritual]&gt;GY, [#5:Ragged Records of Rites]&gt;GY
+  C1: A(GY)[#9:Skull Archfiend of Chaos] T&gt;GY[#4:Black Chaos]
+  R1: S[#9:Skull Archfiend of Chaos](def)&gt;M5&lt;GY, [#4:Black Chaos]&gt;GY, [#7:Light and Darkness Ritual]&gt;GY, [#o7:Artifact Lancea]&gt;GY
+  L[[#10:Magician of Dark Chaos - Black Chaos:M2] + [#9:Skull Archfiend of Chaos:M5]]&gt;ER[#39:Purification Power Patron](atk)&lt;ED
+  C1: A(ER)[#39:Purification Power Patron]
+  R1: +H[#17:Theorealized Medius]&lt;D
+  C1: A(H)[#17:Theorealized Medius]
+  R1: +H[#23:Theorealize]&lt;D, S[#17:Theorealized Medius](atk)&gt;M2&lt;H
+  C1: A(H)[#23:Theorealize]&gt;S4
+      C2: A(S4)[#23:Theorealize]
+      R2: OK
+  R1: [#1:Medius the Pure]&gt;GY, [#o5:Super Polymerization]&gt;GY, [#23:Theorealize]&gt;GY
+  C1: A(GY)[#1:Medius the Pure] ~[#39:Purification Power Patron:ER]&gt;GY
+  R1: S[#1:Medius the Pure](def)&gt;M5&lt;GY
+  C1: A(M5)[#1:Medius the Pure]
+  R1: S[#o6:Nervedo the Shadebeast Power Patron](def)&gt;M4&lt;D
+  C1: A(M4)[#e1:Artmage Non-Finito]
+      C2: A(ED)[#o6:Nervedo the Shadebeast Power Patron]
+      R2: OK
+  R1: OK
+  #S[#12:Artmage Impasto -Recapture-]&gt;S2
+  L[[#1:Medius the Pure:M5]]&gt;ER[#15:Beyond the Pendulum](atk)&lt;ED
+  C1: A(ER)[#15:Beyond the Pendulum]
+      C2: A(ED)[#11:Jupredo the Shademachine Power Patron]
+      R2: OK
+  R1: +H[#13:Prohibited Power Patron Portal - Terminus]&lt;D, +H[#o6:Nervedo the Shadebeast Power Patron]&lt;D
+  C1: A(H)[#13:Prohibited Power Patron Portal - Terminus]&gt;S4
+  R1: [#o6:Nervedo the Shadebeast Power Patron]&gt;GY, +H[#16:Vidolium the Unstable Power Patron of Unity]&lt;D, [#13:Prohibited Power Patron Portal - Terminus]&gt;GY
+  C1: A(H)[#16:Vidolium the Unstable Power Patron of Unity]
+      C2: A(H)[#o6:Nervedo the Shadebeast Power Patron]
+      R2: OK
+  R1: S[#11:Jupredo the Shademachine Power Patron](def)&gt;M3&lt;ED, S[#o6:Nervedo the Shadebeast Power Patron](def)&gt;M5&lt;ED, S[#e2:Superdreadnought Rail Cannon Gustav Max](def)&gt;M5&lt;M5
+  C1: A(S1)[#16:Vidolium the Unstable Power Patron of Unity]&gt;ED
+  R1: S[#14:Junoldo the Shadespirit Power Patron](def)&gt;M3&lt;GY
+  C1: A(ED)[#14:Junoldo the Shadespirit Power Patron]
+  R1: [#o6:Nervedo the Shadebeast Power Patron]&gt;GY, [#o6:Nervedo the Shadebeast Power Patron]&gt;GY, S[#e3:Superdreadnought Rail Cannon Gustav Rocket](def)&gt;M5&lt;M5
+@EP
+
+T2: jacsonmoura vs TheGreatRoyal
+@DP
+  N[#37:The Great Gallant Bandit](atk)&gt;M1
+  C1: A(H)[#34:Radiant Typhoon Ascendance]&gt;S5
+  R1: OK
+@M1
+  C1: A(M4)[#e1:Artmage Non-Finito]&gt;GY
+  R1: OK
+  L[[#17:Theorealized Medius:M2]]&gt;M1[#40:Predaplant Dragostapelia](atk)&lt;ED
+  C1: A(H)[#30:Mystical Space Typhoon]&gt;S5 T&gt;S2[#41:Set Artmage Impasto -Recapture-]
+  R1: [#41:Set Artmage Impasto -Recapture-]&gt;GY, [#30:Mystical Space Typhoon]&gt;GY
+  C1: A(H)[#38:Noble Knight's Shield-Bearer]
+  R1: &gt;BX[#38:Noble Knight's Shield-Bearer]&lt;H, +H[#o4:Radiant Typhoon Eldam]&lt;D, S[#o4:Radiant Typhoon Eldam](atk)&gt;M3&lt;H
+  C1: A(M3)[#o4:Radiant Typhoon Eldam]
+      C2: A(H)[#2:Ash Blossom &amp; Joyous Spring]
+          C3: A(M1)[#37:The Great Gallant Bandit]
+              C4: A(M1)[#40:Predaplant Dragostapelia]
+              R4: OK
+          R3: OK
+      R2: OK
+  R1: S[#32:Radiant Typhoon Meghala](atk)&gt;M5&lt;H
+  C1: A(H)[#o2:Radiant Typhoon Vision]&gt;S5
+  R1: +H[#30:Mystical Space Typhoon]&lt;D
+  C1: A(M5)[#32:Radiant Typhoon Meghala]
+  R1: [#o2:Radiant Typhoon Vision]&gt;GY, S[#35:Radiant Typhoon Fonix, the Great Flame](atk)&gt;M4&lt;D
+  C1: A(H)[#30:Mystical Space Typhoon]&gt;S3 T&gt;S3[#8:Mind Shuffle]
+  R1: [#30:Mystical Space Typhoon]&gt;GY, [#8:Mind Shuffle]&gt;GY
+  C1: A(M4)[#35:Radiant Typhoon Fonix, the Great Flame] T&gt;M1[#40:Predaplant Dragostapelia]
+  R1: [#40:Predaplant Dragostapelia]&gt;GY, [#19:Mediclius the Extraordinary Power Patron]&gt;GY
+  L[[#32:Radiant Typhoon Meghala:M5] + [#o4:Radiant Typhoon Eldam:M3]]&gt;ER[#42:Wynn the Wind Charmer, Verdant](atk)&lt;ED
+  C1: A(ER)[#42:Wynn the Wind Charmer, Verdant]
+  R1: S[#37:The Great Gallant Bandit](atk)&gt;M3&lt;GY
+@BP
+  ATK(M1 -&gt; LP)
+  ATK(M3 -&gt; LP)
+
+-- --- RFC 0001 Terminal Board Snapshot (YBN - Game 3) ---
+YBN: T2|BP|LP0:8000|P1:|P2:M1[#37(atk)],M3[#37(atk)],ER[#42(atk)]|G:NS=1,SS=5
+        </pre>
+      </div>
+    </section>
+
+    <!-- Cross Navigation -->
+    <div class="pagination-bar">
+      <a href="beneck.html" class="btn-secondary">&larr; Previous: Match #01 (vs lbeneck)</a>
+      <a href="manu.html" class="btn-primary">Next: Match #03 (vs Manusuperheavy) &rarr;</a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="index.html">YGN Match Reports</a></li>
+        <li><a href="../obsidian/index.html">Obsidian TCG</a></li>
+        <li><a href="../tools/notary.html">RFC 0001 Notary</a></li>
+        <li><a href="https://github.com/niloedson">GitHub</a></li>
+      </ul>
+      <p>&copy; 2026 Nilo Edson &middot; Haunted Labs &amp; Obsidian TCG Team.</p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function copyYgnTranscript() {
+      const text = document.getElementById('ygn-content').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.btn-copy');
+        const orig = btn.innerText;
+        btn.innerText = 'Copied!';
+        btn.style.background = 'rgba(52, 211, 153, 0.3)';
+        btn.style.borderColor = 'rgba(52, 211, 153, 0.5)';
+        btn.style.color = '#34d399';
+        setTimeout(() => {
+          btn.innerText = orig;
+          btn.style.background = '';
+          btn.style.borderColor = '';
+          btn.style.color = '';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

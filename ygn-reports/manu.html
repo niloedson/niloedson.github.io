@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Match 03: TheGreatRoyal vs Manusuperheavy (2-1) — YGN Match Intelligence</title>
+  <meta name="description" content="Detailed play-by-play narrative commentary, ygo-pilot tactical analysis, ygo-judge rulings review, and RFC 0001 YGN transcript for TheGreatRoyal vs Manusuperheavy.">
+  <meta name="author" content="Nilo Edson (Obsidian TCG / Haunted Labs)">
+
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/project.css">
+
+  <style>
+    :root {
+      --accent-pilot: #38bdf8;
+      --accent-judge: #fbbf24;
+      --accent-arch: #a78bfa;
+      --accent-win: #34d399;
+      --accent-loss: #f87171;
+    }
+
+    .report-hero {
+      padding: 2.5rem 0 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumb-nav {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .breadcrumb-nav a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .matchup-banner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin: 1.75rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .matchup-banner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+
+    .player-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .player-card.p2 {
+      text-align: right;
+    }
+
+    @media (max-width: 768px) {
+      .player-card.p2 {
+        text-align: center;
+      }
+    }
+
+    .player-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .player-deck {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: #94a3b8;
+    }
+
+    .score-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(18, 24, 38, 0.95);
+      border: 2px solid var(--accent-purple);
+      border-radius: 10px;
+      padding: 0.75rem 1.5rem;
+      box-shadow: 0 0 20px rgba(188, 140, 255, 0.2);
+    }
+
+    .score-num {
+      font-size: 2.2rem;
+      font-weight: 900;
+      font-family: var(--font-mono);
+      color: #fff;
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      color: var(--accent-win);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.3rem;
+    }
+
+    .game-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      position: relative;
+    }
+
+    .game-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .game-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .game-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .game-badge.win {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--accent-win);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+    }
+
+    .game-badge.loss {
+      background: rgba(248, 113, 113, 0.15);
+      color: var(--accent-loss);
+      border: 1px solid rgba(248, 113, 113, 0.35);
+    }
+
+    .narrative-p {
+      color: #cbd5e1;
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+
+    .callout-box {
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      position: relative;
+      border-left: 4px solid;
+    }
+
+    .callout-pilot {
+      background: rgba(56, 189, 248, 0.08);
+      border-color: var(--accent-pilot);
+      border-top: 1px solid rgba(56, 189, 248, 0.2);
+      border-right: 1px solid rgba(56, 189, 248, 0.2);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .callout-judge {
+      background: rgba(251, 191, 36, 0.08);
+      border-color: var(--accent-judge);
+      border-top: 1px solid rgba(251, 191, 36, 0.2);
+      border-right: 1px solid rgba(251, 191, 36, 0.2);
+      border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+    }
+
+    .callout-arch {
+      background: rgba(167, 139, 250, 0.08);
+      border-color: var(--accent-arch);
+      border-top: 1px solid rgba(167, 139, 250, 0.2);
+      border-right: 1px solid rgba(167, 139, 250, 0.2);
+      border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+    }
+
+    .callout-title {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .callout-pilot .callout-title { color: var(--accent-pilot); }
+    .callout-judge .callout-title { color: var(--accent-judge); }
+    .callout-arch .callout-title { color: var(--accent-arch); }
+
+    .callout-body {
+      color: #e2e8f0;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .ybn-box {
+      background: #090d16;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #38bdf8;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .ybn-label {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .ygn-viewer {
+      background: #090d16;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 2rem 0;
+    }
+
+    .ygn-viewer-header {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ygn-viewer-title {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+
+    .btn-copy {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-pilot);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 6px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-copy:hover {
+      background: rgba(56, 189, 248, 0.3);
+      color: #fff;
+    }
+
+    .ygn-code {
+      max-height: 520px;
+      overflow-y: auto;
+      padding: 1.25rem;
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #e2e8f0;
+      white-space: pre;
+    }
+
+    .pagination-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 3rem 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="../index.html" class="nav-brand">Nilo Edson</a>
+        <span style="color: var(--border-color);">&middot;</span>
+        <a href="index.html" style="font-weight: 700; color: var(--accent-cyan);">YGN Reports</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">&larr; All Match Reports</a></li>
+        <li><a href="../tools/notary.html">RFC 0001 Notary</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- Breadcrumb & Header -->
+    <header class="report-hero">
+      <div class="breadcrumb-nav">
+        <a href="../index.html">Home</a> &gt;
+        <a href="index.html">YGN Match Reports</a> &gt;
+        <span style="color: #fff;">Match #03</span>
+      </div>
+
+      <h1 style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 0.5rem;">
+        Match #03: The Modular Substrate Mirror &amp; MP2 Control Pivot
+      </h1>
+      <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.5;">
+        Competitive Dueling Book Match analysis featuring modular engine branching, continuous spell fizzling, and World Champion Joshua Schmidt's Main Phase 2 Control Pivot.
+      </p>
+
+      <!-- Matchup Banner -->
+      <div class="matchup-banner">
+        <div class="player-card p1">
+          <span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--accent-pilot); font-weight: 700; text-transform: uppercase;">Player 1 &middot; Winner</span>
+          <span class="player-name">TheGreatRoyal</span>
+          <span class="player-deck">Power Patron / Ars Magna / Medius / Dark Chaos</span>
+        </div>
+
+        <div class="score-badge">
+          <div class="score-num">2 &ndash; 1</div>
+          <div class="score-label">TheGreatRoyal Won</div>
+        </div>
+
+        <div class="player-card p2">
+          <span style="font-size: 0.72rem; font-family: var(--font-mono); color: #f472b6; font-weight: 700; text-transform: uppercase;">Player 2</span>
+          <span class="player-name">Manusuperheavy</span>
+          <span class="player-deck">Elfnote / Power Patron / Gallant Bandit</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Macro Architecture Review -->
+    <section>
+      <div class="callout-box callout-arch">
+        <div class="callout-title">📊 Deck Architect Macro Analysis &middot; Modular Mirror Substrate</div>
+        <div class="callout-body">
+          <strong>Shared Engine Core:</strong> Both duelists run the shared <em>Medius the Pure</em> and <em>Power Patron</em> substrate (<em>Jupredo</em>, <em>Nervedo</em>, <em>Vidolium</em>, <em>Junoldo</em>). 
+          <br><br>
+          <strong>Variant Polarization:</strong> TheGreatRoyal branches into <em>Ars Magna</em> and <em>Dark Chaos</em> ritual recursion, whereas Manusuperheavy integrates the <em>Elfnote</em> engine (<em>Lucina</em>, <em>Regina</em>, <em>Fortuna</em>, <em>June Pride</em>) and high-density hand traps (<em>Ghost Ogre</em>, <em>Droll &amp; Lock Bird</em>, <em>Ash Blossom</em>). This creates an asymmetric matchup where play sequencing and interaction navigation decide each game.
+        </div>
+      </div>
+    </section>
+
+    <!-- Game 1 -->
+    <section class="game-section">
+      <div class="game-section-header">
+        <div class="game-title">
+          <span>Game 1: Impermanence Navigation &amp; 6-Link LIFO Climax</span>
+        </div>
+        <span class="game-badge win">TheGreatRoyal Won (1 - 0)</span>
+      </div>
+
+      <p class="narrative-p">
+        Game 1 saw TheGreatRoyal take the opening turn and immediately Normal Summon <em>Medius the Pure</em>. Manusuperheavy answered on summon with <strong>Infinite Impermanence</strong>, negating Medius's on-field search effect.
+      </p>
+
+      <div class="callout-box callout-pilot">
+        <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; Navigating Turn 1 Interruption</div>
+        <div class="callout-body">
+          A common pilot blunder is conceding tempo and passing when the normal summon is negated. TheGreatRoyal demonstrated textbook resilience: recognizing that <em>Ars Magna the Finite and the Infinite</em> in hand functions as an independent extender, TheGreatRoyal activated it from hand to search <em>Division and the Union</em>, maintaining forward combo momentum.
+        </div>
+      </div>
+
+      <p class="narrative-p">
+        TheGreatRoyal linked into <em>The Executor of the Underworld - Pluto</em> and climbed into <em>Purification Power Patron</em>, eventually establishing <strong>Number 90: Galaxy-Eyes Photon Lord</strong> and <strong>Elfnote Seraphim Strelitzia</strong>.
+      </p>
+
+      <p class="narrative-p">
+        On Turn 2, Manusuperheavy attempted to disrupt TheGreatRoyal's backrow by chaining <strong>Ghost Ogre &amp; Snow Rabbit</strong> to <em>Ars Magna "Citrinitas"</em>.
+      </p>
+
+      <div class="callout-box callout-judge">
+        <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Ghost Ogre on Continuous Spells</div>
+        <div class="callout-body">
+          <strong>PSCT Clause:</strong> <em>"When a monster on the field activates its effect, or when a Spell/Trap that is already face-up on the field activates its effect (Quick Effect): You can send this card from your hand or field to the GY; destroy that card."</em><br>
+          <strong>Adjudication:</strong> Continuous Spells, Field Spells, and Equip Spells must remain face-up on the field to successfully resolve their on-field activated effects. By destroying <em>Citrinitas</em> before it resolved, Ghost Ogre caused the search effect to <strong>fizzle without resolving</strong>.
+        </div>
+      </div>
+
+      <p class="narrative-p">
+        The turn reached a dramatic climax when a massive <strong>6-link chain</strong> unfolded: CL1 Black Chaos &rarr; CL2 Photon Lord &rarr; CL3 Junoldo &rarr; CL4 Past Lull &rarr; CL5 Past Lull &rarr; CL6 Elfnotes: Rhapsodia of Madness.
+      </p>
+
+      <div class="callout-box callout-judge">
+        <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; 6-Link LIFO Stack Resolution</div>
+        <div class="callout-body">
+          Resolving in strict reverse LIFO order, CL6 Rhapsodia provided defense, but CL2 Photon Lord successfully negated and destroyed the key opposing monster asset. With all follow-up resources neutralized, Manusuperheavy conceded Game 1.
+        </div>
+      </div>
+
+      <div class="ybn-box">
+        <span class="ybn-label">Terminal Board Snapshot &middot; Game 1 (RFC 0001 YBN)</span>
+        <code>T2|M1|LP8000:8000|P1:M1[#20(atk)],M3[#19(atk)],M4[#18(def)],M5[#14(def)],S4[#16]|P2:|G:NS=0,SS=3</code>
+      </div>
+    </section>
+
+    <!-- Game 2 -->
+    <section class="game-section">
+      <div class="game-section-header">
+        <div class="game-title">
+          <span>Game 2: Ghost Ogre Baits &amp; The Elfnote Surge</span>
+        </div>
+        <span class="game-badge win">TheGreatRoyal Won (2 - 0)</span>
+      </div>
+
+      <p class="narrative-p">
+        In Game 2, TheGreatRoyal baited out Manusuperheavy's <em>Ghost Ogre &amp; Snow Rabbit</em> early by committing <em>Artmage Non-Finito</em> to the field before activating <em>Artmage Vandalism -Assault-</em>.
+      </p>
+
+      <p class="narrative-p">
+        Manusuperheavy followed up with <strong>Droll &amp; Lock Bird</strong> after Medius was added to hand, preventing further deck searches for the remainder of the turn.
+      </p>
+
+      <div class="callout-box callout-judge">
+        <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Droll &amp; Lock Bird Activation Timing</div>
+        <div class="callout-body">
+          <strong>PSCT Clause:</strong> <em>"If a card(s) is added from the Main Deck to your opponent's hand, except during the Draw Phase (Quick Effect): You can send this card from your hand to the GY; for the rest of this turn, neither player can add cards from their Main Deck to their hand."</em><br>
+          <strong>Adjudication:</strong> Droll activates in response to a search resolving. It does not negate the initial search, but places a lingering floodgate preventing any further deck-to-hand additions for either duelist.
+        </div>
+      </div>
+
+      <p class="narrative-p">
+        On Turn 2, Manusuperheavy swarmed with <em>Elfnote Lucina</em>, <em>Regina</em>, and <em>June Pride</em>, pushing 2,500 combat damage. However, on Turn 3, TheGreatRoyal orchestrated a ritual turnaround with <em>Magician of Dark Chaos - Black Chaos</em>, linking into <em>Mediclius the Extraordinary Power Patron</em> to sweep the board and claim Game 2.
+      </p>
+
+      <div class="ybn-box">
+        <span class="ybn-label">Terminal Board Snapshot &middot; Game 2 (RFC 0001 YBN)</span>
+        <code>T3|M1|LP5500:8000|P1:M2[#29(atk)],M3[#8(def)],M5[#27(atk)],EL[#30(atk)]|P2:M3[#17(atk)]|G:NS=0,SS=5</code>
+      </div>
+    </section>
+
+    <!-- Game 3 -->
+    <section class="game-section">
+      <div class="game-section-header">
+        <div class="game-title">
+          <span>Game 3: 5000 Battle Tempo &amp; The MP2 Control Pivot</span>
+        </div>
+        <span class="game-badge win">TheGreatRoyal Won (2 - 1)</span>
+      </div>
+
+      <p class="narrative-p">
+        Game 3 began with high intensity: Manusuperheavy dropped <em>Ash Blossom &amp; Joyous Spring</em> on TheGreatRoyal's <em>Prohibited Power Patron Portal</em> on Turn 1.
+      </p>
+
+      <p class="narrative-p">
+        Seizing the initiative on Turn 2, Manusuperheavy Normal Summoned <em>The Great Gallant Bandit</em> and revived <em>Skull Archfiend of Chaos</em> from the graveyard. Declaring direct attacks with both 2,500 ATK monsters, Manusuperheavy inflicted <strong>5,000 direct combat damage</strong> in a single battle phase!
+      </p>
+
+      <div class="callout-box callout-pilot">
+        <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; Joshua Schmidt's MP2 Control Pivot</div>
+        <div class="callout-body">
+          World Champion Joshua Schmidt's fundamental axiom: <em>"If going for game requires over-committing into unknown backrow or risking an unverified out, abandon the OTK immediately and use Main Phase 2 to establish control."</em><br>
+          Manusuperheavy executed this heuristic flawlessly: after dealing 5,000 battle damage, Manusuperheavy transitioned into <strong>Main Phase 2</strong>, overlaying/linking Gallant Bandit and Skull Archfiend into <strong>S:P Little Knight</strong> and setting two defensive backrow (<em>Mind Shuffle</em> and <em>Typhoon</em>).
+        </div>
+      </div>
+
+      <p class="narrative-p">
+        Facing lethal on Turn 4, TheGreatRoyal responded with ruthless precision on Turn 3: activating <em>Ars Magna the Corruption and the Purification</em> to banish Manusuperheavy's set <em>Typhoon</em>, linking into <em>S:P Little Knight</em> to banish <em>Mind Shuffle</em>, and Special Summoning <strong>Number 90: Galaxy-Eyes Photon Lord</strong> to dismantle the remaining defenses and close out the match 2&ndash;1.
+      </p>
+
+      <div class="callout-box callout-judge">
+        <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Backrow Banishment Before Activation</div>
+        <div class="callout-body">
+          <strong>Interaction:</strong> <em>Corruption and the Purification</em> targeted and banished the face-down <em>Typhoon</em>. Because Typhoon was face-down and lacked a valid quick-effect trigger condition at that moment, it could not be chained in response, cleanly depriving Manusuperheavy of interaction.
+        </div>
+      </div>
+
+      <div class="ybn-box">
+        <span class="ybn-label">Terminal Board Snapshot &middot; Game 3 (RFC 0001 YBN)</span>
+        <code>T3|M2|LP2800:8000|P1:M1[#14(def)],EL[#19(atk)],S3[#e2]|P2:|G:NS=1,SS=4</code>
+      </div>
+    </section>
+
+    <!-- Interactive YGN Viewer -->
+    <section>
+      <div class="ygn-viewer">
+        <div class="ygn-viewer-header">
+          <span class="ygn-viewer-title">RFC 0001 YGN Transcript &middot; manu.ygn (Multi-line Indented LIFO)</span>
+          <button class="btn-copy" onclick="copyYgnTranscript()">Copy YGN</button>
+        </div>
+        <pre class="ygn-code" id="ygn-content">
+[Event "Dueling Book Match"]
+[Player1 "TheGreatRoyal" 8000]
+[Player2 "Manusuperheavy" 8000]
+[Format "Advanced (Unrated) with duel note"]
+[Visibility "Omniscient"]
+[Standard "RFC 0001 (YGN v1.1)"]
+
+-- ==============================================================================
+-- MATCH OVERVIEW: TheGreatRoyal vs Manusuperheavy (Best of 3)
+-- Player 1: TheGreatRoyal (Power Patron / Ars Magna / Medius / Dark Chaos)
+-- Player 2: Manusuperheavy (Elfnote / Power Patron / Gallant Bandit)
+-- ==============================================================================
+
+[Round "Game 1"]
+-- [Notary Note]: Game 1 commences. TheGreatRoyal wins the opening roll and chooses to go first.
+T1: TheGreatRoyal vs Manusuperheavy
+@DP
+  +H[#1:Jupredo the Shademachine Power Patron, #2:Infinite Impermanence, #3:Black Chaos, #e1:Ars Magna the Corruption and the Purification, #4:Theorealize Past Lull]&lt;D
+  o.+H[#e2:Ars Magna "Citrinitas", #e3:Ars Magna the Finite and the Infinite, #o1:Ghost Ogre &amp; Snow Rabbit, #o2:Prohibited Power Patron Portal - Terminus, #o3:Nervedo the Shadebeast Power Patron]&lt;o.D
+@M1
+  C1: A(H)[#e2:Ars Magna "Citrinitas"]&gt;S3
+      C2: A(S3)[#e2:Ars Magna "Citrinitas"]
+      R2: OK
+  R1: +H[#5:Medius the Pure]&lt;D, S[#5:Medius the Pure](atk)&gt;M5&lt;H
+  C1: A(M5)[#5:Medius the Pure] T&gt;M5[#5:Medius the Pure]
+  R1: [#2:Infinite Impermanence]&gt;GY
+  C1: A(H)[#e3:Ars Magna the Finite and the Infinite]
+  R1: &gt;BX[#e3:Ars Magna the Finite and the Infinite]&lt;H, +H[#e4:Ars Magna the Division and the Union]&lt;D
+  C1: A(H)[#o2:Prohibited Power Patron Portal - Terminus]&gt;S4
+  R1: [#6:Elfnote Power Patron]&gt;GY, +H[#7:Vidolium the Unstable Power Patron of Unity]&lt;D, [#o2:Prohibited Power Patron Portal - Terminus]&gt;GY
+  C1: A(H)[#7:Vidolium the Unstable Power Patron of Unity]&gt;S1
+      C2: A(S1)[#7:Vidolium the Unstable Power Patron of Unity]
+      R2: OK
+  R1: [#7:Vidolium the Unstable Power Patron of Unity]&gt;GY, S[#6:Elfnote Power Patron](def)&gt;M4&lt;GY
+  C1: A(ED)[#7:Vidolium the Unstable Power Patron of Unity]
+  R1: +H[#8:Junoldo the Shadespirit Power Patron]&lt;D
+  L[[#5:Medius the Pure:M5] + [#6:Elfnote Power Patron:M4]]&gt;M5[#9:The Executor of the Underworld - Pluto](atk)&lt;ED
+  C1: A(GY)[#6:Elfnote Power Patron]
+  R1: +H[#10:Elfnote Lucina]&lt;D, S[#10:Elfnote Lucina](atk)&gt;M3&lt;H
+  C1: A(M3)[#10:Elfnote Lucina]
+  R1: +H[#11:Elfnote Regina]&lt;D
+  L[[#9:The Executor of the Underworld - Pluto:M5] + [#10:Elfnote Lucina:M3]]&gt;ER[#12:Purification Power Patron](atk)&lt;ED
+  C1: A(ER)[#12:Purification Power Patron]
+  R1: +H[#13:Theorealized Medius]&lt;D
+  C1: A(H)[#8:Junoldo the Shadespirit Power Patron]
+      C2: A(H)[#13:Theorealized Medius]
+      R2: OK
+  R1: S[#13:Theorealized Medius](def)&gt;M1&lt;H, +H[#4:Theorealize Past Lull]&lt;D
+  C1: A(S1)[#8:Junoldo the Shadespirit Power Patron]
+  R1: o.+H[#o4:Mulcharmy Fuwalos]&lt;o.D, o.+H[#o1:Ghost Ogre &amp; Snow Rabbit]&lt;o.D
+  C1: A(H)[#o4:Mulcharmy Fuwalos]&gt;GY
+  R1: [#8:Junoldo the Shadespirit Power Patron]&gt;GY
+  C1: A(ED)[#8:Junoldo the Shadespirit Power Patron]
+  R1: [#o2:Prohibited Power Patron Portal - Terminus]&gt;GY
+  C1: A(H)[#e4:Ars Magna the Division and the Union]
+  R1: &gt;BX[#e4:Ars Magna the Division and the Union]&lt;H
+  C1: A(M1)[#13:Theorealized Medius]
+  R1: +H[#e1:Ars Magna the Corruption and the Purification]&lt;D
+  C1: A(H)[#e1:Ars Magna the Corruption and the Purification]
+  R1: &gt;BX[#e1:Ars Magna the Corruption and the Purification]&lt;H, +H[#e2:Ars Magna "Citrinitas"]&lt;D
+  C1: A(M5)[#e4:Ars Magna the Division and the Union]
+  R1: &gt;BX[#e3:Ars Magna the Finite and the Infinite]&lt;GY, o.+H[#o4:Mulcharmy Fuwalos]&lt;o.D, S[#14:Number 90: Galaxy-Eyes Photon Lord](def)&gt;M5&lt;M5
+  C1: A(H)[#11:Elfnote Regina]
+  R1: [#e2:Ars Magna "Citrinitas"]&gt;GY, S[#11:Elfnote Regina](atk)&gt;M3&lt;H
+  C1: A(M3)[#11:Elfnote Regina]
+  R1: S[#15:Elfnote Fortuna](atk)&gt;M2&lt;D
+  C1: A(M2)[#15:Elfnote Fortuna]
+  R1: [#o5:Ash Blossom &amp; Joyous Spring]&gt;GY
+  C1: A(S4)[#16:Elfnotes: Rhapsodia of Madness]
+      C2: A(H)[#o4:Mulcharmy Fuwalos]
+      R2: OK
+  R1: S[#6:Elfnote Power Patron](def)&gt;M4&lt;GY
+  C1: A(M4)[#6:Elfnote Power Patron] T&gt;M3[#11:Elfnote Regina]
+  R1: OK
+  L[[#6:Elfnote Power Patron:M4] + [#11:Elfnote Regina:M3]]&gt;M3[#17:Elfnote June Pride](atk)&lt;ED
+  C1: A(GY)[#11:Elfnote Regina]
+      C2: A(M3)[#17:Elfnote June Pride]
+      R2: OK
+  R1: [#17:Elfnote June Pride]&gt;GY, S[#6:Elfnote Power Patron](def)&gt;M4&lt;GY, S[#10:Elfnote Lucina](atk)&gt;M3&lt;D
+  L[[#6:Elfnote Power Patron:M4] + [#10:Elfnote Lucina:M3]]&gt;M4[#18:Elfnote Seraphim Strelitzia](def)&lt;ED
+  C1: A(H)[#4:Theorealize Past Lull]&gt;S5
+  R1: S[#5:Medius the Pure](def)&gt;M3&lt;D, [#4:Theorealize Past Lull]&gt;GY
+  L[[#5:Medius the Pure:M3] + [#15:Elfnote Fortuna:M2]]&gt;M3[#19:S:P Little Knight](atk)&lt;ED
+  C1: A(H)[#e2:Ars Magna "Citrinitas"]&gt;S3
+  R1: OK
+
+T2: Manusuperheavy vs TheGreatRoyal
+@DP
+  C1: A(H)[#o4:Mulcharmy Fuwalos]&gt;GY
+  R1: OK
+@SP
+@M1
+  C1: A(H)[#e1:Ars Magna the Corruption and the Purification]
+  R1: &gt;BX[#e1:Ars Magna the Corruption and the Purification]&lt;H, +H[#e2:Ars Magna "Citrinitas"]&lt;D
+  C1: A(M1)[#13:Theorealized Medius]
+  R1: &gt;BX[#13:Theorealized Medius]&lt;M1, S[#20:Artmage Diactorus](atk)&gt;M1&lt;ED, +H[#8:Junoldo the Shadespirit Power Patron]&lt;D
+  C1: A(H)[#e2:Ars Magna "Citrinitas"]
+      C2: A(S3)[#e2:Ars Magna "Citrinitas"]
+          C3: A(S3)[#e2:Ars Magna "Citrinitas"]
+              C4: A(H)[#o1:Ghost Ogre &amp; Snow Rabbit]
+              R4: OK
+          R3: OK
+      R2: OK
+  R1: [#o1:Ghost Ogre &amp; Snow Rabbit]&gt;GY, [#e2:Ars Magna "Citrinitas"]&gt;GY
+  C1: A(H)[#1:Jupredo the Shademachine Power Patron]&gt;S1
+      C2: A(S1)[#1:Jupredo the Shademachine Power Patron]
+          C3: A(M1)[#20:Artmage Diactorus]
+          R3: OK
+      R2: OK
+  R1: [#1:Jupredo the Shademachine Power Patron]&gt;GY
+  C1: A(H)[#3:Black Chaos]
+      C2: A(M5)[#14:Number 90: Galaxy-Eyes Photon Lord]
+          C3: A(H)[#8:Junoldo the Shadespirit Power Patron]
+              C4: A(H)[#4:Theorealize Past Lull]&gt;S3
+                  C5: A(S3)[#4:Theorealize Past Lull]
+                      C6: A(S4)[#16:Elfnotes: Rhapsodia of Madness]
+                      R6: OK
+                  R5: OK
+              R4: OK
+          R3: OK
+      R2: OK
+  R1: [#e3:Ars Magna the Finite and the Infinite]&gt;GY
+
+-- --- RFC 0001 Terminal Board Snapshot (YBN - Game 1) ---
+YBN: T2|M1|LP8000:8000|P1:M1[#20(atk)],M3[#19(atk)],M4[#18(def)],M5[#14(def)],S4[#16]|P2:|G:NS=0,SS=3
+
+[Round "Game 2"]
+-- [Notary Note]: Game 2 commences. Manusuperheavy elects to go second.
+T1: TheGreatRoyal vs Manusuperheavy
+@DP
+  +H[#o3:Nervedo the Shadebeast Power Patron, #21:Cosmic Cyclone, #o5:Ash Blossom &amp; Joyous Spring, #e2:Ars Magna "Citrinitas", #7:Vidolium the Unstable Power Patron of Unity]&lt;D
+  o.+H[#o6:Droll &amp; Lock Bird, #10:Elfnote Lucina, #o1:Ghost Ogre &amp; Snow Rabbit, #o5:Ash Blossom &amp; Joyous Spring, #11:Elfnote Regina]&lt;o.D
+@SP
+@M1
+  C1: A(M1)[#e5:Artmage Non-Finito]
+      C2: A(H)[#o1:Ghost Ogre &amp; Snow Rabbit]
+      R2: OK
+  R1: [#o1:Ghost Ogre &amp; Snow Rabbit]&gt;GY, [#e5:Artmage Non-Finito]&gt;GY
+  #S[#22:Artmage Vandalism -Assault-]&gt;S3
+  C1: A(S3)[#22:Artmage Vandalism -Assault-]
+  R1: +H[#5:Medius the Pure]&lt;D, S[#5:Medius the Pure](atk)&gt;M1&lt;H, [#5:Medius the Pure]&gt;GY
+  C1: A(H)[#o6:Droll &amp; Lock Bird]&gt;GY
+  R1: S[#5:Medius the Pure](atk)&gt;M1&lt;H
+  C1: A(M1)[#5:Medius the Pure]
+      C2: A(H)[#o5:Ash Blossom &amp; Joyous Spring]
+      R2: OK
+  R1: [#o5:Ash Blossom &amp; Joyous Spring]&gt;GY
+  C1: A(H)[#7:Vidolium the Unstable Power Patron of Unity]&gt;S5
+      C2: A(S5)[#7:Vidolium the Unstable Power Patron of Unity]
+      R2: OK
+  R1: [#7:Vidolium the Unstable Power Patron of Unity]&gt;GY, S[#o3:Nervedo the Shadebeast Power Patron](def)&gt;M5&lt;GY
+  C1: A(M5)[#o3:Nervedo the Shadebeast Power Patron]
+  R1: &gt;BX[#5:Medius the Pure]&lt;top of Deck face-down, &gt;BX[#3:Black Chaos]&lt;top of Deck face-down, &gt;BX[#23:Griffoh]&lt;top of Deck face-down
+  C1: A(ED)[#o3:Nervedo the Shadebeast Power Patron]
+  R1: S[#8:Junoldo the Shadespirit Power Patron](def)&gt;M3&lt;D
+  L[[#e6:Nerva the Power Patron of Creation:M5]]&gt;EL[#24:I:P Masquerena](atk)&lt;ED
+  C1: A(ED)[#8:Junoldo the Shadespirit Power Patron] ~[#7:Vidolium the Unstable Power Patron of Unity:ED]&gt;GY
+  R1: OK
+
+T2: Manusuperheavy vs TheGreatRoyal
+@DP
+  C1: A(H)[#o4:Mulcharmy Fuwalos]&gt;GY
+  R1: S[#10:Elfnote Lucina](atk)&gt;M3&lt;H
+@M1
+  C1: A(EL)[#24:I:P Masquerena]&gt;GY
+  R1: OK
+  L[[#5:Medius the Pure:M1]]&gt;EL[#19:S:P Little Knight](atk)&lt;ED
+  C1: A(EL)[#19:S:P Little Knight]
+      C2: A(H)[#11:Elfnote Regina]
+      R2: OK
+  R1: [#10:Elfnote Lucina]&gt;GY, S[#11:Elfnote Regina](atk)&gt;M3&lt;H
+  C1: A(M3)[#11:Elfnote Regina]
+      C2: A(EL)[#19:S:P Little Knight]
+      R2: OK
+  R1: &gt;BX[#19:S:P Little Knight]&lt;EL, &gt;BX[#11:Elfnote Regina]&lt;M3, S[#15:Elfnote Fortuna](atk)&gt;M1&lt;D
+  C1: A(M1)[#15:Elfnote Fortuna]
+  R1: S[#6:Elfnote Power Patron](atk)&gt;M3&lt;H
+  C1: A(M3)[#6:Elfnote Power Patron]&gt;GY
+  R1: OK
+  L[[#15:Elfnote Fortuna:M1]]&gt;M3[#17:Elfnote June Pride](atk)&lt;ED
+  C1: A(GY)[#6:Elfnote Power Patron]
+  R1: +H[#8:Junoldo the Shadespirit Power Patron]&lt;D
+  C1: A(H)[#8:Junoldo the Shadespirit Power Patron]
+      C2: A(M3)[#17:Elfnote June Pride]
+          C3: A(H)[#o5:Ash Blossom &amp; Joyous Spring]
+              C4: A(S3)[#16:Elfnotes: Rhapsodia of Madness]
+              R4: OK
+          R3: OK
+      R2: OK
+  R1: [#17:Elfnote June Pride]&gt;GY, S[#10:Elfnote Lucina](atk)&gt;M1&lt;GY
+  C1: A(S1)[#8:Junoldo the Shadespirit Power Patron]
+  R1: +H[#13:Theorealized Medius]&lt;D, +H[#11:Elfnote Regina]&lt;D, [#8:Junoldo the Shadespirit Power Patron]&gt;GY
+  C1: A(ED)[#8:Junoldo the Shadespirit Power Patron]
+  R1: [#11:Elfnote Regina]&gt;GY, [#11:Elfnote Regina]&gt;GY
+@BP
+  LP-2500
+  ATK(M1 -&gt; LP)
+@M2
+@EP
+
+T3: TheGreatRoyal vs Manusuperheavy
+@DP
+@SP
+@M1
+  C1: A(H)[#7:Vidolium the Unstable Power Patron of Unity]
+      C2: A(S3)[#16:Elfnotes: Rhapsodia of Madness]
+      R2: OK
+  R1: [#11:Elfnote Regina]&gt;GY, S[#17:Elfnote June Pride](atk)&gt;M3&lt;GY
+  C1: A(M3)[#17:Elfnote June Pride]&gt;ED
+  R1: S[#15:Elfnote Fortuna](atk)&gt;M5&lt;GY, &gt;BX[#4:Theorealize Past Lull]&lt;top of Deck face-down, S[#11:Elfnote Regina](atk)&gt;M3&lt;D
+  C1: A(M3)[#11:Elfnote Regina]
+  R1: S[#6:Elfnote Power Patron](def)&gt;M2&lt;D
+  C1: A(S1)[#7:Vidolium the Unstable Power Patron of Unity]
+      C2: A(M5)[#15:Elfnote Fortuna]
+      R2: OK
+  R1: [#7:Vidolium the Unstable Power Patron of Unity]&gt;GY
+  C1: A(H)[#26:Ragged Records of Rites]&gt;S2
+      C2: A(S2)[#26:Ragged Records of Rites]
+      R2: OK
+  R1: [#25:Light and Darkness Ritual]&gt;GY, [#26:Ragged Records of Rites]&gt;GY, [#3:Black Chaos]&gt;GY
+  C1: A(H)[#3:Black Chaos]
+      C2: A(S4)[#28:Mind Shuffle]
+      R2: OK
+  R1: +H[#27:Skull Archfiend of Chaos]&lt;D, [#27:Skull Archfiend of Chaos]&gt;GY
+  C1: A(GY)[#27:Skull Archfiend of Chaos]
+  R1: [#25:Light and Darkness Ritual]&gt;GY, +H[#29:Magician of Dark Chaos - Black Chaos]&lt;D
+  C1: A(GY)[#25:Light and Darkness Ritual]&gt;H
+  R1: [#3:Black Chaos]&gt;GY
+  C1: A(H)[#25:Light and Darkness Ritual]&gt;S2
+      C2: A(S2)[#25:Light and Darkness Ritual]
+      R2: OK
+  R1: &gt;BX[#e6:Nerva the Power Patron of Creation]&lt;GY, S[#29:Magician of Dark Chaos - Black Chaos](atk)&gt;M2&lt;H, [#25:Light and Darkness Ritual]&gt;GY
+  C1: A(M2)[#29:Magician of Dark Chaos - Black Chaos]
+  R1: [#21:Cosmic Cyclone]&gt;GY
+  C1: A(M2)[#29:Magician of Dark Chaos - Black Chaos]
+      C2: A(M2)[#6:Elfnote Power Patron]
+      R2: OK
+  R1: OK
+  L[[#6:Elfnote Power Patron:M2] + [#15:Elfnote Fortuna:M3]]&gt;M3[#17:Elfnote June Pride](atk)&lt;ED
+  C1: A(GY)[#6:Elfnote Power Patron]
+  R1: +H[#10:Elfnote Lucina]&lt;D
+  C1: A(H)[#e2:Ars Magna "Citrinitas"]&gt;S2
+      C2: A(S2)[#e2:Ars Magna "Citrinitas"]
+      R2: OK
+  R1: +H[#e3:Ars Magna the Finite and the Infinite]&lt;D
+  C1: A(H)[#e3:Ars Magna the Finite and the Infinite]
+  R1: &gt;BX[#e3:Ars Magna the Finite and the Infinite]&lt;H, +H[#e4:Ars Magna the Division and the Union]&lt;D
+  C1: A(H)[#e4:Ars Magna the Division and the Union]
+  R1: &gt;BX[#e4:Ars Magna the Division and the Union]&lt;H
+  L[[#19:S:P Little Knight:M1] + [#e3:Ars Magna the Finite and the Infinite:M5]]&gt;EL[#30:Mediclius the Extraordinary Power Patron](atk)&lt;ED
+  C1: A(M1)[#e4:Ars Magna the Division and the Union]
+  R1: &gt;BX[#e3:Ars Magna the Finite and the Infinite]&lt;GY, o.+H[#o3:Nervedo the Shadebeast Power Patron]&lt;o.D
+  C1: A(GY)[#27:Skull Archfiend of Chaos] T&gt;GY[#e5:Artmage Non-Finito]
+  R1: [#25:Light and Darkness Ritual]&gt;GY, [#e5:Artmage Non-Finito]&gt;GY
+  C1: A(H)[#o3:Nervedo the Shadebeast Power Patron]
+      C2: A(H)[#7:Vidolium the Unstable Power Patron of Unity]
+      R2: OK
+  R1: S[#27:Skull Archfiend of Chaos](atk)&gt;M5&lt;GY, S[#8:Junoldo the Shadespirit Power Patron](def)&gt;M3&lt;ED
+  C1: A(M3)[#8:Junoldo the Shadespirit Power Patron]
+  R1: &gt;BX[#o6:Droll &amp; Lock Bird]&lt;top of Deck face-down, &gt;BX[#o1:Ghost Ogre &amp; Snow Rabbit]&lt;top of Deck face-down, &gt;BX[#31:The Great Gallant Bandit]&lt;top of Deck face-down
+  C1: A(M4)[#32:Junora the Power Patron of Tuning]
+      C2: A(ED)[#8:Junoldo the Shadespirit Power Patron]
+      R2: OK
+  R1: [#o3:Nervedo the Shadebeast Power Patron]&gt;GY
+
+-- --- RFC 0001 Terminal Board Snapshot (YBN - Game 2) ---
+YBN: T3|M1|LP5500:8000|P1:M2[#29(atk)],M3[#8(def)],M5[#27(atk)],EL[#30(atk)]|P2:M3[#17(atk)]|G:NS=0,SS=5
+
+[Round "Game 3"]
+-- [Notary Note]: Game 3 commences. Deciding game of the match.
+T1: TheGreatRoyal vs Manusuperheavy
+@DP
+  +H[#28:Mind Shuffle, #31:The Great Gallant Bandit, #33:Typhoon, #o5:Ash Blossom &amp; Joyous Spring, #27:Skull Archfiend of Chaos]&lt;D
+  o.+H[#13:Theorealized Medius, #o2:Prohibited Power Patron Portal - Terminus, #4:Theorealize Past Lull, #o5:Ash Blossom &amp; Joyous Spring, #16:Elfnotes: Rhapsodia of Madness]&lt;o.D
+@M1
+  C1: A(H)[#o2:Prohibited Power Patron Portal - Terminus]
+      C2: A(H)[#o5:Ash Blossom &amp; Joyous Spring]
+      R2: OK
+  R1: [#o2:Prohibited Power Patron Portal - Terminus]&gt;GY
+
+T2: Manusuperheavy vs TheGreatRoyal
+@DP
+@SP
+@M1
+  N[#31:The Great Gallant Bandit](atk)&gt;M1
+  C1: A(GY)[#27:Skull Archfiend of Chaos] T&gt;GY[#29:Magician of Dark Chaos - Black Chaos]
+  R1: [#29:Magician of Dark Chaos - Black Chaos]&gt;GY, [#o5:Ash Blossom &amp; Joyous Spring]&gt;GY, S[#27:Skull Archfiend of Chaos](atk)&gt;M5&lt;GY, [#o2:Prohibited Power Patron Portal - Terminus]&gt;GY
+@BP
+  ATK(M1 -&gt; LP)
+  ATK(M5 -&gt; LP)
+  LP-2500
+  LP-2500
+@M2
+  L[[#31:The Great Gallant Bandit:M1] + [#27:Skull Archfiend of Chaos:M5]]&gt;ER[#19:S:P Little Knight](atk)&lt;ED
+  C1: A(GY)[#27:Skull Archfiend of Chaos]
+  R1: [#25:Light and Darkness Ritual]&gt;GY
+  C1: A(H)[#o5:Ash Blossom &amp; Joyous Spring]&gt;GY
+  R1: OK
+  #S[#28:Mind Shuffle]&gt;S3
+  #S[#33:Typhoon]&gt;S2
+@EP
+
+T3: TheGreatRoyal vs Manusuperheavy
+@DP
+  C1: A(H)[#e3:Ars Magna the Finite and the Infinite]
+  R1: &gt;BX[#e3:Ars Magna the Finite and the Infinite]&lt;H, +H[#e1:Ars Magna the Corruption and the Purification]&lt;D
+@M1
+  N[#13:Theorealized Medius](atk)&gt;M1
+@BP
+@M1
+@BP
+  LP-200
+@M2
+  C1: A(H)[#e1:Ars Magna the Corruption and the Purification]
+  R1: &gt;BX[#e1:Ars Magna the Corruption and the Purification]&lt;H, +H[#e2:Ars Magna "Citrinitas"]&lt;D
+  C1: A(M1)[#13:Theorealized Medius]
+  R1: +H[#e4:Ars Magna the Division and the Union]&lt;D
+  C1: A(S3)[#28:Mind Shuffle]
+      C2: A(S3)[#28:Mind Shuffle]
+      R2: OK
+  R1: [#29:Magician of Dark Chaos - Black Chaos]&gt;GY
+  C1: A(H)[#e4:Ars Magna the Division and the Union]
+  R1: &gt;BX[#e4:Ars Magna the Division and the Union]&lt;H
+  L[[#e3:Ars Magna the Finite and the Infinite:M2] + [#13:Theorealized Medius:M1]]&gt;EL[#12:Purification Power Patron](atk)&lt;ED
+  C1: A(EL)[#12:Purification Power Patron]
+  R1: +H[#34:Theorealize]&lt;D
+  C1: A(M1)[#e4:Ars Magna the Division and the Union]
+  R1: &gt;BX[#e3:Ars Magna the Finite and the Infinite]&lt;GY, +H[#35:Pendulum Treasure]&lt;D
+  C1: A(M2)[#e1:Ars Magna the Corruption and the Purification] T&gt;S2[#36:Set Typhoon]
+  R1: &gt;BX[#36:Set Typhoon]&lt;S2, [#12:Purification Power Patron]&gt;GY
+  L[[#e4:Ars Magna the Division and the Union:M1]]&gt;EL[#19:S:P Little Knight](atk)&lt;ED
+  C1: A(EL)[#19:S:P Little Knight] T&gt;S3[#28:Mind Shuffle]
+  R1: &gt;BX[#28:Mind Shuffle]&lt;S3, S[#14:Number 90: Galaxy-Eyes Photon Lord](def)&gt;M1&lt;M1
+  C1: A(H)[#e2:Ars Magna "Citrinitas"]
+      C2: A(S3)[#e2:Ars Magna "Citrinitas"]
+      R2: OK
+  R1: +H[#e3:Ars Magna the Finite and the Infinite]&lt;D
+
+-- --- RFC 0001 Terminal Board Snapshot (YBN - Game 3) ---
+YBN: T3|M2|LP2800:8000|P1:M1[#14(def)],EL[#19(atk)],S3[#e2]|P2:|G:NS=1,SS=4
+        </pre>
+      </div>
+    </section>
+
+    <!-- Cross Navigation -->
+    <div class="pagination-bar">
+      <a href="jacson.html" class="btn-secondary">&larr; Previous: Match #02 (vs jacsonmoura)</a>
+      <a href="index.html" class="btn-primary">All Match Reports &rarr;</a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="index.html">YGN Match Reports</a></li>
+        <li><a href="../obsidian/index.html">Obsidian TCG</a></li>
+        <li><a href="../tools/notary.html">RFC 0001 Notary</a></li>
+        <li><a href="https://github.com/niloedson">GitHub</a></li>
+      </ul>
+      <p>&copy; 2026 Nilo Edson &middot; Haunted Labs &amp; Obsidian TCG Team.</p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function copyYgnTranscript() {
+      const text = document.getElementById('ygn-content').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.btn-copy');
+        const orig = btn.innerText;
+        btn.innerText = 'Copied!';
+        btn.style.background = 'rgba(52, 211, 153, 0.3)';
+        btn.style.borderColor = 'rgba(52, 211, 153, 0.5)';
+        btn.style.color = '#34d399';
+        setTimeout(() => {
+          btn.innerText = orig;
+          btn.style.background = '';
+          btn.style.borderColor = '';
+          btn.style.color = '';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
