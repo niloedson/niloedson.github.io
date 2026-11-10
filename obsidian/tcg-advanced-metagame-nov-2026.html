@@ -175,6 +175,7 @@
       </a>
       <ul class="nav-links">
         <li><a href="index.html" style="color: var(--accent-purple); font-weight: 600;">Obsidian Hub</a></li>
+        <li><a href="genesys-metagame-report-nov-2026.html">Genesys Report</a></li>
         <li><a href="../projects/ygo-meta-mcp.html">ygo-meta-mcp</a></li>
         <li><a href="../projects/ygoprodeck-mcp.html">ygoprodeck-mcp</a></li>
         <li><a href="../projects/ygo-sim-core.html">ygo-sim-core</a></li>
@@ -268,10 +269,89 @@
           </div>
         </div>
 
-        <!-- Master Tech Table -->
-        <h2 id="master-table">2. Master Tech Adoption Matrix (TCG Consensus)</h2>
+        <!-- Top Performing Archetypes Matrix -->
+        <h2 id="archetypes-matrix">2. Top Performing Archetypes Matrix (TCG Consensus)</h2>
         <p>
-          The table below integrates verified top-cut tournament decks ($N=256$) and global competitive lists ($N=483$) synced directly from the multi-source database:
+          Non-engine tech selection in modern Yu-Gi-Oh! is directly determined by the Tier-1 and Tier-2 engines dominating premier events. Below is the multi-source Bayesian consensus tier breakdown across 739 tournament decks (256 YGOPRODeck Top Cuts + 483 Yu-Gi-Oh! Meta lists) over the 3-week window:
+        </p>
+
+        <div class="spec-table-wrapper">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Archetype / Engine</th>
+                <th>Tier</th>
+                <th>Consensus Share</th>
+                <th>YGOPRODeck Top Cuts</th>
+                <th>YGO Meta Decks</th>
+                <th>Core Strategic Profile</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Elfnote</strong></td>
+                <td><span class="badge-tag" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.35);">Tier 1</span></td>
+                <td><span class="stat-highlight">21.81%</span></td>
+                <td>64 decks (21.05%)</td>
+                <td>67 decks (22.56%)</td>
+                <td>Continuous field spells (<em>Aristeia of Trust</em>); recursive Fairy synchro chains</td>
+              </tr>
+              <tr>
+                <td><strong>Angelechy</strong></td>
+                <td><span class="badge-tag" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.35);">Tier 1</span></td>
+                <td><span class="stat-highlight">17.64%</span></td>
+                <td>53 decks (17.43%)</td>
+                <td>53 decks (17.85%)</td>
+                <td>Field bastion engine (<em>Angelechy Bastion</em>); tactical disruption and floating pieces</td>
+              </tr>
+              <tr>
+                <td><strong>Radiant Typhoon</strong></td>
+                <td><span class="badge-tag" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.35);">Tier 2</span></td>
+                <td>6.82%</td>
+                <td>23 decks (7.57%)</td>
+                <td>18 decks (6.06%)</td>
+                <td>WIND mobility engine; rapid backrow board clears and agile floating resources</td>
+              </tr>
+              <tr>
+                <td><strong>Light and Darkness Ritual</strong></td>
+                <td><span class="badge-tag" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.35);">Tier 2</span></td>
+                <td>4.96%</td>
+                <td>24 decks (7.89%)</td>
+                <td>6 decks (2.02%)</td>
+                <td>Level 8 Dragon ritual engine; dual-attribute setup with layered omni-negation</td>
+              </tr>
+              <tr>
+                <td><strong>Dark Magician Chaos Ritual</strong></td>
+                <td><span class="badge-tag" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.35);">Tier 3</span></td>
+                <td>4.71%</td>
+                <td>—</td>
+                <td>14 decks (4.71%)</td>
+                <td>Ars Magna ritual hybrid; heavy graveyard recycling and continuous spell engines</td>
+              </tr>
+              <tr>
+                <td><strong>Sky Striker</strong></td>
+                <td><span class="badge-tag" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.35);">Tier 3</span></td>
+                <td>3.65%</td>
+                <td>14 decks (4.61%)</td>
+                <td>8 decks (2.69%)</td>
+                <td>Spell-heavy control; Link-1 cycling with versatile non-engine tech payload</td>
+              </tr>
+              <tr>
+                <td><strong>Branded</strong></td>
+                <td><span class="badge-tag" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.35);">Tier 3</span></td>
+                <td>3.67%</td>
+                <td>10 decks (3.29%)</td>
+                <td>12 decks (4.04%)</td>
+                <td>Fusion engine recursion; Albaz contact bridges and graveyard trigger chains</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Master Tech Table -->
+        <h2 id="master-table">3. Master Tech Adoption Matrix (TCG Consensus)</h2>
+        <p>
+          The table below integrates verified top-cut tournament decks (N = 256) and global competitive lists (N = 483) synced directly from the multi-source database:
         </p>
 
         <div class="spec-table-wrapper">
@@ -279,174 +359,140 @@
             <thead>
               <tr>
                 <th>Card Name</th>
-                <th>Taxonomy</th>
                 <th>Top-Cut %</th>
                 <th>YGO Meta Main</th>
                 <th>YGO Meta Side</th>
                 <th>Avg Copies</th>
-                <th>Format Chokepoint &amp; Role</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><strong>Mulcharmy Fuwalos</strong></td>
-                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
                 <td><span class="stat-highlight">98.44%</span></td>
                 <td>62.53%</td>
                 <td>—</td>
                 <td>3.00</td>
-                <td>Draws off Main/Extra Deck summons; stops combo over-extension</td>
               </tr>
               <tr>
                 <td><strong>Ash Blossom &amp; Joyous Spring</strong></td>
-                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
                 <td><span class="stat-highlight">98.05%</span></td>
                 <td>57.76%</td>
                 <td>—</td>
                 <td>2.97</td>
-                <td>Universal 1-for-1 gatekeeper against search, dump, and deck summons</td>
               </tr>
               <tr>
                 <td><strong>Ghost Ogre &amp; Snow Rabbit</strong></td>
-                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
                 <td><span class="stat-highlight">92.19%</span></td>
                 <td><span class="stat-highlight">68.32%</span></td>
                 <td>—</td>
                 <td>2.75</td>
-                <td><strong>#1 Main Deck Card</strong>; punishes field spells, continuous assets &amp; ignition monsters</td>
               </tr>
               <tr>
-                <td><strong>Droll &amp; Lock Bird</strong></td>
-                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
+                <td><strong>Droll &amp; Lock Bird</strong> <span style="font-size: 0.72rem; color: var(--accent-orange);">(Limited)</span></td>
                 <td><span class="stat-highlight">93.36%</span></td>
                 <td>52.80%</td>
                 <td>—</td>
-                <td>1.00 <span style="font-size: 0.72rem; color: var(--accent-orange);">(Limited)</span></td>
-                <td>Turn-ending search lock; <strong>legally Limited to 1</strong> on active TCG Banlist</td>
+                <td>1.00</td>
               </tr>
               <tr>
                 <td><strong>Nibiru, the Primal Being</strong></td>
-                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
                 <td>70.31%</td>
                 <td>24.02%</td>
                 <td>25.88%</td>
                 <td>2.21</td>
-                <td>Tributes all face-up monsters past the 5th summon threshold</td>
               </tr>
               <tr>
                 <td><strong>Mulcharmy Purulia</strong></td>
-                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
                 <td>64.45%</td>
                 <td>—</td>
                 <td>29.40%</td>
                 <td>2.64</td>
-                <td>Hand-summon punishment; heavily boarded in going second</td>
               </tr>
               <tr>
                 <td><strong>S:P Little Knight</strong></td>
-                <td><span class="badge-tag badge-extra">[EXTRA-GENERIC]</span></td>
                 <td>60.55%</td>
                 <td>—</td>
                 <td>—</td>
                 <td>1.00</td>
-                <td>Premier generic Link-2 removal and evasive quick-effect banish dodge</td>
               </tr>
               <tr>
                 <td><strong>Typhoon</strong></td>
-                <td><span class="badge-tag badge-breaker">[TECH-BREAKER]</span></td>
                 <td>53.13%</td>
                 <td>—</td>
                 <td><span class="stat-highlight">46.38%</span></td>
                 <td>2.81</td>
-                <td><strong>#1 Side Deck Card</strong>; Turn 0 trap hand trap targeting 2+ opposing S/T</td>
               </tr>
               <tr>
                 <td><strong>Effect Veiler</strong></td>
-                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
                 <td>37.50%</td>
                 <td>23.19%</td>
                 <td>—</td>
                 <td>2.49</td>
-                <td>Targeted monster effect negation during opponent's Main Phase</td>
               </tr>
               <tr>
-                <td><strong>The Great Gallant Bandit</strong><br><span style="font-size: 0.72rem; color: var(--text-muted);">(The World's Greatest Gallant Thief)</span></td>
-                <td><span class="badge-tag badge-breaker">[TECH-BREAKER]</span></td>
+                <td><strong>The Great Gallant Bandit</strong> <span style="font-size: 0.72rem; color: var(--text-muted);">(The World's Greatest Gallant Thief)</span></td>
                 <td><span class="stat-highlight">36.72%</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td>2.40</td>
-                <td>Contact-tributes opposing monsters on Turn 2; negates opponent hand/GY/banished effects as Normal Summoned body</td>
               </tr>
               <tr>
                 <td><strong>Dominus Impulse</strong></td>
-                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
                 <td>36.33%</td>
                 <td>—</td>
                 <td>—</td>
                 <td>3.00</td>
-                <td>Trap hand trap negating summon-triggering effects with lockouts</td>
               </tr>
               <tr>
-                <td><strong>Solemn Judgment</strong></td>
-                <td><span class="badge-tag badge-defensive">[TECH-DEFENSIVE]</span></td>
+                <td><strong>Solemn Judgment</strong> <span style="font-size: 0.72rem; color: var(--accent-orange);">(Limited)</span></td>
                 <td>33.59%</td>
                 <td>—</td>
                 <td>18.84%</td>
-                <td>1.00 <span style="font-size: 0.72rem; color: var(--accent-orange);">(Limited)</span></td>
-                <td>Turn 1 insulation; boarded going first against blowout spell wipes; <strong>legally Limited to 1</strong> on active TCG Banlist</td>
+                <td>1.00</td>
               </tr>
               <tr>
                 <td><strong>Pot of Sloth</strong></td>
-                <td><span class="badge-tag badge-breaker">[TECH-BREAKER]</span></td>
                 <td>33.20%</td>
                 <td>—</td>
                 <td>18.84%</td>
                 <td>2.41</td>
-                <td>Resource recursion and draw consistency for grind-oriented decks</td>
               </tr>
               <tr>
                 <td><strong>Hey, Space Trunade!</strong></td>
-                <td><span class="badge-tag badge-breaker">[TECH-BREAKER]</span></td>
                 <td>32.42%</td>
                 <td>—</td>
                 <td>20.29%</td>
                 <td>2.02</td>
-                <td>Un-negatable backrow bounce solution transitioning from OCG to TCG</td>
               </tr>
               <tr>
                 <td><strong>Cosmic Cyclone</strong></td>
-                <td><span class="badge-tag badge-breaker">[TECH-BREAKER]</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td>20.50%</td>
                 <td>2.47</td>
-                <td>Quick-Play banish targeting floodgates and graveyard-floating spells</td>
               </tr>
               <tr>
                 <td><strong>Skull Meister</strong></td>
-                <td><span class="badge-tag badge-handtrap">[TECH-HANDTRAP]</span></td>
                 <td>—</td>
                 <td>—</td>
                 <td>20.08%</td>
                 <td>2.59</td>
-                <td>Targetless graveyard effect negation; dodges anti-targeting protections</td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <!-- Asymmetric Hand Size Axiom -->
-        <h2 id="probability-mechanics">3. Probability &amp; Asymmetric Hand Size Axiom</h2>
+        <h2 id="probability-mechanics">4. Probability &amp; Asymmetric Hand Size Axiom</h2>
         <p>
           According to the <strong>Asymmetric Hand Size Axiom</strong> codified in the <code>ygo-deck-architect</code> engine, non-engine tech must be mathematically segregated into two evaluation horizons:
         </p>
         <ul>
           <li>
-            <strong>Turn 0 Hand Traps (\(n = 5\)):</strong> Must disrupt the opponent <em>during their Turn 1</em> before their board lock is established. Top-decking a defensive hand trap as the 6th card on Turn 2 is completely dead against layered negates.
+            <strong>Turn 0 Hand Traps (n = 5):</strong> Must disrupt the opponent <em>during their Turn 1</em> before their board lock is established. Top-decking a defensive hand trap as the 6th card on Turn 2 is completely dead against layered negates.
           </li>
           <li>
-            <strong>Turn 2 Board Breakers (\(n = 6\)):</strong> Evaluated across 6 cards because the going-second pilot draws for turn prior to taking actions in Main Phase 1.
+            <strong>Turn 2 Board Breakers (n = 6):</strong> Evaluated across 6 cards because the going-second pilot draws for turn prior to taking actions in Main Phase 1.
           </li>
         </ul>
 
@@ -489,12 +535,33 @@
             </div>
             <span class="chart-pct">93.6%</span>
           </div>
+          <div class="chart-row">
+            <span class="chart-label">16 Hand Traps (≥2 HTs)</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill orange" style="width: 67.7%;">67.7%</div>
+            </div>
+            <span class="chart-pct">67.7%</span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">18 Hand Traps (≥1 HT)</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill" style="width: 96.0%;">96.0%</div>
+            </div>
+            <span class="chart-pct">96.0%</span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">18 Hand Traps (≥2 HTs)</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill orange" style="width: 76.0%;">76.0%</div>
+            </div>
+            <span class="chart-pct">76.0%</span>
+          </div>
         </div>
 
         <!-- Deckbuilding Blueprint -->
-        <h2 id="deckbuilding-blueprint">4. Obsidian TCG Deckbuilding Blueprint</h2>
+        <h2 id="deckbuilding-blueprint">5. Obsidian TCG Deckbuilding Blueprint</h2>
         <p>
-          Applying the hypergeometric benchmarks ($P(\text{Disruption} \ge 1) \ge 90\%$) and the 3-2-1 copy standard, the Obsidian analytics cell recommends the following standardized non-engine ratio structure for competitive Swiss events:
+          Applying the hypergeometric benchmark <code>P(Disruption &ge; 1) &ge; 90%</code> and the 3-2-1 copy standard, the Obsidian analytics cell recommends the following standardized non-engine ratio structure for competitive Swiss events:
         </p>
 
         <div class="code-block">
@@ -528,52 +595,11 @@
           </div>
         </div>
 
-        <!-- YDK String -->
-        <h2 id="ydk-export">5. Simulator .YDK Export String</h2>
-        <p>
-          Copy the sanitized simulator string below directly into EDOPro, YGO Omega, or Project Ignis to import the Obsidian Tech Baseline:
-        </p>
-
-        <div class="code-block">
-          <div class="code-header">
-            <span>obsidian_tech_baseline_nov2026.ydk</span>
-            <span>YDK Format</span>
-          </div>
-          <div class="code-content">
-<pre><code>#created by Obsidian TCG Intelligence (Haunted Labs)
-#main
-59438930
-59438930
-59438930
-42141493
-42141493
-42141493
-14558127
-14558127
-14558127
-94145021
-84192580
-84192580
-84192580
-27204311
-#extra
-29301450
-!side
-14883228
-14883228
-14883228
-24203749
-24203749
-24203749
-27204311
-27204311
-41420027
-2729965
-2729965
-8267140
-8267140
-102380
-102380</code></pre>
+        <!-- Decoupled Export Note -->
+        <div class="callout" style="border-left-color: var(--accent-purple); margin-top: 1.5rem;">
+          <div class="callout-title">Simulator Import &amp; Meta Decklists</div>
+          <div class="callout-body">
+            Full tournament deck profiles and simulator-ready .ydk files for top-cut competitors are decoupled from this report and can be queried directly via <strong>ygo-meta-mcp v1.1.2</strong> using <code>get_meta_decklists</code> or exported through <strong>ygo-deck-architect</strong>.
           </div>
         </div>
 
@@ -595,11 +621,11 @@
             </li>
             <li class="sidebar-info-item">
               <span>Timeframe</span>
-              <strong>Last 3 Weeks</strong>
+              <strong>Last 3 Weeks (Banlist Safe)</strong>
             </li>
             <li class="sidebar-info-item">
               <span>Sync Engine</span>
-              <strong style="color: var(--accent-purple);">ygo-meta-mcp v1.1.1</strong>
+              <strong style="color: var(--accent-purple);">ygo-meta-mcp v1.1.2</strong>
             </li>
             <li class="sidebar-info-item">
               <span>DB Timestamp</span>
@@ -630,10 +656,10 @@
           <div class="sidebar-section-title">Report Navigation</div>
           <ul class="report-toc">
             <li><a href="#executive-summary">&rarr; 1. Executive Summary</a></li>
-            <li><a href="#master-table">&rarr; 2. Master Tech Matrix</a></li>
-            <li><a href="#probability-mechanics">&rarr; 3. Probability Curves</a></li>
-            <li><a href="#deckbuilding-blueprint">&rarr; 4. Obsidian Blueprint</a></li>
-            <li><a href="#ydk-export">&rarr; 5. Simulator .YDK Export</a></li>
+            <li><a href="#archetypes-matrix">&rarr; 2. Top Archetypes Matrix</a></li>
+            <li><a href="#master-table">&rarr; 3. Master Tech Matrix</a></li>
+            <li><a href="#probability-mechanics">&rarr; 4. Probability Curves</a></li>
+            <li><a href="#deckbuilding-blueprint">&rarr; 5. Obsidian Blueprint</a></li>
           </ul>
         </div>
 
@@ -667,6 +693,7 @@
         <p class="footer-links">
           <a href="../index.html">Portfolio</a> &middot;
           <a href="index.html">Obsidian Hub</a> &middot;
+          <a href="genesys-metagame-report-nov-2026.html">Genesys Report</a> &middot;
           <a href="../projects/ygo-meta-mcp.html">ygo-meta-mcp</a>
         </p>
       </div>
