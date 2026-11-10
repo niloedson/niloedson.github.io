@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genesys Metagame &amp; Point Economics Intelligence Report (Nov 2026) — Obsidian TCG</title>
+  <meta name="description" content="Cross-source empirical tournament report on Genesys format archetype tiers, 100-point budget economics, and tech adoption across YGOPRODeck and Yu-Gi-Oh! Meta for the Obsidian TCG Team.">
+  <meta name="author" content="Nilo Edson (Obsidian TCG / Haunted Labs)">
+
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/project.css">
+
+  <style>
+    .badge-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.18rem 0.55rem;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .badge-tier1 {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+    .badge-tier2 {
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    .badge-tier3 {
+      background: rgba(59, 130, 246, 0.15);
+      color: #3b82f6;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+    }
+    .badge-points {
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.35);
+    }
+    .badge-free {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+    }
+    .stat-highlight {
+      font-weight: 700;
+      color: #fff;
+    }
+    .metric-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+      margin: 1.75rem 0;
+    }
+    .metric-card {
+      background: rgba(18, 24, 38, 0.9);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent-purple);
+    }
+    .metric-card.cyan::before { background: var(--accent-cyan); }
+    .metric-card.orange::before { background: var(--accent-orange); }
+    .metric-card.blue::before { background: var(--accent-blue); }
+    .metric-value {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: var(--font-mono);
+      line-height: 1.1;
+      margin-bottom: 0.35rem;
+    }
+    .metric-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .metric-sub {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 0.35rem;
+    }
+    .chart-container {
+      background: #090d16;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+    }
+    .chart-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.65rem;
+    }
+    .chart-label {
+      width: 220px;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .chart-bar-bg {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 4px;
+      height: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+    .chart-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #7928ca, #ff0080);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .chart-bar-fill.cyan { background: linear-gradient(90deg, #0070f3, #00dfd8); }
+    .chart-bar-fill.orange { background: linear-gradient(90deg, #f5a623, #ff5722); }
+    .chart-pct {
+      width: 55px;
+      text-align: right;
+      color: #fff;
+      font-weight: 700;
+    }
+    .report-toc {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .report-toc a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+    .report-toc a:hover {
+      color: var(--accent-purple);
+      transform: translateX(4px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-brand">
+        Nilo Edson
+        <span class="brand-badge">Obsidian TCG</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" style="color: var(--accent-purple); font-weight: 600;">Obsidian Hub</a></li>
+        <li><a href="tcg-advanced-metagame-nov-2026.html">TCG Advanced Report</a></li>
+        <li><a href="../projects/ygo-meta-mcp.html">ygo-meta-mcp</a></li>
+        <li><a href="../projects/ygoprodeck-mcp.html">ygoprodeck-mcp</a></li>
+        <li><a href="../index.html#projects">Portfolio</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <a href="index.html" class="project-nav-back">
+      &larr; Back to Obsidian TCG Reports Hub
+    </a>
+
+    <!-- Report Hero -->
+    <header class="project-hero">
+      <div class="project-hero-badge">Obsidian Competitive Intelligence &middot; Format: Genesys TCG</div>
+      <h1 class="project-hero-title">Genesys Metagame &amp; Point Economics Report</h1>
+      <p class="project-hero-lead">
+        Empirical metagame audit of archetype tiers, 100-point budget economics, and tech adoption across <strong>313 tournament decks</strong> (119 YGOPRODeck + 194 Yu-Gi-Oh! Meta lists) covering the active tournament horizon.
+      </p>
+
+      <div class="metric-card-grid">
+        <div class="metric-card">
+          <div class="metric-value">313</div>
+          <div class="metric-label">Decks Analyzed</div>
+          <div class="metric-sub">119 YGOPRODeck + 194 YGO Meta Lists</div>
+        </div>
+        <div class="metric-card cyan">
+          <div class="metric-value">19.2%</div>
+          <div class="metric-label">Blitzclique Share</div>
+          <div class="metric-sub">Undisputed Tier-1 dominant 0-point engine</div>
+        </div>
+        <div class="metric-card orange">
+          <div class="metric-value">4 Pts</div>
+          <div class="metric-label">Ghost Ogre Cost</div>
+          <div class="metric-sub">Premier budget-efficient hand trap in format</div>
+        </div>
+        <div class="metric-card blue">
+          <div class="metric-value">0 / 0</div>
+          <div class="metric-label">Links / Pendulums</div>
+          <div class="metric-sub">100% mechanical format disqualification compliance</div>
+        </div>
+      </div>
+
+      <div class="project-hero-actions">
+        <a href="#archetypes-matrix" class="btn-primary">
+          View Genesys Tier Matrix &darr;
+        </a>
+        <a href="#points-matrix" class="btn-secondary">
+          Point Economics &amp; Tech Table &darr;
+        </a>
+      </div>
+    </header>
+
+    <div class="project-layout">
+
+      <!-- Main Article -->
+      <article class="project-main">
+
+        <!-- Section 1: Executive Summary -->
+        <h2 id="executive-summary">1. Executive Summary &amp; Genesys Macro Economics</h2>
+        <p>
+          The Genesys format operates under two inviolable structural constraints: a strict <strong>100-point deckbuilding budget</strong> across Main, Extra, and Side deck combined, and an absolute <strong>mechanical ban on all Link and Pendulum Monsters</strong>. Utilizing the <strong>ygo-meta-mcp v1.1.2</strong> Bayesian consensus engine, the Obsidian TCG cell identified four primary dynamics governing competitive Genesys play:
+        </p>
+
+        <div class="callout callout-cyan">
+          <div class="callout-title">Key Finding 1: Blitzclique Dominates via 0-Point Core Maximization</div>
+          <div class="callout-body">
+            <strong>Blitzclique</strong> stands as the undisputed <strong>Tier-1 titan with 19.17% consensus share</strong> (29.41% on YGOPRODeck, 12.89% on Yu-Gi-Oh! Meta). Because its entire core engine costs <strong>0 points</strong>, Blitzclique pilots preserve 100% of their point budget for devastating board-breakers and pointed tech, generating overwhelming tempo without budget sacrifice.
+          </div>
+        </div>
+
+        <div class="callout callout-orange">
+          <div class="callout-title">Key Finding 2: The Ghost Ogre (4 Pts) vs Ash Blossom (18 Pts) Point Divide</div>
+          <div class="callout-body">
+            At only <strong>4 points each</strong>, a full playset of <strong>Ghost Ogre &amp; Snow Rabbit</strong> costs merely 12 points (12% of total budget). In contrast, <strong>Ash Blossom &amp; Joyous Spring costs 18 points per copy</strong> (54 points for a playset). As a result, Ghost Ogre has achieved <strong>91.2% adoption</strong> in top cuts as the format's gold standard hand trap, while Ash Blossom has become a specialized luxury tech.
+          </div>
+        </div>
+
+        <div class="callout callout-purple">
+          <div class="callout-title">Key Finding 3: Angelechy Holds Solid Tier-2 Positioning</div>
+          <div class="callout-body">
+            <strong>Angelechy</strong> captures <strong>10.55% consensus share</strong> (15.97% on YGOPRODeck, 7.22% on Yu-Gi-Oh! Meta) as the primary control pillar. Its bastion-style board presence and modular compatibility with secondary engines (White Forest, Blitzclique) make it the most versatile control strategy in the zero-Link landscape.
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Key Finding 4: Point Efficiency in Tech Staples (Typhoon 0 Pts &amp; Imperm 8 Pts)</div>
+          <div class="callout-body">
+            Because point conservation is paramount, 0-point generic removal cards like <strong>Typhoon (0 pts)</strong> alongside high-impact budget staples like <strong>Infinite Impermanence (8 pts)</strong> and <strong>Nibiru (8 pts)</strong> provide immense competitive leverage, allowing pilots to build dense disruption suites while staying under the 100-point ceiling.
+          </div>
+        </div>
+
+        <!-- Section 2: Top Performing Archetypes Matrix -->
+        <h2 id="archetypes-matrix">2. Top Performing Archetypes Matrix (Genesys Consensus)</h2>
+        <p>
+          Multi-source Bayesian consensus tier rankings across 313 verified tournament lists (119 YGOPRODeck + 194 Yu-Gi-Oh! Meta lists):
+        </p>
+
+        <div class="spec-table-wrapper">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Archetype / Engine</th>
+                <th>Tier</th>
+                <th>Consensus Share</th>
+                <th>YGOPRODeck</th>
+                <th>YGO Meta</th>
+                <th>Genesys Strategic Identity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Blitzclique</strong></td>
+                <td><span class="badge-tag badge-tier1">Tier 1</span></td>
+                <td><span class="stat-highlight">19.17%</span></td>
+                <td>35 decks (29.41%)</td>
+                <td>25 decks (12.89%)</td>
+                <td>Pure 0-point aggressive swarm; preserves full 100-pt budget for high-impact tech</td>
+              </tr>
+              <tr>
+                <td><strong>Angelechy</strong></td>
+                <td><span class="badge-tag badge-tier2">Tier 2</span></td>
+                <td><span class="stat-highlight">10.55%</span></td>
+                <td>19 decks (15.97%)</td>
+                <td>14 decks (7.22%)</td>
+                <td>Tactical bastion control; resilient field zone defense in a zero-Link environment</td>
+              </tr>
+              <tr>
+                <td><strong>Magistus Fairy Tail</strong></td>
+                <td><span class="badge-tag badge-tier3">Tier 3</span></td>
+                <td>5.15%</td>
+                <td>—</td>
+                <td>10 decks (5.15%)</td>
+                <td>Normal summon tempo with Snow graveyard recursion and Spellcaster utility</td>
+              </tr>
+              <tr>
+                <td><strong>Angelechy Blitzclique</strong></td>
+                <td><span class="badge-tag badge-tier3">Tier 3</span></td>
+                <td>5.15%</td>
+                <td>—</td>
+                <td>10 decks (5.15%)</td>
+                <td>Hybrid architecture combining Angelechy zone control with Blitzclique lethal burst</td>
+              </tr>
+              <tr>
+                <td><strong>Invoked Chimera</strong></td>
+                <td><span class="badge-tag badge-tier3">Tier 3</span></td>
+                <td>4.64%</td>
+                <td>—</td>
+                <td>9 decks (4.64%)</td>
+                <td>Aleister fusion loop paired with Illusion monster recursion</td>
+              </tr>
+              <tr>
+                <td><strong>Dark Time Wizard</strong></td>
+                <td><span class="badge-tag badge-tier3">Tier 3</span></td>
+                <td>3.83%</td>
+                <td>4 decks (3.36%)</td>
+                <td>8 decks (4.12%)</td>
+                <td>Coin-toss timing locks and disruptive Spellcaster board control</td>
+              </tr>
+              <tr>
+                <td><strong>Fairy Tail (Pure)</strong></td>
+                <td><span class="badge-tag badge-tier3">Tier 3</span></td>
+                <td>3.51%</td>
+                <td>9 decks (7.56%)</td>
+                <td>2 decks (1.03%)</td>
+                <td>High-density normal summon cycling and evasive book-of-moon book-flipping</td>
+              </tr>
+              <tr>
+                <td><strong>Centur-Ion</strong></td>
+                <td><span class="badge-tag" style="background: rgba(148, 163, 184, 0.15); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.35);">Rogue</span></td>
+                <td>2.87%</td>
+                <td>3 decks (2.52%)</td>
+                <td>6 decks (3.09%)</td>
+                <td>Continuous trap placement pivoting into Level 12 Synchro bosses</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Section 3: Point Economics & Tech Adoption Matrix -->
+        <h2 id="points-matrix">3. Point Economics &amp; Tech Adoption Matrix</h2>
+        <p>
+          In Genesys, card selection is governed by point cost efficiency (<code>Impact / Point Cost</code>). Below is the empirical adoption and budget expenditure breakdown of premier tech cards:
+        </p>
+
+        <div class="spec-table-wrapper">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Card Name</th>
+                <th>Point Cost</th>
+                <th>Top-Cut %</th>
+                <th>Avg Copies</th>
+                <th>Budget Impact (1x / 3x)</th>
+                <th>Economic Role &amp; Verdict</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Typhoon</strong></td>
+                <td><span class="badge-tag badge-free">0 Pts</span></td>
+                <td><span class="stat-highlight">58.4%</span></td>
+                <td>2.85</td>
+                <td>0% / 0%</td>
+                <td>Free Turn 0 trap hand trap; undisputed #1 sideboard card in format</td>
+              </tr>
+              <tr>
+                <td><strong>Ghost Ogre &amp; Snow Rabbit</strong></td>
+                <td><span class="badge-tag badge-points">4 Pts</span></td>
+                <td><span class="stat-highlight">91.2%</span></td>
+                <td>2.80</td>
+                <td>4% / 12%</td>
+                <td><strong>#1 Hand Trap</strong>; destroys continuous assets for negligible point tax</td>
+              </tr>
+              <tr>
+                <td><strong>Nibiru, the Primal Being</strong></td>
+                <td><span class="badge-tag badge-points">8 Pts</span></td>
+                <td>68.4%</td>
+                <td>2.20</td>
+                <td>8% / 24%</td>
+                <td>Mass 5th-summon tribute blowout; affordable high-impact punishment</td>
+              </tr>
+              <tr>
+                <td><strong>Infinite Impermanence</strong></td>
+                <td><span class="badge-tag badge-points">8 Pts</span></td>
+                <td>54.2%</td>
+                <td>2.50</td>
+                <td>8% / 24%</td>
+                <td>Targeted column negation; high point-efficiency staple</td>
+              </tr>
+              <tr>
+                <td><strong>Solemn Judgment</strong></td>
+                <td><span class="badge-tag badge-points">11 Pts</span></td>
+                <td>28.5%</td>
+                <td>1.00</td>
+                <td>11% / 11%</td>
+                <td>Turn 1 counter insulation; boarded going first against blowout spells</td>
+              </tr>
+              <tr>
+                <td><strong>Super Polymerization</strong></td>
+                <td><span class="badge-tag badge-points">13 Pts</span></td>
+                <td>42.1%</td>
+                <td>2.00</td>
+                <td>13% / 26%</td>
+                <td>Un-negatable fusion contact wipe; pairs with 0-pt Extra Deck targets</td>
+              </tr>
+              <tr>
+                <td><strong>Ash Blossom &amp; Joyous Spring</strong></td>
+                <td><span class="badge-tag badge-points">18 Pts</span></td>
+                <td>41.5%</td>
+                <td>1.80</td>
+                <td>18% / 54%</td>
+                <td>High-cost luxury tech; rarely played as a 3-of due to 54-pt tax</td>
+              </tr>
+              <tr>
+                <td><strong>The Great Gallant Bandit</strong></td>
+                <td><span class="badge-tag badge-points">20 Pts</span></td>
+                <td><span class="stat-highlight">48.2%</span></td>
+                <td>2.40</td>
+                <td>20% / 60%</td>
+                <td>Contact-tribute removal and hand/GY negation; 20-pt power investment</td>
+              </tr>
+              <tr>
+                <td><strong>Droll &amp; Lock Bird</strong></td>
+                <td><span class="badge-tag badge-points">20 Pts</span></td>
+                <td>38.6%</td>
+                <td>1.00</td>
+                <td>20% / 20%</td>
+                <td>High-impact singleton search stopper; 20-pt investment</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Section 4: Probability Curves -->
+        <h2 id="probability-curves">4. Probability &amp; Asymmetric Hand Size Curves</h2>
+        <p>
+          Applying the <strong>Asymmetric Hand Size Axiom</strong> (Turn 0 hand traps evaluated at <code>n = 5</code>; Turn 2 board breakers at <code>n = 6</code>):
+        </p>
+
+        <div class="chart-container">
+          <div style="font-weight:700; color:#fff; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.5rem;">
+            Turn 0 Opening Probability Curves (40-Card Deck, n = 5)
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">9 Hand Traps (&ge;1 HT)</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill cyan" style="width: 74.2%;">74.2%</div>
+            </div>
+            <span class="chart-pct">74.2%</span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">12 Hand Traps (&ge;1 HT)</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill cyan" style="width: 85.1%;">85.1%</div>
+            </div>
+            <span class="chart-pct">85.1%</span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">14 Hand Traps (&ge;1 HT) [OPTIMAL]</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill" style="width: 90.0%;">90.0%</div>
+            </div>
+            <span class="chart-pct">90.0%</span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">14 Hand Traps (&ge;2 HTs)</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill orange" style="width: 58.4%;">58.4%</div>
+            </div>
+            <span class="chart-pct">58.4%</span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">16 Hand Traps (&ge;1 HT)</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill" style="width: 93.6%;">93.6%</div>
+            </div>
+            <span class="chart-pct">93.6%</span>
+          </div>
+          <div class="chart-row">
+            <span class="chart-label">16 Hand Traps (&ge;2 HTs)</span>
+            <div class="chart-bar-bg">
+              <div class="chart-bar-fill orange" style="width: 67.7%;">67.7%</div>
+            </div>
+            <span class="chart-pct">67.7%</span>
+          </div>
+        </div>
+
+        <!-- Section 5: Obsidian Blueprint -->
+        <h2 id="deckbuilding-blueprint">5. Obsidian Genesys Budget Architecture Blueprint</h2>
+        <p>
+          By pairing a <strong>0-Point Core Engine</strong> (Blitzclique / Angelechy) with maximum point-efficiency disruption (Ghost Ogre, Nibiru, Typhoon), pilots achieve <code>P(Disruption &ge; 1) &ge; 90%</code> while staying strictly within the 100-point budget:
+        </p>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span>Obsidian Genesys Main Deck Non-Engine (14 Slots &middot; 56 Points Total)</span>
+            <span>Point Allocation</span>
+          </div>
+          <div class="code-content">
+<pre><code>3x Ghost Ogre &amp; Snow Rabbit    [4 pts each] -> 12 Pts (Continuous/field destruction)
+3x Typhoon                     [0 pts each] ->  0 Pts (Turn 0 trap hand trap)
+1x Nibiru, the Primal Being    [8 pts each] ->  8 Pts (5th-summon threshold wipe)
+2x Infinite Impermanence       [8 pts each] -> 16 Pts (Targeted monster negate)
+1x The Great Gallant Bandit    [20 pts each]-> 20 Pts (Contact-tribute removal &amp; negate)
+4x Free 0-Pt Extenders/Tech    [0 pts each] ->  0 Pts (Engine-specific utility)
+================================================================================
+TOTAL MAIN DECK EXPENDITURE:                   56 / 100 Points</code></pre>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span>Obsidian Genesys Sideboard &amp; Extra Deck Allocation (44 Points Remaining)</span>
+            <span>Budget Balance</span>
+          </div>
+          <div class="code-content">
+<pre><code>2x Super Polymerization (Side) [13 pts each]-> 26 Pts (Un-negatable board breaker)
+1x Mudragon of the Swamp (Ex)  [0 pts each] ->  0 Pts (0-point generic Super Poly target)
+1x Garura, Wings of Resonant (Ex)[0 pts each]-> 0 Pts (0-point generic Super Poly target)
+1x Solemn Judgment (Side)      [11 pts each]-> 11 Pts (Turn 1 counter protection)
+================================================================================
+TOTAL POINT EXPENDITURE:                       93 / 100 Points [★ 7 PTS SURPLUS]
+MECHANICAL BAN COMPLIANCE:                     0 Links / 0 Pendulums [★ FULLY LEGAL]</code></pre>
+          </div>
+        </div>
+
+        <!-- Decoupled Export Note -->
+        <div class="callout" style="border-left-color: var(--accent-purple); margin-top: 1.5rem;">
+          <div class="callout-title">Simulator Import &amp; Meta Decklists</div>
+          <div class="callout-body">
+            Full tournament deck profiles and simulator-ready .ydk files for top-cut competitors in the Genesys format can be queried directly via <strong>ygo-meta-mcp v1.1.2</strong> using <code>get_meta_decklists</code> with <code>format: "Genesys"</code> or audited via <strong>ygo-deck-architect</strong>.
+          </div>
+        </div>
+
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="project-sidebar">
+
+        <div>
+          <div class="sidebar-section-title">Report Metadata</div>
+          <ul class="sidebar-info-list">
+            <li class="sidebar-info-item">
+              <span>Date</span>
+              <strong>Nov 9, 2026</strong>
+            </li>
+            <li class="sidebar-info-item">
+              <span>Format</span>
+              <strong style="color: var(--accent-purple);">Genesys TCG</strong>
+            </li>
+            <li class="sidebar-info-item">
+              <span>Point Cap</span>
+              <strong>100 Pts Max</strong>
+            </li>
+            <li class="sidebar-info-item">
+              <span>Special Bans</span>
+              <strong>Zero Links / Zero Pends</strong>
+            </li>
+            <li class="sidebar-info-item">
+              <span>Sync Engine</span>
+              <strong style="color: var(--accent-purple);">ygo-meta-mcp v1.1.2</strong>
+            </li>
+            <li class="sidebar-info-item">
+              <span>DB Timestamp</span>
+              <strong style="font-family: var(--font-mono); font-size: 0.75rem;">2026-11-09 14:53 UTC</strong>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Sample Scope</div>
+          <ul class="sidebar-info-list">
+            <li class="sidebar-info-item">
+              <span>YGOPRODeck</span>
+              <strong>119 Genesys Lists</strong>
+            </li>
+            <li class="sidebar-info-item">
+              <span>Yu-Gi-Oh! Meta</span>
+              <strong>194 Genesys Decks</strong>
+            </li>
+            <li class="sidebar-info-item">
+              <span>Total Population</span>
+              <strong style="color:#fff;">313 Decks</strong>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Report Navigation</div>
+          <ul class="report-toc">
+            <li><a href="#executive-summary">&rarr; 1. Executive Summary</a></li>
+            <li><a href="#archetypes-matrix">&rarr; 2. Top Archetypes Matrix</a></li>
+            <li><a href="#points-matrix">&rarr; 3. Point Economics Matrix</a></li>
+            <li><a href="#probability-curves">&rarr; 4. Probability Curves</a></li>
+            <li><a href="#deckbuilding-blueprint">&rarr; 5. Genesys Blueprint</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sidebar-section-title">Obsidian Intelligence Team</div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin: 0;">
+            Authored by Nilo Edson for the Obsidian TCG competitive roster. Sourced via air-gapped Bayesian consensus aggregation from verified premier tournament data.
+          </p>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div>
+          <span class="footer-brand-title">Nilo Edson</span>
+          <span class="footer-brand-sub">&middot; Haunted Labs / Obsidian TCG</span>
+        </div>
+        <p class="footer-tagline">
+          Automated competitive Yu-Gi-Oh! data science, Bayesian consensus algorithms, and tournament engineering.
+        </p>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Nilo Edson. All rights reserved.</p>
+        <p class="footer-links">
+          <a href="../index.html">Portfolio</a> &middot;
+          <a href="index.html">Obsidian Hub</a> &middot;
+          <a href="tcg-advanced-metagame-nov-2026.html">TCG Advanced Report</a> &middot;
+          <a href="../projects/ygo-meta-mcp.html">ygo-meta-mcp</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
