@@ -140,211 +140,6 @@
       </div>
     </section>
 
-    <!-- Proyectos Destacados -->
-    <section id="projects">
-      <div class="section-header">
-        <span class="section-tag">Iniciativas Haunted Labs</span>
-        <h2 class="section-title">Proyectos Destacados</h2>
-      </div>
-
-      <div class="projects-grid">
-
-        <!-- Proyecto 1: YGN Standard -->
-        <article class="project-card">
-          <div>
-            <div class="project-meta-top">
-              <span class="project-category">Especificación &amp; Herramientas</span>
-              <span class="project-status-pill" style="color: #10b981; border-color: rgba(16, 185, 129, 0.4);">RFC 0001 &middot; npm v1.0.0</span>
-            </div>
-            <h3 class="project-title">YGN Standard</h3>
-            <p class="project-description">
-              Estándar algebraico abierto, legible por humanos y determinista para transcripción de partidas competitivas y estados de tablero (YBN)—inspirado en las notaciones PGN y FEN del ajedrez. Sustituye 25 años de registros web fragmentados y repeticiones binarias desincronizadas.
-            </p>
-
-            <div class="project-metrics">
-              <div class="metric-pill">
-                <span class="metric-label">Compresión</span>
-                <strong>88% – 94%</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Norma Abierta</span>
-                <strong>RFC 0001</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Lenguajes</span>
-                <strong>TS / Py / Lua / MV3</strong>
-              </div>
-            </div>
-
-            <div class="tag-list">
-              <span class="tech-tag" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: rgba(239, 68, 68, 0.4);">npm v1.0.0</span>
-              <span class="tech-tag">Gramática Algebraica</span>
-              <span class="tech-tag">Proceso RFC</span>
-              <span class="tech-tag">TypeScript</span>
-              <span class="tech-tag">Python</span>
-              <span class="tech-tag">WebExtension</span>
-              <span class="tech-tag">Userscript</span>
-              <span class="tech-tag">Emisor Lua</span>
-            </div>
-          </div>
-
-          <div class="project-actions">
-            <a href="../projects/ygn-standard.html" class="btn-primary">
-              Ver Especificación &rarr;
-            </a>
-            <a href="https://www.npmjs.com/package/ygn-standard" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4);">
-              Paquete npm (v1.0.0)
-            </a>
-            <a href="https://github.com/niloedson/ygn-standard" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-              Repositorio GitHub
-            </a>
-          </div>
-        </article>
-
-        <!-- Proyecto 2: ygo-sim-core -->
-        <article class="project-card">
-          <div>
-            <div class="project-meta-top">
-              <span class="project-category">Motor de Cálculo &amp; MCP</span>
-              <span class="project-status-pill">Motor Autónomo</span>
-            </div>
-            <h3 class="project-title">ygo-sim-core</h3>
-            <p class="project-description">
-              Motor autónomo de cálculo combinatorio determinista y evaluación cuantitativa de tableros ("Stockfish para TCGs"). Cuenta con ordenamiento de jugadas estilo Stockfish, asignación de zonas link, navegación de grafos de más de 20 jugadas, tablas de transposición xxHash64 y servidor Model Context Protocol (MCP stdio).
-            </p>
-
-            <div class="project-metrics">
-              <div class="metric-pill">
-                <span class="metric-label">Modelo de Memoria</span>
-                <strong>14 Zonas</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Temporización</span>
-                <strong>Boxes A&ndash;E</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Interfaz</span>
-                <strong>Servidor MCP Stdio</strong>
-              </div>
-            </div>
-
-            <div class="tag-list">
-              <span class="tech-tag">Búsqueda en Grafos</span>
-              <span class="tech-tag">Servidor MCP</span>
-              <span class="tech-tag">xxHash64</span>
-              <span class="tech-tag">Esquemas Zod</span>
-              <span class="tech-tag">Node.js 22 LTS</span>
-              <span class="tech-tag">Determinista</span>
-            </div>
-          </div>
-
-          <div class="project-actions">
-            <a href="../projects/ygo-sim-core.html" class="btn-primary">
-              Arquitectura &rarr;
-            </a>
-            <a href="https://github.com/niloedson/ygo-sim-core" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-              Repositorio GitHub
-            </a>
-          </div>
-        </article>
-
-        <!-- Proyecto 3: ygoprodeck-mcp -->
-        <article class="project-card">
-          <div>
-            <div class="project-meta-top">
-              <span class="project-category">Model Context Protocol</span>
-              <span class="project-status-pill" style="background: rgba(57, 197, 187, 0.15); border-color: rgba(57, 197, 187, 0.4); color: var(--accent-cyan);">npm v2.0.0</span>
-            </div>
-            <h3 class="project-title">ygoprodeck-mcp</h3>
-            <p class="project-description">
-              Servidor Model Context Protocol (MCP) local y aislado de la red (air-gapped), proporcionando consultas con cero alucinación sobre textos de cartas (PSCT), 13.000+ cartas, banlists oficiales y presupuestos de puntos Genesys con tiempo de respuesta sub-2ms en SQLite WAL.
-            </p>
-
-            <div class="project-metrics">
-              <div class="metric-pill">
-                <span class="metric-label">Ejecución</span>
-                <strong>&lt; 2ms (SQLite)</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Peticiones HTTP</span>
-                <strong>0 en Ejecución</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Paquete</span>
-                <strong>npm: 14.0 kB</strong>
-              </div>
-            </div>
-
-            <div class="tag-list">
-              <span class="tech-tag">Model Context Protocol</span>
-              <span class="tech-tag">SQLite WAL</span>
-              <span class="tech-tag">Búsqueda FTS5</span>
-              <span class="tech-tag">Air-Gapped</span>
-              <span class="tech-tag">Esquemas Zod</span>
-              <span class="tech-tag">Paquete npm</span>
-            </div>
-          </div>
-
-          <div class="project-actions">
-            <a href="../projects/ygoprodeck-mcp.html" class="btn-primary">
-              Documentación &rarr;
-            </a>
-            <a href="https://www.npmjs.com/package/ygoprodeck-mcp" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-              Paquete npm
-            </a>
-          </div>
-        </article>
-
-        <!-- Proyecto 4: ygo-meta-mcp -->
-        <article class="project-card">
-          <div>
-            <div class="project-meta-top">
-              <span class="project-category">Model Context Protocol</span>
-              <span class="project-status-pill" style="background: rgba(57, 197, 187, 0.15); border-color: rgba(57, 197, 187, 0.4); color: var(--accent-cyan);">npm v1.1.1</span>
-            </div>
-            <h3 class="project-title">ygo-meta-mcp</h3>
-            <p class="project-description">
-              Servidor MCP de inteligencia competitiva y descubrimiento de tendencias de torneos. Agrega listas de torneos de las principales fuentes globales (YGOPRODeck, Yu-Gi-Oh! Meta, Road of the King) en base SQLite, calculando clasificaciones de consenso bayesiano e índices de adopción de cartas técnicas.
-            </p>
-
-            <div class="project-metrics">
-              <div class="metric-pill">
-                <span class="metric-label">Consenso</span>
-                <strong>Bayesiano Ponderado</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Fuentes</span>
-                <strong>YGOPD / YGM / RotK</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Paquete</span>
-                <strong>npm: 19.9 kB</strong>
-              </div>
-            </div>
-
-            <div class="tag-list">
-              <span class="tech-tag">Model Context Protocol</span>
-              <span class="tech-tag">Consenso Bayesiano</span>
-              <span class="tech-tag">SQLite WAL</span>
-              <span class="tech-tag">Multifuente</span>
-              <span class="tech-tag">Esquemas Zod</span>
-              <span class="tech-tag">Paquete npm</span>
-            </div>
-          </div>
-
-          <div class="project-actions">
-            <a href="../projects/ygo-meta-mcp.html" class="btn-primary">
-              Documentación &rarr;
-            </a>
-            <a href="https://www.npmjs.com/package/ygo-meta-mcp" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-              Paquete npm
-            </a>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
     <!-- Línea de Tiempo de Experiencia Profesional -->
     <section id="experience">
       <div class="section-header">
@@ -615,11 +410,23 @@
         </a>
       </div>
 
-      <!-- Presentación 4: VoIP Ginga-NCLua -->
+      <!-- Artículo 4: Reconocimiento de Acciones (Coautor) -->
       <div class="presentation-card">
-        <h4>Sistema VoIP para TV Digital utilizando Ginga-NCLua</h4>
-        <div class="presentation-venue">FEBRACE 10 (Feira Brasileira de Ciências e Engenharia) &amp; VI FECITEC</div>
-        <div class="presentation-meta">2012 &middot; Fundação Nokia de Ensino &middot; Protocolos de telefonía en middleware Ginga para TV Digital (SBTVD)</div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; flex-wrap: wrap;">
+          <h4 style="margin: 0 0 0.35rem 0;">Reconocimiento de Acciones de Operadores Industriales mediante Detectron2 y Algoritmos AutoML</h4>
+          <span class="project-status-pill" style="background: rgba(188, 140, 255, 0.15); border-color: rgba(188, 140, 255, 0.4); color: var(--accent-purple);">Coautor</span>
+        </div>
+        <div class="presentation-venue">2022 IEEE International Conference on Consumer Electronics - Taiwan (ICCE-TW)</div>
+        <div class="presentation-meta" style="margin-bottom: 0.5rem;">
+          Julio de 2022 &middot; Alianza de I+D entre UFAM (CETELI) y Grupo TPV (Envision)
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.86rem; line-height: 1.5; margin: 0 0 0.75rem 0;">
+          Implementación de pipelines de visión computacional industrial y aprendizaje automático automatizado combinando extracción de características mediante Detectron2 y ajuste con AutoML para clasificar acciones manuales en líneas de ensamble en tiempo real.
+        </p>
+        <a href="https://ieeexplore.ieee.org/document/9869197" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.75rem; font-size: 0.78rem;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          Ver publicación en IEEE Xplore &rarr;
+        </a>
       </div>
     </section>
 

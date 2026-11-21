@@ -36,8 +36,6 @@
         <li><a href="#skills">Skills</a></li>
         <li><a href="#education">Education</a></li>
         <li><a href="haunted-labs.html" style="color: var(--accent-purple); font-weight: 600;">Haunted Labs Studio &rarr;</a></li>
-        <li><a href="obsidian/index.html" style="color: var(--accent-cyan); font-weight: 600;">Obsidian TCG &rarr;</a></li>
-        <li><a href="ygn-reports/index.html" style="color: #38bdf8; font-weight: 600;">YGN Reports &rarr;</a></li>
         <li>
           <a href="assets/docs/Nilo_Edson_CV.pdf" class="btn-cv" target="_blank" rel="noopener noreferrer">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -139,217 +137,6 @@
             Explore Haunted Labs Studio &amp; Architecture &rarr;
           </a>
         </div>
-      </div>
-    </section>
-
-    <!-- Featured Projects Grid -->
-    <section id="projects">
-      <div class="section-header">
-        <span class="section-tag">Haunted Labs Initiatives</span>
-        <h2 class="section-title">Featured Projects</h2>
-      </div>
-
-      <div class="projects-grid">
-
-        <!-- Project 1: YGN Standard -->
-        <article class="project-card">
-          <div>
-            <div class="project-meta-top">
-              <span class="project-category">Specification &amp; Tooling</span>
-              <span class="project-status-pill" style="color: #10b981; border-color: rgba(16, 185, 129, 0.4);">RFC 0001 &middot; npm v1.0.0</span>
-            </div>
-            <h3 class="project-title">YGN Standard</h3>
-            <p class="project-description">
-              The open, human-readable, deterministic algebraic standard for competitive Yu-Gi-Oh! match logs, game state snapshots (YBN), and AI arbitration—modeled after Chess PGN and FEN. Replaces 25 years of bloated browser clickstreams and desynchronizing binary replays.
-            </p>
-
-            <div class="project-metrics">
-              <div class="metric-pill">
-                <span class="metric-label">Compression</span>
-                <strong>88% – 94%</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Grammar Standard</span>
-                <strong>RFC 0001</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Targets</span>
-                <strong>TS / Py / Lua / MV3</strong>
-              </div>
-            </div>
-
-            <div class="tag-list">
-              <span class="tech-tag" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: rgba(239, 68, 68, 0.4);">npm v1.1.0</span>
-              <span class="tech-tag">Algebraic Grammar</span>
-              <span class="tech-tag">RFC Process</span>
-              <span class="tech-tag">TypeScript</span>
-              <span class="tech-tag">Python</span>
-              <span class="tech-tag">WebExtension</span>
-              <span class="tech-tag">Userscript</span>
-              <span class="tech-tag">Lua Emitter</span>
-            </div>
-          </div>
-
-          <div class="project-actions">
-            <a href="projects/ygn-standard.html" class="btn-primary">
-              Deep Dive Specs &rarr;
-            </a>
-            <a href="ygn-reports/index.html" class="btn-secondary" style="color: #38bdf8; border-color: rgba(56, 189, 248, 0.4);">
-              Match Reports &rarr;
-            </a>
-            <a href="https://www.npmjs.com/package/ygn-standard" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4);">
-              npm Package (v1.1.0)
-            </a>
-            <a href="https://github.com/niloedson/ygn-standard" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-              GitHub Repo
-            </a>
-          </div>
-        </article>
-
-        <!-- Project 2: ygo-sim-core -->
-        <article class="project-card">
-          <div>
-            <div class="project-meta-top">
-              <span class="project-category">Compute Engine &amp; MCP</span>
-              <span class="project-status-pill">Autonomous Engine</span>
-            </div>
-            <h3 class="project-title">ygo-sim-core</h3>
-            <p class="project-description">
-              High-performance deterministic combinatorial simulation and board state valuation engine ("Stockfish for Yu-Gi-Oh!"). Features Stockfish move ordering, greedy link-zone snapping, 20+ step link climbing, xxHash64 zero-collision transposition tables, and stdio Model Context Protocol (MCP) server integration.
-            </p>
-
-            <div class="project-metrics">
-              <div class="metric-pill">
-                <span class="metric-label">Memory Model</span>
-                <strong>14-Zone State</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Timing</span>
-                <strong>Boxes A&ndash;E</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Interface</span>
-                <strong>Stdio MCP Server</strong>
-              </div>
-            </div>
-
-            <div class="tag-list">
-              <span class="tech-tag">State-Space Search</span>
-              <span class="tech-tag">MCP Server</span>
-              <span class="tech-tag">xxHash64</span>
-              <span class="tech-tag">Zod Schemas</span>
-              <span class="tech-tag">Node.js 22 LTS</span>
-              <span class="tech-tag">Deterministic</span>
-            </div>
-          </div>
-
-          <div class="project-actions">
-            <a href="projects/ygo-sim-core.html" class="btn-primary">
-              Architecture Blueprint &rarr;
-            </a>
-            <a href="https://github.com/niloedson/ygo-sim-core" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-              GitHub Repo
-            </a>
-          </div>
-        </article>
-
-        <!-- Project 3: ygoprodeck-mcp -->
-        <article class="project-card">
-          <div>
-            <div class="project-meta-top">
-              <span class="project-category">Model Context Protocol</span>
-              <span class="project-status-pill" style="background: rgba(57, 197, 187, 0.15); border-color: rgba(57, 197, 187, 0.4); color: var(--accent-cyan);">npm v2.0.0</span>
-            </div>
-            <h3 class="project-title">ygoprodeck-mcp</h3>
-            <p class="project-description">
-              Hardened, air-gapped Model Context Protocol (MCP) server delivering zero-hallucination Problem-Solving Card Text (PSCT), 13,000+ card statistics, format banlists, and Genesys point valuations with sub-2ms local execution. Zero outbound HTTP at runtime.
-            </p>
-
-            <div class="project-metrics">
-              <div class="metric-pill">
-                <span class="metric-label">Execution</span>
-                <strong>&lt; 2ms (SQLite)</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Runtime HTTP</span>
-                <strong>0 Requests</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Distribution</span>
-                <strong>npm: 14.0 kB</strong>
-              </div>
-            </div>
-
-            <div class="tag-list">
-              <span class="tech-tag">Model Context Protocol</span>
-              <span class="tech-tag">SQLite WAL</span>
-              <span class="tech-tag">FTS5 Search</span>
-              <span class="tech-tag">Air-Gapped</span>
-              <span class="tech-tag">Zod Schemas</span>
-              <span class="tech-tag">npm Package</span>
-            </div>
-          </div>
-
-          <div class="project-actions">
-            <a href="projects/ygoprodeck-mcp.html" class="btn-primary">
-              Deep Dive Specs &rarr;
-            </a>
-            <a href="https://www.npmjs.com/package/ygoprodeck-mcp" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-              npm Package
-            </a>
-          </div>
-        </article>
-
-        <!-- Project 4: ygo-meta-mcp -->
-        <article class="project-card">
-          <div>
-            <div class="project-meta-top">
-              <span class="project-category">Model Context Protocol</span>
-              <span class="project-status-pill" style="background: rgba(57, 197, 187, 0.15); border-color: rgba(57, 197, 187, 0.4); color: var(--accent-cyan);">npm v1.1.1</span>
-            </div>
-            <h3 class="project-title">ygo-meta-mcp</h3>
-            <p class="project-description">
-              Multi-source competitive metagame intelligence and tournament discovery Model Context Protocol (MCP) server. Aggregates live top-cut tournament decks across YGOPRODeck, Yu-Gi-Oh! Meta, and Road of the King, computing sample-weighted Bayesian consensus tier rankings, empirical tech adoption (Main & Side), and immutable tournament decklists with sub-2ms local execution.
-            </p>
-
-            <div class="project-metrics">
-              <div class="metric-pill">
-                <span class="metric-label">Consensus</span>
-                <strong>Bayesian Weighted</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Sources</span>
-                <strong>YGOPD / YGM / RotK</strong>
-              </div>
-              <div class="metric-pill">
-                <span class="metric-label">Distribution</span>
-                <strong>npm: 19.9 kB</strong>
-              </div>
-            </div>
-
-            <div class="tag-list">
-              <span class="tech-tag">Model Context Protocol</span>
-              <span class="tech-tag">Bayesian Consensus</span>
-              <span class="tech-tag">SQLite WAL</span>
-              <span class="tech-tag">Multi-Source</span>
-              <span class="tech-tag">Zod Schemas</span>
-              <span class="tech-tag">npm Package</span>
-            </div>
-          </div>
-
-          <div class="project-actions">
-            <a href="projects/ygo-meta-mcp.html" class="btn-primary">
-              Deep Dive Specs &rarr;
-            </a>
-            <a href="obsidian/index.html" class="btn-secondary" style="border-color: var(--accent-cyan); color: var(--accent-cyan);">
-              Live Reports &rarr;
-            </a>
-            <a href="https://www.npmjs.com/package/ygo-meta-mcp" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-              npm Package
-            </a>
-          </div>
-        </article>
-
       </div>
     </section>
 
@@ -623,11 +410,23 @@
         </a>
       </div>
 
-      <!-- Presentation 4: VoIP Ginga-NCLua -->
+      <!-- Publication 4: Action Recognition (Co-Author) -->
       <div class="presentation-card">
-        <h4>VoIP System for Digital TV using Ginga-NCLua</h4>
-        <div class="presentation-venue">FEBRACE 10 (Feira Brasileira de Ciências e Engenharia) &amp; VI FECITEC</div>
-        <div class="presentation-meta">2012 &middot; Fundação Nokia de Ensino &middot; Middleware Ginga telephony protocols</div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; flex-wrap: wrap;">
+          <h4 style="margin: 0 0 0.35rem 0;">Action Recognition of Industrial Workers using Detectron2 and AutoML Algorithms</h4>
+          <span class="project-status-pill" style="background: rgba(188, 140, 255, 0.15); border-color: rgba(188, 140, 255, 0.4); color: var(--accent-purple);">Co-Author</span>
+        </div>
+        <div class="presentation-venue">2022 IEEE International Conference on Consumer Electronics - Taiwan (ICCE-TW)</div>
+        <div class="presentation-meta" style="margin-bottom: 0.5rem;">
+          July 2022 &middot; Joint R&amp;D partnership between Federal University of Amazonas (UFAM / CETELI) and Envision (TPV Group)
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.86rem; line-height: 1.5; margin: 0 0 0.75rem 0;">
+          Implemented industrial computer vision and automated machine learning pipelines pairing Detectron2 feature extraction with AutoML model tuning to recognize and classify manual assembly line tasks of workers in real time.
+        </p>
+        <a href="https://ieeexplore.ieee.org/document/9869197" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.75rem; font-size: 0.78rem;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          View on IEEE Xplore &rarr;
+        </a>
       </div>
     </section>
 
