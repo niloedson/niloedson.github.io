@@ -410,6 +410,29 @@ section {
   line-height: 1.45;
 }
 
+.btn-haunted {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: 6px;
+  background: rgba(188, 140, 255, 0.2);
+  border: 1px solid rgba(188, 140, 255, 0.5);
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none !important;
+  transition: var(--transition);
+}
+
+.btn-haunted:hover {
+  background: rgba(188, 140, 255, 0.35);
+  border-color: rgba(188, 140, 255, 0.8);
+  color: #ffffff !important;
+  box-shadow: 0 0 16px rgba(188, 140, 255, 0.4);
+  transform: translateY(-1px);
+}
+
 /* ==========================================================================
    Project Showcase Cards
    ========================================================================== */
