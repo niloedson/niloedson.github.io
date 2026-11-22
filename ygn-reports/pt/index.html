@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatórios de Partidas YGN &amp; Inteligência Tática — Obsidian TCG</title>
+  <meta name="description" content="Transcrições oficiais RFC 0001 (YGN v1.1), narração jogada a jogada, auditorias de regras PSCT e avaliações táticas para duelistas de Manaus na Copa Nacional MYP TCG.">
+  <meta name="author" content="Nilo Edson (Obsidian TCG / Haunted Labs)">
+
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/project.css">
+
+  <style>
+    :root {
+      --accent-pilot: #38bdf8;
+      --accent-judge: #fbbf24;
+      --accent-architect: #a78bfa;
+      --accent-win: #34d399;
+      --accent-loss: #f87171;
+    }
+
+    .hub-hero {
+      padding: 3.5rem 0 2rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 2.5rem;
+    }
+
+    .hub-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      letter-spacing: 0.04em;
+    }
+
+    .metrics-banner {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+
+    .metric-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.25rem;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .metric-box:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .metric-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent-purple);
+    }
+
+    .metric-box.cyan::before { background: var(--accent-pilot); }
+    .metric-box.gold::before { background: var(--accent-judge); }
+    .metric-box.green::before { background: var(--accent-win); }
+
+    .metric-num {
+      font-size: 2rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.35rem;
+    }
+
+    .metric-lbl {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .match-cards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin: 2.5rem 0;
+    }
+
+    .match-report-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 2rem;
+      transition: var(--transition);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .match-report-card:hover {
+      border-color: var(--accent-purple);
+      box-shadow: 0 12px 35px rgba(188, 140, 255, 0.12);
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 860px) {
+      .match-report-card {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    .match-card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .match-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+    }
+
+    .match-tag-id {
+      background: rgba(188, 140, 255, 0.15);
+      color: var(--accent-purple);
+      border: 1px solid rgba(188, 140, 255, 0.3);
+    }
+
+    .match-tag-win {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--accent-win);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+    }
+
+    .match-tag-loss {
+      background: rgba(248, 113, 113, 0.15);
+      color: var(--accent-loss);
+      border: 1px solid rgba(248, 113, 113, 0.35);
+    }
+
+    .match-tag-format {
+      background: rgba(255, 255, 255, 0.06);
+      color: #94a3b8;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .match-vs-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+
+    .match-vs-title a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .match-vs-title a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .match-deck-line {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      margin-bottom: 1rem;
+    }
+
+    .match-deck-line span.p1 { color: #38bdf8; font-weight: 700; }
+    .match-deck-line span.vs { color: #64748b; margin: 0 0.5rem; font-weight: 400; }
+    .match-deck-line span.p2 { color: #f472b6; font-weight: 700; }
+
+    .match-summary-p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .skill-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.76rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+    }
+
+    .pill-pilot {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-pilot);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    .pill-judge {
+      background: rgba(251, 191, 36, 0.12);
+      color: var(--accent-judge);
+      border: 1px solid rgba(251, 191, 36, 0.25);
+    }
+
+    .pill-arch {
+      background: rgba(167, 139, 250, 0.12);
+      color: var(--accent-architect);
+      border: 1px solid rgba(167, 139, 250, 0.25);
+    }
+
+    .match-action-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 0.75rem;
+      min-width: 180px;
+    }
+
+    @media (max-width: 860px) {
+      .match-action-col {
+        align-items: flex-start;
+      }
+    }
+
+    .btn-read-report {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 0.75rem 1.4rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+    }
+
+    .btn-read-report:hover {
+      background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
+      color: #fff;
+    }
+
+    .tools-callout-box {
+      background: linear-gradient(180deg, rgba(18, 24, 38, 0.9) 0%, rgba(13, 17, 28, 0.95) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 3rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .tools-callout-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <a href="../../pt/index.html" class="nav-brand" style="gap: 0.5rem;">Nilo Edson</a>
+        <div class="lang-toggle">
+          <a href="../index.html" class="lang-opt" title="Switch to English">EN</a>
+          <span class="lang-divider">/</span>
+          <a href="index.html" class="lang-opt active" title="Português (Brasil)">PT</a>
+          <span class="lang-divider">/</span>
+          <a href="../es/index.html" class="lang-opt" title="Cambiar a Español">ES</a>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../../obsidian/pt/index.html">Obsidian TCG &rarr;</a></li>
+        <li><a href="../../tools/notary.html">Notário RFC 0001 &rarr;</a></li>
+        <li><a href="../../pt/index.html" class="pill-link">&larr; Portfólio Pessoal</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- Hero Header -->
+    <header class="hub-hero">
+      <div class="hub-badge">Arquivo de Partidas RFC 0001 (YGN v1.1) &middot; Circuito Competitivo de Manaus &middot; Copa Nacional MYP</div>
+      <h1 style="font-size: 2.6rem; font-weight: 900; margin-bottom: 0.85rem; letter-spacing: -0.02em;">
+        Relatórios de Partidas Competitivas &amp; Inteligência Tática
+      </h1>
+      <p style="color: var(--text-secondary); font-size: 1.12rem; max-width: 820px; line-height: 1.6;">
+        Transcrições padronizadas de Yu-Gi-Oh! Game Notation acompanhadas de comentários táticos jogada a jogada, 
+        avaliações de combate do <strong style="color: var(--accent-pilot);">ygo-pilot</strong>, 
+        auditorias de regras PSCT do <strong style="color: var(--accent-judge);">ygo-judge</strong> e 
+        telemetria hipergeométrica do <strong style="color: var(--accent-architect);">ygo-deck-architect</strong>. Avaliando os principais competidores de Manaus — <strong>Lucas Beneck</strong>, <strong>Jacson Moura</strong> e <strong>Emanuel Araújo</strong> — em sua preparação para a <strong><a href="https://copa.mypcards.com/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); text-decoration: underline;">Copa Nacional MYP TCG</a></strong>.
+      </p>
+
+      <!-- Metrics Grid -->
+      <div class="metrics-banner">
+        <div class="metric-box cyan">
+          <div class="metric-num">3</div>
+          <div class="metric-lbl">Partidas Registradas</div>
+        </div>
+        <div class="metric-box green">
+          <div class="metric-num">100%</div>
+          <div class="metric-lbl">Duelistas de Manaus (3 - 0)</div>
+        </div>
+        <div class="metric-box gold">
+          <div class="metric-num">85.6%</div>
+          <div class="metric-lbl">Média de Ruído Eliminado</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-num">1.180+</div>
+          <div class="metric-lbl">Ações Notarizadas</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Match Reports List -->
+    <section>
+      <div class="section-header" style="margin-bottom: 1.5rem;">
+        <span class="section-tag">Portfólio de Partidas &middot; Competidores de Manaus</span>
+        <h2>Partidas de Torneio Notarizadas</h2>
+      </div>
+
+      <div class="match-cards-grid">
+
+        <!-- Match 01: beneck -->
+        <article class="match-report-card">
+          <div class="match-card-content">
+            <div class="match-card-header">
+              <span class="match-tag match-tag-id">PARTIDA #01</span>
+              <span class="match-tag match-tag-win">VITÓRIA (2 - 1)</span>
+              <span class="match-tag match-tag-format">TCG Avançado &middot; 3 Jogos</span>
+              <span class="match-tag" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">Manaus &middot; Copa Nacional MYP</span>
+            </div>
+
+            <h3 class="match-vs-title">
+              <a href="../beneck.html">Lucas Beneck &middot; O Chokepoint de Bestas Sagradas &amp; Colossus Lock</a>
+            </h3>
+
+            <div class="match-deck-line">
+              <span class="p1">Lucas Beneck (lbeneck)</span> (Bestas Sagradas / Ritual Dark Chaos)
+              <span class="vs">vs</span>
+              <span class="p2">TheGreatRoyal</span> (Ars Magna / Power Patron / Medius)
+            </div>
+
+            <p class="match-summary-p">
+              Uma série dominante de 3 jogos do competidor de Manaus <strong>Lucas Beneck</strong> em preparação para a Copa Nacional MYP. Lucas estabeleceu o ritmo no Jogo 1 ao invocar rapidamente o floodgate contínuo de <em>Thunder Dragon Colossus</em>, neutralizando o motor de 6+ buscas do oponente. Após TheGreatRoyal responder no Jogo 2 com uma queima dupla de 2.000 de dano com Rank 10 <em>Gustav Max/Rocket</em>, Lucas exibiu frieza de campeão no Jogo 3: sustentando o lockdown de buscas do Colossus, convertendo a remoção de <em>S:P Little Knight</em> para banir <em>Jupredo</em> e ativando o efeito de queima de <em>Hamon, Lord of Striking Thunder</em> para 1.000 de dano, selando uma vitória clínica por 2&ndash;1.
+            </p>
+
+            <div class="skill-pills">
+              <span class="skill-pill pill-pilot">🎙️ Piloto: Floodgate de Colossus &amp; Conversão de S:P</span>
+              <span class="skill-pill pill-judge">⚖️ Juiz: Dominus Impulse vs Invocações Rituais</span>
+              <span class="skill-pill pill-judge">⚖️ Juiz: Escopo de Proteção de Fallen Paradise</span>
+              <span class="skill-pill pill-arch">📊 Arquiteto: Consistência do Deck Sacred Beasts no Meta Manaus</span>
+            </div>
+          </div>
+
+          <div class="match-action-col">
+            <a href="../beneck.html" class="btn-read-report">
+              Ver Relatório &rarr;
+            </a>
+            <span style="font-size: 0.78rem; color: #64748b; font-family: var(--font-mono);">278 Linhas YGN &middot; 3 YBNs</span>
+          </div>
+        </article>
+
+        <!-- Match 02: jacson -->
+        <article class="match-report-card">
+          <div class="match-card-content">
+            <div class="match-card-header">
+              <span class="match-tag match-tag-id">PARTIDA #02</span>
+              <span class="match-tag match-tag-win">VITÓRIA (2 - 1)</span>
+              <span class="match-tag match-tag-format">TCG Avançado &middot; 3 Jogos</span>
+              <span class="match-tag" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">Manaus &middot; Copa Nacional MYP</span>
+            </div>
+
+            <h3 class="match-vs-title">
+              <a href="../jacson.html">Jacson Moura &middot; Choque de Tufões &amp; Resolução de Corrente Link-5</a>
+            </h3>
+
+            <div class="match-deck-line">
+              <span class="p1">Jacson Moura (jacsonmoura)</span> (Radiant Typhoon / Wind Beast-Warrior)
+              <span class="vs">vs</span>
+              <span class="p2">TheGreatRoyal</span> (Medius / Power Patron / Dark Chaos / Artmage)
+            </div>
+
+            <p class="match-summary-p">
+              Uma exibição técnica de alta intensidade pelo duelista de Manaus <strong>Jacson Moura</strong> visando a Copa Nacional MYP. Após absorver a fortaleza de múltiplas negações de TheGreatRoyal no Jogo 1, Jacson deu uma aula de adaptação pós-side no Jogo 2, paralisando completamente as linhas de ignição adversárias via <em>Artifact Lancea</em> e negação de magias com <em>Totem Bird</em>. No Jogo 3, Jacson neutralizou <em>Predaplant Dragostapelia</em> com precisão cirúrgica: ativando <em>Radiant Typhoon Vision</em> para buscar MST, devolvendo dois monstros chefes ao Extra Deck com <em>Radiant Typhoon Fonix</em> e revivendo <em>The Great Gallant Bandit</em> através de <em>Wynn the Wind Charmer</em> para ataques diretos letais, garantindo a série por 2&ndash;1.
+            </p>
+
+            <div class="skill-pills">
+              <span class="skill-pill pill-pilot">🎙️ Piloto: Timing de Lancea &amp; Lockdown de Magias com Totem Bird</span>
+              <span class="skill-pill pill-judge">⚖️ Juiz: Cláusula Incorrenteável de Super Polimerização</span>
+              <span class="skill-pill pill-judge">⚖️ Juiz: Resolução de Corrente LIFO Link-5</span>
+              <span class="skill-pill pill-arch">📊 Arquiteto: Proporções de Tenki &amp; Silver Bullets na Copa MYP</span>
+            </div>
+          </div>
+
+          <div class="match-action-col">
+            <a href="../jacson.html" class="btn-read-report">
+              Ver Relatório &rarr;
+            </a>
+            <span style="font-size: 0.78rem; color: #64748b; font-family: var(--font-mono);">282 Linhas YGN &middot; 3 YBNs</span>
+          </div>
+        </article>
+
+        <!-- Match 03: manu -->
+        <article class="match-report-card">
+          <div class="match-card-content">
+            <div class="match-card-header">
+              <span class="match-tag match-tag-id">PARTIDA #03</span>
+              <span class="match-tag match-tag-win">VITÓRIA (2 - 1)</span>
+              <span class="match-tag match-tag-format">TCG Avançado &middot; 3 Jogos</span>
+              <span class="match-tag" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">Manaus &middot; Copa Nacional MYP</span>
+            </div>
+
+            <h3 class="match-vs-title">
+              <a href="../manu.html">Emanuel Araújo &middot; O Espelho do Substrato Modular &amp; Pivot de Controle na MP2</a>
+            </h3>
+
+            <div class="match-deck-line">
+              <span class="p1">Emanuel Araújo (Manusuperheavy)</span> (Elfnote / Power Patron / Gallant Bandit)
+              <span class="vs">vs</span>
+              <span class="p2">TheGreatRoyal</span> (Power Patron / Ars Magna / Medius / Dark Chaos)
+            </div>
+
+            <p class="match-summary-p">
+              Uma aula magistral de domínio de motor e controle de tempo pelo piloto de Manaus <strong>Emanuel Araújo</strong> no espelho do substrato compartilhado <em>Medius</em> + <em>Power Patron</em>. No Jogo 1, Emanuel desarticulou o campo oponente por meio de timing cirúrgico de <em>Ghost Ogre &amp; Snow Rabbit</em> e resolução CL6 de <em>Rhapsodia of Madness</em>. Após TheGreatRoyal empatar a série no Jogo 2 com um Mediclius de 9.000 ATK, Emanuel executou com perfeição o Pivot de Controle na Fase Principal 2 de Joshua Schmidt no Jogo 3: aplicando 5.000 de dano de batalha antes de consolidar o campo com <em>Adamancipator Risen - Dragite</em> e <em>Number 90: Galaxy-Eyes Photon Lord</em>, sufocando todas as tentativas de recuperação ritual no cemitério para assegurar a vitória por 2&ndash;1.
+            </p>
+
+            <div class="skill-pills">
+              <span class="skill-pill pill-pilot">🎙️ Piloto: Gestão de Hand Traps &amp; Pivot de Controle na MP2</span>
+              <span class="skill-pill pill-judge">⚖️ Juiz: Negação de Magias ÁGUA de Dragite no Cemitério</span>
+              <span class="skill-pill pill-judge">⚖️ Juiz: Ghost Ogre em Magias Contínuas</span>
+              <span class="skill-pill pill-arch">📊 Arquiteto: Calibração do Deck Elfnote para a Copa Nacional MYP</span>
+            </div>
+          </div>
+
+          <div class="match-action-col">
+            <a href="../manu.html" class="btn-read-report">
+              Ver Relatório &rarr;
+            </a>
+            <span style="font-size: 0.78rem; color: #64748b; font-family: var(--font-mono);">368 Linhas YGN &middot; 3 YBNs</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Tooling Callout -->
+    <div class="tools-callout-box">
+      <div>
+        <h3 style="font-size: 1.35rem; color: #fff; margin-bottom: 0.5rem;">Transcreva Suas Próprias Partidas do Dueling Book</h3>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0; max-width: 650px;">
+          Utilize nossa ferramenta web gratuita RFC 0001 Notary para eliminar 85%+ do ruído de interface de logs de texto e gerar arquivos algébricos YGN padronizados em menos de 5ms.
+        </p>
+      </div>
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <a href="../../tools/notary.html" class="btn-primary" style="white-space: nowrap;">
+          Abrir Ferramenta Notary &rarr;
+        </a>
+        <a href="https://www.npmjs.com/package/ygn-standard" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="white-space: nowrap;">
+          npm ygn-standard
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="../../pt/index.html">Início</a></li>
+        <li><a href="../../haunted-labs.html" style="color: var(--accent-purple);">Haunted Labs Studio</a></li>
+        <li><a href="../../obsidian/pt/index.html" style="color: var(--accent-cyan);">Obsidian TCG</a></li>
+        <li><a href="../../tools/notary.html">Notário RFC 0001</a></li>
+        <li><a href="https://copa.mypcards.com/" target="_blank" rel="noopener noreferrer" style="color: #38bdf8;">Copa Nacional MYP</a></li>
+        <li><a href="https://github.com/niloedson">GitHub</a></li>
+        <li><a href="mailto:niloedson.ms@gmail.com">Contato</a></li>
+      </ul>
+      <p>&copy; 2026 Nilo Edson &middot; Haunted Labs &amp; Time Obsidian TCG. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>
