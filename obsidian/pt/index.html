@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatórios de Inteligência Obsidian TCG — Haunted Labs</title>
+  <meta name="description" content="Central de relatórios competitivos do Obsidian TCG, inteligência de partidas e análises táticas.">
+  <meta name="author" content="Nilo Edson (Obsidian TCG / Haunted Labs)">
+
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/project.css">
+
+  <style>
+    .match-panel {
+      position: relative;
+      background: linear-gradient(180deg, rgba(24, 34, 52, 0.85) 0%, rgba(13, 17, 28, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 14px;
+      padding: 2.5rem;
+      margin: 2.5rem 0;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(56, 189, 248, 0.08);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .match-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+    }
+    .match-panel:hover {
+      border-color: rgba(56, 189, 248, 0.6);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(56, 189, 248, 0.15);
+      transform: translateY(-2px);
+    }
+    .match-panel-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.03em;
+    }
+    .match-panel-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+    .match-panel-title a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .match-panel-title a:hover {
+      color: var(--accent-cyan);
+    }
+    .match-panel-desc {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+      max-width: 820px;
+    }
+    .match-panel-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+      padding: 1.25rem;
+      background: rgba(11, 15, 23, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+    }
+    .feature-item-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.35rem;
+      font-weight: 700;
+    }
+    .feature-item-value {
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+    .feature-item-sub {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    .match-panel-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .team-hub-callout {
+      background: rgba(188, 140, 255, 0.06);
+      border: 1px dashed rgba(188, 140, 255, 0.3);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+    .team-hub-callout-icon {
+      color: var(--accent-purple);
+      font-size: 1.25rem;
+      line-height: 1;
+      margin-top: 0.15rem;
+    }
+    @media (max-width: 640px) {
+      .match-panel {
+        padding: 1.5rem;
+      }
+      .match-panel-title {
+        font-size: 1.4rem;
+      }
+      .match-panel-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .match-panel-actions a {
+        text-align: center;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <a href="../../pt/index.html" class="nav-brand" style="gap: 0.5rem;">Nilo Edson</a>
+        <div class="lang-toggle">
+          <a href="../index.html" class="lang-opt" title="Switch to English">EN</a>
+          <span class="lang-divider">/</span>
+          <a href="index.html" class="lang-opt active" title="Português (Brasil)">PT</a>
+          <span class="lang-divider">/</span>
+          <a href="../es/index.html" class="lang-opt" title="Cambiar a Español">ES</a>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../../pt/index.html" class="pill-link">&larr; Portfólio Pessoal</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- Hub Hero -->
+    <header class="project-hero">
+      <div class="project-hero-badge">Haunted Labs &middot; Time Obsidian TCG</div>
+      <h1 class="project-hero-title">Relatórios de Inteligência Obsidian TCG</h1>
+      <p class="project-hero-lead">
+        Relatórios dedicados, análises pontuais de metagame e auditorias empíricas preparadas para o <strong>Time Obsidian TCG</strong>.
+      </p>
+    </header>
+
+    <!-- Dedicated YGN Match Reports Panel -->
+    <div class="match-panel">
+      <div class="match-panel-badge">
+        ★ Arquivo Ativo de Partidas &middot; Padrão RFC 0001
+      </div>
+      <h2 class="match-panel-title">
+        <a href="../../ygn-reports/index.html">Relatórios de Partida YGN &amp; Comentários Táticos</a>
+      </h2>
+      <p class="match-panel-desc">
+        Relatórios narrativos jogada a jogada para confrontos competitivos em torneios (incluindo TheGreatRoyal vs lbeneck, jacsonmoura e Manusuperheavy), anotados com avaliações de combate tático do <strong>ygo-pilot</strong>, auditorias de regras PSCT do <strong>ygo-judge</strong> e transcrições algébricas interativas no padrão <strong>RFC 0001</strong>.
+      </p>
+
+      <div class="match-panel-features">
+        <div>
+          <div class="feature-item-label">Arquivo de Partidas</div>
+          <div class="feature-item-value">3 Partidas &middot; 9 Jogos</div>
+          <div class="feature-item-sub">Reconstruções completas turno a turno &amp; snapshots de campo YBN</div>
+        </div>
+        <div>
+          <div class="feature-item-label">Diagnósticos IA do Piloto</div>
+          <div class="feature-item-value">Auditorias Táticas ygo-pilot</div>
+          <div class="feature-item-sub">Rastreamento de déficit de interação &amp; árvores de decisão ramificadas</div>
+        </div>
+        <div>
+          <div class="feature-item-label">Arbitragem de Regras</div>
+          <div class="feature-item-value">Revisões PSCT ygo-judge</div>
+          <div class="feature-item-sub">Resolução de disputas &amp; verificação de timing de Damage Step</div>
+        </div>
+      </div>
+
+      <div class="match-panel-actions">
+        <a href="../../ygn-reports/index.html" class="btn-primary" style="background: linear-gradient(90deg, #0284c7, #38bdf8);">
+          Explorar Relatórios de Partida &rarr;
+        </a>
+        <a href="../../tools/notary.html" class="btn-secondary">
+          Abrir Notário RFC 0001 &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- Obsidian Team Roadmap Callout -->
+    <div class="team-hub-callout">
+      <span class="team-hub-callout-icon">✦</span>
+      <div>
+        <strong style="color: #fff;">Briefings do Time Obsidian TCG em Preparação</strong><br>
+        Escalações competitivas de decks, relatórios empíricos de metagame e auditorias de torneio para o Time Obsidian TCG estão sendo ativamente preparados para os próximos ciclos de torneios. Enquanto isso, os relatórios de partida e replays táticos estão disponíveis acima.
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div>
+          <span class="footer-brand-title">Nilo Edson</span>
+          <span class="footer-brand-sub">&middot; Haunted Labs / Obsidian TCG</span>
+        </div>
+        <p class="footer-tagline">
+          Ciência de dados para Yu-Gi-Oh! competitivo, algoritmos de consenso Bayesiano e engenharia de torneios.
+        </p>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Nilo Edson. Todos os direitos reservados.</p>
+        <p class="footer-links">
+          <a href="../../pt/index.html">Portfólio</a> &middot;
+          <a href="../../ygn-reports/index.html">Relatórios YGN</a> &middot;
+          <a href="../../haunted-labs.html">Haunted Labs</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
