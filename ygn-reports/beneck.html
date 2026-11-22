@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Match 01: Lucas Beneck vs TheGreatRoyal (2-1) — YGN Match Intelligence</title>
-  <meta name="description" content="Official Copa Nacional MYP TCG match report: Lucas Beneck (lbeneck) vs TheGreatRoyal. Features interleaved RFC 0001 YGN algebraic transcripts, ygo-pilot tactical evaluations, and ygo-judge PSCT ruling audits.">
+  <meta name="description" content="Official Copa Nacional MYP TCG match report: Lucas Beneck (lbeneck) vs TheGreatRoyal. Features single-stream interleaved RFC 0001 YGN algebraic transcripts, hand quality audits, ygo-pilot evaluations, and ygo-judge PSCT rulings.">
   <meta name="author" content="Nilo Edson (Obsidian TCG / Haunted Labs)">
 
   <link rel="stylesheet" href="../assets/css/main.css">
@@ -127,7 +127,7 @@
       border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 2rem;
-      margin: 2rem 0;
+      margin: 2.5rem 0;
       position: relative;
     }
 
@@ -143,7 +143,7 @@
     }
 
     .game-title {
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       font-weight: 800;
       color: #fff;
       display: flex;
@@ -175,22 +175,23 @@
       color: #cbd5e1;
       font-size: 1rem;
       line-height: 1.75;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
 
-    /* YGN Companion Layout */
-    .turn-companion-block {
-      background: rgba(11, 15, 23, 0.7);
+    /* Single-Stream YGN Feed Component */
+    .ygn-stream-step {
+      margin: 1.75rem 0;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 10px;
-      margin: 1.5rem 0;
+      background: rgba(11, 15, 23, 0.65);
       overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     }
 
-    .turn-companion-header {
-      background: rgba(255, 255, 255, 0.03);
+    .ygn-stream-header {
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0.12) 0%, rgba(18, 24, 38, 0.8) 100%);
       padding: 0.65rem 1.25rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -198,89 +199,67 @@
       font-size: 0.8rem;
     }
 
-    .turn-tag-title {
+    .ygn-step-title {
       font-weight: 700;
       color: var(--accent-pilot);
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
-    .turn-lp-tracker {
+    .ygn-step-tag {
+      font-size: 0.72rem;
       color: #94a3b8;
     }
 
-    .turn-companion-body {
-      display: grid;
-      grid-template-columns: minmax(280px, 1.05fr) minmax(320px, 1.25fr);
-      gap: 1.25rem;
-      padding: 1.25rem;
-    }
-
-    @media (max-width: 900px) {
-      .turn-companion-body {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .ygn-code-pane {
+    .ygn-stream-code {
       background: #06090e;
-      border: 1px solid rgba(56, 189, 248, 0.22);
-      border-radius: 8px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .ygn-pane-label {
-      background: rgba(56, 189, 248, 0.08);
-      padding: 0.5rem 0.85rem;
-      border-bottom: 1px solid rgba(56, 189, 248, 0.18);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--accent-pilot);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .ygn-snippet-code {
-      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 1rem 1.25rem;
       margin: 0;
       font-family: var(--font-mono);
-      font-size: 0.78rem;
-      line-height: 1.5;
-      color: #e2e8f0;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #7dd3fc;
       overflow-x: auto;
-      flex: 1;
       white-space: pre;
     }
 
-    .tactical-analysis-pane {
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-      justify-content: center;
+    .ygn-stream-content {
+      padding: 1.25rem 1.5rem;
     }
 
-    .tactical-analysis-pane .narrative-p {
-      margin-bottom: 0.5rem;
-      font-size: 0.95rem;
-      line-height: 1.65;
+    .hand-eval-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-right: 0.5rem;
     }
 
-    .tactical-analysis-pane .callout-box {
-      margin: 0.5rem 0;
-      padding: 1rem 1.2rem;
+    .hand-optimal {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--accent-win);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+    }
+
+    .hand-friction {
+      background: rgba(251, 191, 36, 0.15);
+      color: var(--accent-judge);
+      border: 1px solid rgba(251, 191, 36, 0.35);
     }
 
     /* Commentary Callout Boxes */
     .callout-box {
       border-radius: 8px;
-      padding: 1.25rem 1.5rem;
-      margin: 1.5rem 0;
+      padding: 1.15rem 1.4rem;
+      margin: 1.25rem 0;
       position: relative;
       border-left: 4px solid;
     }
@@ -303,7 +282,7 @@
 
     .callout-arch {
       background: rgba(167, 139, 250, 0.08);
-      border-color: var(--accent-arch);
+      border-color: var(--accent-architect);
       border-top: 1px solid rgba(167, 139, 250, 0.2);
       border-right: 1px solid rgba(167, 139, 250, 0.2);
       border-bottom: 1px solid rgba(167, 139, 250, 0.2);
@@ -315,7 +294,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.45rem;
       display: flex;
       align-items: center;
       gap: 0.4rem;
@@ -323,7 +302,7 @@
 
     .callout-pilot .callout-title { color: var(--accent-pilot); }
     .callout-judge .callout-title { color: var(--accent-judge); }
-    .callout-arch .callout-title { color: var(--accent-arch); }
+    .callout-arch .callout-title { color: var(--accent-architect); }
 
     .callout-body {
       color: #e2e8f0;
@@ -354,13 +333,13 @@
       letter-spacing: 0.05em;
     }
 
-    /* YGN Code Viewer */
+    /* Full YGN Code Viewer */
     .ygn-viewer {
       background: #090d16;
       border: 1px solid var(--border-color);
       border-radius: 10px;
       overflow: hidden;
-      margin: 2rem 0;
+      margin: 2.5rem 0;
     }
 
     .ygn-viewer-header {
@@ -449,7 +428,7 @@
         Match #01: Lucas Beneck &middot; The Sacred Beast Chokepoint &amp; Colossus Lock
       </h1>
       <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.5;">
-        Official <a href="https://copa.mypcards.com/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); text-decoration: underline;">Copa Nacional MYP TCG</a> match analysis featuring Lucas Beneck's search floodgate control, LIFO chain resolution, and turn-by-turn YGN transcripts.
+        Official <a href="https://copa.mypcards.com/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); text-decoration: underline;">Copa Nacional MYP TCG</a> match analysis featuring Lucas Beneck's search floodgate control, LIFO chain resolution, and single-stream interleaved YGN transcripts.
       </p>
 
       <!-- Matchup Banner -->
@@ -494,71 +473,100 @@
         <span class="game-badge win">Lucas Beneck Won (1 - 0)</span>
       </div>
 
-      <!-- Turn 1: Lucas Beneck -->
-      <div class="turn-companion-block">
-        <div class="turn-companion-header">
-          <span class="turn-tag-title">Turn 1 &middot; Lucas Beneck (The Colossus Fortress)</span>
-          <span class="turn-lp-tracker">LP: 8000 &bull; 8000</span>
+      <!-- Turn 1: Step 1 - Draw Phase & Opening Hands -->
+      <div class="ygn-stream-step">
+        <div class="ygn-stream-header">
+          <span class="ygn-step-title">T1 &middot; Draw Phase (@DP) &middot; Opening Hands Declaration</span>
+          <span class="ygn-step-tag">Turn 1 &middot; LP 8000 : 8000</span>
         </div>
-        <div class="turn-companion-body">
-          <div class="ygn-code-pane">
-            <div class="ygn-pane-label">
-              <span>RFC 0001 YGN &middot; Turn 1 Transcript</span>
-            </div>
-            <pre class="ygn-snippet-code">T1: lbeneck vs TheGreatRoyal
+        <pre class="ygn-stream-code">T1: lbeneck vs TheGreatRoyal
 @DP
-  o.+H[#o1:Dominus Impulse, #o2:Ragged Records,
-       #o3:Raviel, #o4:Griffoh, #o5:Fallen Paradise]&lt;o.D
+  o.+H[#o1:Dominus Impulse, #o2:Ragged Records of Rites, #o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms, #o4:Griffoh, #o5:Fallen Paradise of the Sacred Beasts]&lt;o.D
+  +H[#1:Magician of Dark Chaos - Black Chaos, #2:Theorealized Medius, #3:Light and Darkness Ritual, #e1:Ars Magna "Citrinitas", #4:Witch of the Black Forest]&lt;D
+  C1: A(H)[#o4:Griffoh]&gt;GY
+      C2: A(S3)[#7:Mind Shuffle]
+      R2: OK
+  R1: [#5:Skull Archfiend of Chaos]&gt;GY, [#3:Light and Darkness Ritual]&gt;GY, +H[#6:Magician of Dark Chaos - Black Chaos]&lt;D</pre>
+        <div class="ygn-stream-content">
+          <p class="narrative-p">
+            <span class="hand-eval-badge hand-optimal">Lucas Beneck &middot; Grade A Hand</span>
+            Lucas won the opening roll and opened an exceptional hand: <em>Infinity of the Sacred Beasts - Raviel</em>, <em>Fallen Paradise</em>, and <em>Dominus Impulse</em> alongside <em>Griffoh</em>. Opening Raviel alongside Fallen Paradise provides an immediate 92.6% hypergeometric line into full Sacred Beast engine extension, while holding <em>Dominus Impulse</em> guarantees Turn 0/Turn 2 interaction against any Special Summon from hand.
+          </p>
+          <p class="narrative-p">
+            <span class="hand-eval-badge hand-friction">TheGreatRoyal &middot; Grade B- Hand</span>
+            TheGreatRoyal opens <em>Medius the Pure</em> and <em>Ars Magna "Citrinitas"</em>, but draws heavy ritual components (*Black Chaos* and *Light and Darkness Ritual*) with zero hand traps to disrupt Lucas's setup. The pre-game <em>Mind Shuffle</em> exchange mills *Skull Archfiend of Chaos* to tutor *Black Chaos*, but leaves TheGreatRoyal's backline defenseless.
+          </p>
+        </div>
+      </div>
+
+      <!-- Turn 1: Step 2 - Main Phase 1: Engine Surge -->
+      <div class="ygn-stream-step">
+        <div class="ygn-stream-header">
+          <span class="ygn-step-title">T1 &middot; Main Phase 1 (@M1) &middot; Sacred Beast Engine Surge (+3 Swing)</span>
+          <span class="ygn-step-tag">Turn 1 &middot; Engine Extension</span>
+        </div>
+        <pre class="ygn-stream-code">@SP
 @M1
-  C1: A(H)[#o3:Raviel]
-  R1: +H[#8:Hamon]&lt;D, [#o3:Raviel]&gt;GY
-  C1: A(H)[#8:Hamon]
-  R1: +H[#9:Sacred Beasts Released]&lt;D
+  C1: A(GY)[#3:Light and Darkness Ritual]&gt;H
+  R1: [#o4:Griffoh]&gt;GY
+  C1: A(H)[#o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms]
+  R1: +H[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]&lt;D, [#o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms]&gt;GY
+  C1: A(H)[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]
+  R1: +H[#9:Sacred Beasts Released]&lt;D, [#o2:Ragged Records of Rites]&gt;GY
   C1: A(H)[#9:Sacred Beasts Released]&gt;S2
-  R1: +H[#10:Martyr]&lt;D, +H[#11:Summoner]&lt;D,
-      +H[#12:Uria]&lt;D, S[#10:Martyr](atk)&gt;M1&lt;H
-  C1: A(H)[#o5:Fallen Paradise]&gt;FS
-  R1: S[#8:Hamon](def)&gt;M4&lt;D
-  L[[#10:Martyr:M3] + [#8:Hamon:M4]]&gt;ER[#15:I:P Masquerena]&lt;ED
-  L[[#8:Hamon:M4]]&gt;M4[#17:Thunder Dragon Colossus](def)&lt;ED
+      C2: A(S2)[#9:Sacred Beasts Released]
+      R2: OK
+  R1: +H[#10:Martyr of the Sacred Beasts]&lt;D, +H[#11:Summoner of the Sacred Beasts]&lt;D, +H[#12:Inferno of the Sacred Beasts - Uria, Lord of Searing Flames]&lt;D, S[#10:Martyr of the Sacred Beasts](atk)&gt;M1&lt;H</pre>
+        <div class="ygn-stream-content">
+          <p class="narrative-p">
+            Lucas executed a textbook engine sequence: pitching <em>Raviel</em> to fetch <em>Hamon</em>, then discarding Hamon to tutor <em>Sacred Beasts Released</em>. Activating <em>Sacred Beasts Released</em> produced a massive **+3 card advantage swing**, tutoring <em>Martyr of the Sacred Beasts</em>, <em>Summoner</em>, and <em>Uria</em> directly to hand while Normal Summoning Martyr to zone <code>M1</code> without consuming an additional resource gate.
+          </p>
+        </div>
+      </div>
+
+      <!-- Turn 1: Step 3 - Protection & Floodgate Terminal Board -->
+      <div class="ygn-stream-step">
+        <div class="ygn-stream-header">
+          <span class="ygn-step-title">T1 &middot; Main Phase 1 (@M1) &middot; Floodgate Colossus &amp; Protection Citadel</span>
+          <span class="ygn-step-tag">Turn 1 &middot; Terminal Board Lock</span>
+        </div>
+        <pre class="ygn-stream-code">  C1: A(H)[#o5:Fallen Paradise of the Sacred Beasts]&gt;FS
+  R1: OK
+  C1: A(FS)[#o5:Fallen Paradise of the Sacred Beasts]
+  R1: S[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder](def)&gt;M4&lt;D
+  L[[#10:Martyr of the Sacred Beasts:M3] + [#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder:M4]]&gt;ER[#15:I:P Masquerena](atk)&lt;ED
+  L[[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder:M4]]&gt;M4[#17:Thunder Dragon Colossus](def)&lt;ED
   X[M1]&gt;M1[#18:Lyrilusc - Assembled Nightingale](def)&lt;ED
   #S[#14:Super Polymerization]&gt;S4
   #S[#o1:Dominus Impulse]&gt;S2
 @EP</pre>
-          </div>
-          <div class="tactical-analysis-pane">
-            <p class="narrative-p">
-              Lucas Beneck won the die roll and took Turn 1. Opening with <em>Raviel</em>, <em>Griffoh</em>, and <em>Fallen Paradise</em>, Lucas initiated an explosive engine sequence: pitching Raviel to fetch Hamon, then discarding Hamon to resolve <em>Sacred Beasts Released</em>. This surged three Sacred Beast combo pieces directly into hand and enabled the Normal Summon of <em>Martyr of the Sacred Beasts</em>.
-            </p>
-            <div class="callout-box callout-pilot">
-              <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; The Search Lockout</div>
-              <div class="callout-body">
-                Lucas correctly prioritized summoning <strong>Thunder Dragon Colossus</strong> over raw beatdown stats. Against TheGreatRoyal's modular archetype—which relies on 6+ searches to bridge between Medius, Power Patron portals, and Ars Magna spells—the Colossus continuous floodgate created an immediate <strong>Interaction Deficit of &Delta;I = +3</strong> in Lucas's favor.
-              </div>
+        <div class="ygn-stream-content">
+          <p class="narrative-p">
+            With <em>Fallen Paradise</em> active, Lucas special summoned Hamon in defense, linked Martyr and Hamon into <em>I:P Masquerena</em> in the Extra Monster Zone, and overlaid Hamon into <strong>Thunder Dragon Colossus</strong> in zone <code>M4</code>. He bolstered the board with <em>Lyrilusc - Assembled Nightingale</em> in <code>M1</code> and set both <em>Dominus Impulse</em> and <em>Super Polymerization</em> face-down before passing the turn.
+          </p>
+          <div class="callout-box callout-pilot">
+            <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; The Search Lockout Chokepoint</div>
+            <div class="callout-body">
+              Lucas correctly prioritized summoning <strong>Thunder Dragon Colossus</strong> over raw beatdown assets. Against TheGreatRoyal's modular archetype—which relies on 6+ searches to bridge between Medius, Power Patron portals, and Ars Magna spells—the Colossus continuous floodgate created an immediate <strong>Interaction Deficit of &Delta;I = +3</strong> in Lucas's favor.
             </div>
-            <div class="callout-box callout-judge">
-              <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Fallen Paradise Protection Scope</div>
-              <div class="callout-body">
-                <strong>PSCT Clause:</strong> <em>"Your opponent cannot target 'Uria, Lord of Searing Flames', 'Hamon, Lord of Striking Thunder', or 'Raviel, Lord of Phantasms' in your Monster Zones with card effects, also those monsters cannot be destroyed by your opponent's card effects while face-up."</em><br>
-                <strong>Adjudication:</strong> This continuous effect applies passively without creating a chain link. Non-targeting destruction (such as <em>Raigeki</em>) cannot destroy Hamon; however, non-destructive removal (such as non-targeting tribute or bounce) remains legally valid.
-              </div>
+          </div>
+          <div class="callout-box callout-judge">
+            <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Fallen Paradise Protection Scope</div>
+            <div class="callout-body">
+              <strong>PSCT Clause:</strong> <em>"Your opponent cannot target 'Uria, Lord of Searing Flames', 'Hamon, Lord of Striking Thunder', or 'Raviel, Lord of Phantasms' in your Monster Zones with card effects, also those monsters cannot be destroyed by your opponent's card effects while face-up."</em><br>
+              <strong>Adjudication:</strong> This continuous effect applies passively without creating a chain link. Non-targeting board wipes (such as <em>Raigeki</em>) cannot destroy Hamon; however, non-destructive removal (such as non-targeting tribute or bounce) remains legally valid.
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Turn 2: TheGreatRoyal -->
-      <div class="turn-companion-block">
-        <div class="turn-companion-header">
-          <span class="turn-tag-title">Turn 2 &middot; TheGreatRoyal (Attempted Ritual Break &amp; Concession)</span>
-          <span class="turn-lp-tracker">LP: 8000 &bull; 8000</span>
+      <!-- Turn 2: Attempted Ritual Break & Quick Effect Closure -->
+      <div class="ygn-stream-step">
+        <div class="ygn-stream-header">
+          <span class="ygn-step-title">T2 &middot; Turn 2 (@M1) &middot; Dominus Impulse, S:P Banishment &amp; Super Poly Finish</span>
+          <span class="ygn-step-tag">Turn 2 &middot; Game 1 Concluded</span>
         </div>
-        <div class="turn-companion-body">
-          <div class="ygn-code-pane">
-            <div class="ygn-pane-label">
-              <span>RFC 0001 YGN &middot; Turn 2 Transcript</span>
-            </div>
-            <pre class="ygn-snippet-code">T2: TheGreatRoyal vs lbeneck
+        <pre class="ygn-stream-code">T2: TheGreatRoyal vs lbeneck
 @DP
 @SP
 @M1
@@ -571,22 +579,20 @@
   R1: &gt;BX[#3:Light and Darkness Ritual]&lt;GY
   C1: A(S4)[#14:Super Polymerization]
   R1: OK -- Game 1 Conceded by TheGreatRoyal</pre>
-          </div>
-          <div class="tactical-analysis-pane">
-            <p class="narrative-p">
-              On Turn 2, TheGreatRoyal attempted to crack Lucas's board by activating <em>Light and Darkness Ritual</em> from hand. Lucas responded immediately with <em>Dominus Impulse</em> from the backrow, negating the Special Summon. Lucas then linked away <em>I:P Masquerena</em> into <em>S:P Little Knight</em> to banish the Ritual Spell from the graveyard, and activated <em>Super Polymerization</em> to seal Game 1.
-            </p>
-            <div class="callout-box callout-judge">
-              <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Dominus Impulse Activation Legality</div>
-              <div class="callout-body">
-                <strong>Trigger Condition:</strong> Dominus Impulse can negate an effect that includes Special Summoning. When activated from the field, it does not require an empty board. Because <em>Light and Darkness Ritual</em> explicitly includes an effect to Special Summon a Ritual monster from hand, Dominus Impulse legally negated its activation, sending the spell to the GY with zero refund of intended tributes.
-              </div>
+        <div class="ygn-stream-content">
+          <p class="narrative-p">
+            On Turn 2, TheGreatRoyal attempted to crack open the board by activating <em>Light and Darkness Ritual</em> from hand. Lucas responded immediately with <em>Dominus Impulse</em> from <code>S2</code>, negating the Special Summon. Lucas then chained <em>I:P Masquerena</em> to Link Summon <strong>S:P Little Knight</strong>, banishing the Ritual Spell from the graveyard, and flipped <em>Super Polymerization</em> to seal Game 1.
+          </p>
+          <div class="callout-box callout-judge">
+            <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Dominus Impulse Activation Legality</div>
+            <div class="callout-body">
+              <strong>Trigger Condition:</strong> Dominus Impulse can negate an effect that includes Special Summoning. When activated from the field, it does not require an empty board. Because <em>Light and Darkness Ritual</em> explicitly includes an effect to Special Summon a Ritual monster from hand, Dominus Impulse legally negated its activation, sending the spell to the GY with zero refund of intended tributes.
             </div>
-            <div class="callout-box callout-pilot">
-              <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; Turn 2 Quick Effect Closure</div>
-              <div class="callout-body">
-                Lucas's sequencing of <em>Dominus Impulse</em> followed by <em>I:P Masquerena</em> into <em>S:P Little Knight</em> eliminated all follow-up options. Banishing the Ritual spell prevented GY recovery recursion, and <em>Super Polymerization</em>—functioning at <strong>Velocidade de Magia 4 (Spell Speed 4)</strong>—left TheGreatRoyal with zero legal responses.
-              </div>
+          </div>
+          <div class="callout-box callout-pilot">
+            <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; Turn 2 Quick Effect Closure</div>
+            <div class="callout-body">
+              Lucas's sequencing of <em>Dominus Impulse</em> followed by <em>I:P Masquerena</em> into <em>S:P Little Knight</em> eliminated all follow-up options. Banishing the Ritual spell prevented GY recovery recursion, and <em>Super Polymerization</em>—functioning at <strong>Velocidade de Magia 4 (Spell Speed 4)</strong>—left TheGreatRoyal with zero legal responses.
             </div>
           </div>
         </div>
@@ -607,94 +613,98 @@
         <span class="game-badge loss">TheGreatRoyal Won (1 - 1)</span>
       </div>
 
-      <!-- Turn 1: TheGreatRoyal -->
-      <div class="turn-companion-block">
-        <div class="turn-companion-header">
-          <span class="turn-tag-title">Turn 1 &middot; TheGreatRoyal (Burn Clock Setup)</span>
-          <span class="turn-lp-tracker">LP: 8000 &bull; 6000 (Lucas Damaged)</span>
+      <!-- Turn 1: Step 1 - Draw Phase & Opening Hands -->
+      <div class="ygn-stream-step">
+        <div class="ygn-stream-header">
+          <span class="ygn-step-title">T1 &middot; Draw Phase (@DP) &middot; Machine Burn Hands Declaration</span>
+          <span class="ygn-step-tag">Turn 1 &middot; LP 8000 : 8000</span>
         </div>
-        <div class="turn-companion-body">
-          <div class="ygn-code-pane">
-            <div class="ygn-pane-label">
-              <span>RFC 0001 YGN &middot; Turn 1 Transcript</span>
-            </div>
-            <pre class="ygn-snippet-code">T1: TheGreatRoyal vs lbeneck
+        <pre class="ygn-stream-code">T1: TheGreatRoyal vs lbeneck
 @DP
-  +H[#1:Black Chaos, #2:Theorealized Medius,
-     #e1:Ars Magna "Citrinitas", #4:Witch]&lt;D
+  +H[#1:Magician of Dark Chaos - Black Chaos, #2:Theorealized Medius, #3:Light and Darkness Ritual, #e1:Ars Magna "Citrinitas", #4:Witch of the Black Forest]&lt;D
+  o.+H[#o1:Dominus Impulse, #o2:Ragged Records of Rites, #o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms, #o5:Fallen Paradise of the Sacred Beasts, #11:Summoner of the Sacred Beasts]&lt;o.D</pre>
+        <div class="ygn-stream-content">
+          <p class="narrative-p">
+            <span class="hand-eval-badge hand-optimal">TheGreatRoyal &middot; Grade A+ Hand</span>
+            Electing to go first in Game 2, TheGreatRoyal drew an ideal hand: <em>Medius the Pure</em> and <em>Ars Magna "Citrinitas"</em> alongside <em>Witch of the Black Forest</em>. Opening Medius + Citrinitas enables uninterrupted Rank 10 Machine burn scaling without consuming the normal summon before Pendulum scales are placed.
+          </p>
+          <p class="narrative-p">
+            <span class="hand-eval-badge hand-friction">Lucas Beneck &middot; Grade B Hand</span>
+            Lucas drew strong engine starters (Raviel, Fallen Paradise, Summoner), but had no Turn 0 hand traps (*Ash Blossom* or *Droll*) to disrupt TheGreatRoyal's Machine combo.
+          </p>
+        </div>
+      </div>
+
+      <!-- Turn 1: Step 2 - The Machine Burn Clock -->
+      <div class="ygn-stream-step">
+        <div class="ygn-stream-header">
+          <span class="ygn-step-title">T1 &middot; Main Phase 1 (@M1) &middot; Rank 10 Gustav Machine Burn Clock</span>
+          <span class="ygn-step-tag">Turn 1 &middot; 2,000 Burn Applied (LP: 8000 &rarr; 6000)</span>
+        </div>
+        <pre class="ygn-stream-code">@SP
 @M1
   C1: A(H)[#e1:Ars Magna "Citrinitas"]
-  R1: S[#22:Medius the Pure](atk)&gt;M2&lt;H
+  R1: +H[#e3:Ars Magna the Finite and the Infinite]&lt;D, S[#22:Medius the Pure](atk)&gt;M2&lt;H
   C1: A(M2)[#22:Medius the Pure]
-  R1: S[#o7:Nervedo](def)&gt;M4&lt;D
+  R1: S[#o7:Nervedo the Shadebeast Power Patron](def)&gt;M4&lt;D
   C1: A(ER)[#27:Beyond the Pendulum]
-  R1: +H[#25:Terminus]&lt;D, +H[#26:Junoldo]&lt;D
-  C1: A(ED)[#26:Junoldo]
-  R1: S[#e5:Gustav Max](def)&gt;M5,
-      S[#e6:Gustav Rocket](def)&gt;M5
-  -- Detach Gustav: 2,000 Burn to Lucas
-  #S[#e8:Philosophorum]&gt;S1
+  R1: +H[#25:Prohibited Power Patron Portal - Terminus]&lt;D, +H[#26:Junoldo the Shadespirit Power Patron]&lt;D
+  C1: A(ED)[#26:Junoldo the Shadespirit Power Patron]
+  R1: [#o7:Nervedo]&gt;GY, S[#e5:Superdreadnought Rail Cannon Gustav Max](def)&gt;M5, S[#e6:Superdreadnought Rail Cannon Gustav Rocket](def)&gt;M5
+  -- [Notary Action]: Detach Gustav material: 2,000 burn damage applied to Lucas (LP: 8000 -> 6000)
+  #S[#e8:Ars Magna "Philosophorum"]&gt;S1
   #S[#29:Typhoon]&gt;S5
 @EP</pre>
-          </div>
-          <div class="tactical-analysis-pane">
-            <p class="narrative-p">
-              Electing to go first in Game 2, TheGreatRoyal opened the ideal hand: <em>Medius the Pure</em>, <em>Ars Magna "Citrinitas"</em>, and <em>Griffoh</em>. Normal Summoning Medius brought out Nervedo, linking into <em>Artmage Non-Finito</em> and then <em>Beyond the Pendulum</em> to scale <em>Vidolium</em> and <em>Junoldo</em>.
-            </p>
-            <div class="callout-box callout-pilot">
-              <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; Machine Burn Clocks &amp; Threat Scaling</div>
-              <div class="callout-body">
-                Instead of lingering on passive negates, TheGreatRoyal converted high-level machine bodies into <strong>Superdreadnought Rail Cannon Gustav Max</strong> and <strong>Gustav Rocket</strong>. Detaching materials immediately inflicted 2,000 burn damage, putting Lucas on an urgent 6,000 LP clock and forcing reactive lines on Turn 2.
-              </div>
+        <div class="ygn-stream-content">
+          <p class="narrative-p">
+            Normal Summoning Medius summoned Nervedo, linking into <em>Artmage Non-Finito</em> and then <em>Beyond the Pendulum</em> to scale <em>Vidolium</em> and <em>Junoldo</em>. TheGreatRoyal converted high-level machine bodies into <strong>Superdreadnought Rail Cannon Gustav Max</strong> and <strong>Gustav Rocket</strong>, detaching materials to inflict 2,000 direct burn damage and closing Turn 1 with set <em>Typhoon</em> and <em>Philosophorum</em>.
+          </p>
+          <div class="callout-box callout-pilot">
+            <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; Machine Burn Clocks &amp; Threat Scaling</div>
+            <div class="callout-body">
+              Instead of lingering on passive negates, TheGreatRoyal converted high-level machine bodies into <strong>Gustav Max</strong> and <strong>Gustav Rocket</strong>. Detaching materials immediately inflicted 2,000 burn damage, putting Lucas on an urgent 6,000 LP clock and forcing reactive, suboptimal lines on Turn 2.
             </div>
-            <p class="narrative-p">
-              TheGreatRoyal closed Turn 1 with <em>Mediclius the Extraordinary Power Patron</em> and <em>Artmage Diactorus</em>, backed by set <em>Typhoon</em> and <em>Philosophorum</em>.
-            </p>
           </div>
         </div>
       </div>
 
-      <!-- Turn 2: Lucas Beneck -->
-      <div class="turn-companion-block">
-        <div class="turn-companion-header">
-          <span class="turn-tag-title">Turn 2 &middot; Lucas Beneck (The Typhoon Snipe on Fallen Paradise)</span>
-          <span class="turn-lp-tracker">LP: 8000 &bull; 6000</span>
+      <!-- Turn 2: Step 3 - The Backrow Snipe on Fallen Paradise -->
+      <div class="ygn-stream-step">
+        <div class="ygn-stream-header">
+          <span class="ygn-step-title">T2 &middot; Turn 2 (@M1) &middot; Typhoon Snipe on Fallen Paradise &amp; Concession</span>
+          <span class="ygn-step-tag">Turn 2 &middot; Game 2 Tied (1 - 1)</span>
         </div>
-        <div class="turn-companion-body">
-          <div class="ygn-code-pane">
-            <div class="ygn-pane-label">
-              <span>RFC 0001 YGN &middot; Turn 2 Transcript</span>
-            </div>
-            <pre class="ygn-snippet-code">T2: lbeneck vs TheGreatRoyal
+        <pre class="ygn-stream-code">T2: lbeneck vs TheGreatRoyal
+@DP
+@SP
 @M1
   C1: A(H)[#9:Sacred Beasts Released]
       C2: A(S3)[#9:Sacred Beasts Released]
           C3: A(M3)[#31:Artmage Diactorus]
           R3: OK
   R1: [#9:Sacred Beasts Released]&gt;GY
-  C1: A(H)[#o5:Fallen Paradise]&gt;FS
+  C1: A(H)[#o5:Fallen Paradise of the Sacred Beasts]&gt;FS
       C2: A(S5)[#29:Typhoon]
       R2: OK
-  R1: [#29:Typhoon]&gt;GY, [#o5:Fallen Paradise]&gt;GY
-  L[[#8:Hamon:M5]]&gt;M5[#17:Colossus](atk)&lt;ED
-  C1: A(M2)[#10:Martyr]
-      C2: A(M5)[#e6:Gustav Rocket]
-  R1: Game 2 Conceded by Lucas Beneck</pre>
-          </div>
-          <div class="tactical-analysis-pane">
-            <p class="narrative-p">
-              On Turn 2, Lucas attempted to ignite the Sacred Beast engine with <em>Sacred Beasts Released</em>, but TheGreatRoyal cut it off instantly with Diactorus's Quick Effect. Lucas then activated <em>Fallen Paradise</em>, hoping to draw into outs—only for TheGreatRoyal to chain <em>Typhoon</em> from the Spell &amp; Trap zone, destroying the field spell before its continuous protection or draw effects could apply!
-            </p>
-            <div class="callout-box callout-pilot">
-              <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; Backrow Sniping on Activation</div>
-              <div class="callout-body">
-                Chaining <em>Typhoon</em> directly to <em>Fallen Paradise</em>'s activation is a textbook high-EV pilot play. Field Spells must remain face-up on the field to resolve their on-field activated effects. By destroying Fallen Paradise in CL2, Lucas lost both the card draw and the continuous protection, breaking the turn completely.
-              </div>
+  R1: [#29:Typhoon]&gt;GY, [#o5:Fallen Paradise of the Sacred Beasts]&gt;GY
+  L[[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder:M5]]&gt;M5[#17:Thunder Dragon Colossus](atk)&lt;ED
+  C1: A(M2)[#10:Martyr of the Sacred Beasts]
+      C2: A(M5)[#e6:Superdreadnought Rail Cannon Gustav Rocket]
+      R2: OK
+  R1: OK -- Game 2 Conceded by Lucas Beneck</pre>
+        <div class="ygn-stream-content">
+          <p class="narrative-p">
+            On Turn 2, Lucas attempted to ignite the Sacred Beast engine with <em>Sacred Beasts Released</em>, but TheGreatRoyal cut it off instantly with Diactorus's Quick Effect. Lucas then activated <em>Fallen Paradise</em>, hoping to draw into outs—only for TheGreatRoyal to chain <em>Typhoon</em> from <code>S5</code>, destroying the field spell before its continuous protection or draw effects could apply!
+          </p>
+          <div class="callout-box callout-pilot">
+            <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; Backrow Sniping on Activation</div>
+            <div class="callout-body">
+              Chaining <em>Typhoon</em> directly to <em>Fallen Paradise</em>'s activation is a textbook high-EV pilot play. Field Spells must remain face-up on the field to resolve their on-field activated effects. By destroying Fallen Paradise in CL2, Lucas lost both the card draw and the continuous protection, breaking the turn completely.
             </div>
-            <p class="narrative-p">
-              Left with insufficient materials to contest Gustav Rocket's removal and burn, Lucas conceded Game 2 to conserve energy for Game 3.
-            </p>
           </div>
+          <p class="narrative-p">
+            Left with insufficient materials to contest Gustav Rocket's removal and burn clock, Lucas conceded Game 2 to preserve energy and focus on the Game 3 decider.
+          </p>
         </div>
       </div>
 
@@ -708,104 +718,116 @@
     <section class="game-section">
       <div class="game-section-header">
         <div class="game-title">
-          <span>Game 3: The Decider &amp; Skull Meister Strike</span>
+          <span>Game 3: The Decider &amp; Multi-Layered Triumph</span>
         </div>
-        <span class="game-badge win">Lucas Beneck Won (2 - 1) &middot; Series Winner</span>
+        <span class="game-badge win">Lucas Beneck Won (2 - 1) &middot; Match Victory</span>
       </div>
 
-      <!-- Turn 1: Lucas Beneck -->
-      <div class="turn-companion-block">
-        <div class="turn-companion-header">
-          <span class="turn-tag-title">Turn 1 &middot; Lucas Beneck (Redundant Multi-Threat Setup)</span>
-          <span class="turn-lp-tracker">LP: 8000 &bull; 8000</span>
+      <!-- Turn 1: Step 1 - Draw Phase & Opening Hands -->
+      <div class="ygn-stream-step">
+        <div class="ygn-stream-header">
+          <span class="ygn-step-title">T1 &middot; Draw Phase (@DP) &middot; Decider Opening Hands Declaration</span>
+          <span class="ygn-step-tag">Turn 1 &middot; LP 8000 : 8000</span>
         </div>
-        <div class="turn-companion-body">
-          <div class="ygn-code-pane">
-            <div class="ygn-pane-label">
-              <span>RFC 0001 YGN &middot; Turn 1 Transcript</span>
-            </div>
-            <pre class="ygn-snippet-code">T1: lbeneck vs TheGreatRoyal
+        <pre class="ygn-stream-code">T1: lbeneck vs TheGreatRoyal
 @DP
-  +H[#e7:Ars Magna, #23:Jupredo, #33:Imperm,
-     #o1:Impulse, #o8:Skull Meister]&lt;D
-  o.+H[#o2:Ragged Records, #11:Summoner,
-       #9:Released, #16:Combined Assault, #10:Martyr]&lt;o.D
+  o.+H[#o2:Ragged Records of Rites, #11:Summoner of the Sacred Beasts, #9:Sacred Beasts Released, #16:Sacred Beasts Combined Assault, #10:Martyr of the Sacred Beasts]&lt;o.D
+  +H[#e7:Ars Magna the Corruption and the Purification, #23:Jupredo the Shademachine Power Patron, #33:Infinite Impermanence, #o1:Dominus Impulse, #o8:Skull Meister]&lt;D</pre>
+        <div class="ygn-stream-content">
+          <p class="narrative-p">
+            <span class="hand-eval-badge hand-optimal">Lucas Beneck &middot; Grade A+ Hand</span>
+            In the deciding game, Lucas opened an exceptionally resilient hand: <em>Sacred Beasts Released</em>, <em>Martyr of the Sacred Beasts</em>, <em>Summoner</em>, and <em>Combined Assault</em>. This hand has multiple redundant extension vectors and does not choke on an initial normal summon negation.
+          </p>
+          <p class="narrative-p">
+            <span class="hand-eval-badge hand-friction">TheGreatRoyal &middot; Grade B Hand</span>
+            TheGreatRoyal held powerful defensive hand traps (*Skull Meister* and *Infinite Impermanence*), but lacked starter density to contest a resolved multi-threat Sacred Beast board.
+          </p>
+        </div>
+      </div>
+
+      <!-- Turn 1: Step 2 - Building the Citadel -->
+      <div class="ygn-stream-step">
+        <div class="ygn-stream-header">
+          <span class="ygn-step-title">T1 &middot; Main Phase 1 (@M1) &middot; Multi-Threat Citadel Assembly</span>
+          <span class="ygn-step-tag">Turn 1 &middot; Colossus, Uria, Nightingale &amp; Masquerena</span>
+        </div>
+        <pre class="ygn-stream-code">@SP
 @M1
   C1: A(H)[#9:Sacred Beasts Released]
-  R1: +H[#o3:Raviel]&lt;D, +H[#8:Hamon]&lt;D, +H[#12:Uria]&lt;D
-  C1: A(D)[#o5:Fallen Paradise]&gt;FS
+  R1: +H[#o3:Infinity of the Sacred Beasts - Raviel, Lord of Phantasms]&lt;D, +H[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]&lt;D, +H[#12:Inferno of the Sacred Beasts - Uria, Lord of Searing Flames]&lt;D, [#12:Uria]&gt;GY, [#16:Combined Assault]&gt;GY, [#9:Released]&gt;GY
+  C1: A(D)[#o5:Fallen Paradise of the Sacred Beasts]&gt;FS
   R1: OK
-  C1: A(FS)[#o5:Fallen Paradise]
-  R1: S[#8:Hamon](def)&gt;M4&lt;D
-  C1: A(FS)[#o5:Fallen Paradise]
-  R1: S[#18:Nightingale](def)&gt;M1&lt;M1
-  L[[#5:Skull Archfiend:M2] + [#10:Martyr:M3]]&gt;ER[#15:I:P Masquerena]&lt;ED
-  L[[#8:Hamon:M4]]&gt;M4[#17:Thunder Dragon Colossus](def)&lt;ED
-  C1: A(GY)[#11:Summoner]
-  R1: S[#12:Uria](def)&gt;M2&lt;GY
+  C1: A(FS)[#o5:Fallen Paradise of the Sacred Beasts]
+  R1: S[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder](def)&gt;M4&lt;D
+  C1: A(FS)[#o5:Fallen Paradise of the Sacred Beasts]
+  R1: S[#18:Lyrilusc - Assembled Nightingale](def)&gt;M1&lt;M1
+  L[[#5:Skull Archfiend of Chaos:M2] + [#10:Martyr of the Sacred Beasts:M3]]&gt;ER[#15:I:P Masquerena](atk)&lt;ED
+  L[[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder:M4]]&gt;M4[#17:Thunder Dragon Colossus](def)&lt;ED
+  C1: A(GY)[#11:Summoner of the Sacred Beasts]
+  R1: &gt;BX[#11:Summoner]&lt;GY, S[#12:Inferno of the Sacred Beasts - Uria, Lord of Searing Flames](def)&gt;M2&lt;GY
   #S[#o2:Ragged Records of Rites]&gt;S2
 @EP</pre>
-          </div>
-          <div class="tactical-analysis-pane">
-            <p class="narrative-p">
-              The decider was a brutal contest of sideboard interaction. Lucas went first and aggressively pushed through <em>Sacred Beasts Released</em> and <em>Fallen Paradise</em>, assembling <em>Thunder Dragon Colossus</em>, <em>I:P Masquerena</em>, <em>Lyrilusc - Assembled Nightingale</em>, and <em>Inferno Uria</em> once again.
-            </p>
-            <div class="callout-box callout-pilot">
-              <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; Redundant Disruption Layering</div>
-              <div class="callout-body">
-                By establishing Colossus alongside Uria and Masquerena, Lucas built a multi-dimensional disruption web. Colossus locked out search-based extensions, while Masquerena provided flexible quick-effect Link conversion into S:P Little Knight to answer any unexpected normal summon.
-              </div>
+        <div class="ygn-stream-content">
+          <p class="narrative-p">
+            Lucas executed his combo with precision: resolving <em>Sacred Beasts Released</em> and <em>Fallen Paradise</em>, assembling <strong>Thunder Dragon Colossus</strong> in <code>M4</code>, <strong>Inferno Uria</strong> in <code>M2</code>, <strong>Lyrilusc - Assembled Nightingale</strong> in <code>M1</code>, and <strong>I:P Masquerena</strong> in the Extra Monster Zone.
+          </p>
+          <div class="callout-box callout-pilot">
+            <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; Redundant Disruption Layering</div>
+            <div class="callout-body">
+              By establishing Colossus alongside Uria and Masquerena, Lucas built a multi-dimensional disruption web. Colossus locked out search-based extensions, while Masquerena provided flexible quick-effect Link conversion into S:P Little Knight to answer any unexpected normal summon.
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Turn 2: TheGreatRoyal -->
-      <div class="turn-companion-block">
-        <div class="turn-companion-header">
-          <span class="turn-tag-title">Turn 2 &middot; TheGreatRoyal (S:P Banishment &amp; Hamon Burn Closure)</span>
-          <span class="turn-lp-tracker">LP: 8000 &bull; 8000</span>
+      <!-- Turn 2: Step 3 - The Deciding Clashes, Skull Meister & Hamon Burn -->
+      <div class="ygn-stream-step">
+        <div class="ygn-stream-header">
+          <span class="ygn-step-title">T2 &middot; Turn 2 (@M1) &middot; S:P Banishment, Skull Meister &amp; Hamon Burn</span>
+          <span class="ygn-step-tag">Turn 2 &middot; Lucas Beneck Wins Match 2 - 1</span>
         </div>
-        <div class="turn-companion-body">
-          <div class="ygn-code-pane">
-            <div class="ygn-pane-label">
-              <span>RFC 0001 YGN &middot; Turn 2 Transcript</span>
-            </div>
-            <pre class="ygn-snippet-code">T2: TheGreatRoyal vs lbeneck
+        <pre class="ygn-stream-code">T2: TheGreatRoyal vs lbeneck
+@DP
+@SP
 @M1
   C1: A(H)[#e1:Ars Magna "Citrinitas"]
-      C3: A(M2)[#12:Inferno Uria]
-      R3: OK
+      C2: A(S1)[#e1:Ars Magna "Citrinitas"]
+          C3: A(M2)[#12:Inferno of the Sacred Beasts - Uria, Lord of Searing Flames]
+          R3: OK
+      R2: OK
   R1: [#e1:Ars Magna "Citrinitas"]&gt;GY
-  C1: A(H)[#23:Jupredo]
+  C1: A(H)[#23:Jupredo the Shademachine Power Patron]
       C2: A(ER)[#15:I:P Masquerena]
       R2: OK
-  L[[#17:Thunder Dragon Colossus:M4]]&gt;ER[#19:S:P Little Knight]&lt;ED
-  C1: A(ER)[#19:S:P Little Knight] T&gt;S5[#23:Jupredo]
-  R1: &gt;BX[#23:Jupredo]&lt;S5
+  R1: [#15:I:P Masquerena]&gt;GY
+  L[[#17:Thunder Dragon Colossus:M4]]&gt;ER[#19:S:P Little Knight](atk)&lt;ED
+  C1: A(ER)[#19:S:P Little Knight] T&gt;S5[#23:Jupredo the Shademachine Power Patron]
+  R1: &gt;BX[#23:Jupredo the Shademachine Power Patron]&lt;S5
   C1: A(GY)[#16:Sacred Beasts Combined Assault]
+  R1: &gt;BX[#16:Sacred Beasts Combined Assault]&lt;GY
   C1: A(H)[#o8:Skull Meister]
-      C2: A(M3)[#8:Hamon, Lord of Striking Thunder]
+      C2: A(M3)[#8:Calamity of the Sacred Beasts - Hamon, Lord of Striking Thunder]
       R2: OK
-  -- Hamon triggers 1,000 burn damage
-  -- TheGreatRoyal Concedes (Match 2-1 Lucas Beneck)</pre>
-          </div>
-          <div class="tactical-analysis-pane">
-            <p class="narrative-p">
-              On Turn 2, TheGreatRoyal attempted to break open the board using <em>Ars Magna "Citrinitas"</em> (destroyed immediately by Uria) and activated <em>Jupredo</em>. Lucas responded with <em>I:P Masquerena</em>, linking away Masquerena and <em>Thunder Dragon Colossus</em> into <strong>S:P Little Knight</strong> to banish Jupredo on activation!
-            </p>
-            <div class="callout-box callout-judge">
-              <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Skull Meister vs GY Triggers</div>
-              <div class="callout-body">
-                <strong>PSCT Clause:</strong> <em>"When a card effect is activated in your opponent's GY (Quick Effect): You can send this card from your hand to the GY; negate that effect."</em><br>
-                <strong>Adjudication:</strong> Skull Meister is a Spell Speed 2 Monster Quick Effect that directly chains to any activated effect in the GY. Because it negates the <em>effect</em> (rather than the activation), it cleanly stops <em>Sacred Beasts Combined Assault</em> without needing to destroy the card.
-              </div>
+  R1: OK
+  -- [Judge Ruling]: Skull Meister negates GY effect.
+  -- [Pilot Action]: Hamon triggers 1,000 burn damage.
+  -- [Result]: Facing Hamon, Uria, and S:P Little Knight with empty hand, TheGreatRoyal concedes.
+  -- Official Series Result: Lucas Beneck wins 2-1.</pre>
+        <div class="ygn-stream-content">
+          <p class="narrative-p">
+            On Turn 2, TheGreatRoyal attempted to break open the board using <em>Ars Magna "Citrinitas"</em> (destroyed immediately by Uria) and activated <em>Jupredo</em>. Lucas responded with <em>I:P Masquerena</em>, linking away Masquerena and <em>Thunder Dragon Colossus</em> into <strong>S:P Little Knight</strong> to banish Jupredo on activation!
+          </p>
+          <div class="callout-box callout-judge">
+            <div class="callout-title">⚖️ ygo-judge Ruling Review &middot; Skull Meister vs GY Triggers</div>
+            <div class="callout-body">
+              <strong>PSCT Clause:</strong> <em>"When a card effect is activated in your opponent's GY (Quick Effect): You can send this card from your hand to the GY; negate that effect."</em><br>
+              <strong>Adjudication:</strong> Skull Meister is a Spell Speed 2 Monster Quick Effect that directly chains to an activated effect in the GY. Because it negates the <em>effect</em> (rather than the activation), it cleanly stops <em>Sacred Beasts Combined Assault</em> without needing to destroy the card.
             </div>
-            <div class="callout-box callout-pilot">
-              <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; S:P Conversion Timing</div>
-              <div class="callout-body">
-                Lucas's decision to Link Colossus into S:P Little Knight to banish Jupredo was decisive. With the opponent already starved of cards by Colossus's presence during Turn 1, converting the Colossus body into spot banishment removed TheGreatRoyal's last viable line of play. Lucas triggered Hamon for 1,000 burn damage, sealing the match 2&ndash;1!
-              </div>
+          </div>
+          <div class="callout-box callout-pilot">
+            <div class="callout-title">🎙️ ygo-pilot Tactical Evaluation &middot; S:P Conversion Timing &amp; Series Closure</div>
+            <div class="callout-body">
+              Lucas's conversion of Colossus into <strong>S:P Little Knight</strong> was the winning tactical line: with the opponent's search lines exhausted, spot banishment cut off TheGreatRoyal's last remaining resource. Lucas triggered Hamon for 1,000 burn damage, and TheGreatRoyal conceded, crowning Lucas Beneck the series victor 2&ndash;1!
             </div>
           </div>
         </div>
